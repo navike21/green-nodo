@@ -1,0 +1,20 @@
+---
+export interface Props {
+  label?: string;
+}
+
+const { label = "" } = Astro.props;
+---
+
+<button
+  type="button"
+  class="quiz-option flex items-center gap-3 w-full text-left rounded-lg border border-slate-700 bg-slate-900/40 px-4 py-2.5 text-sm text-slate-100 transition-colors hover:border-emerald-500/60 disabled:cursor-not-allowed disabled:hover:border-slate-700"
+>
+  <span
+    class="quiz-option-marker inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 border-slate-500 transition-colors"
+    aria-hidden="true"
+  >
+    <span class="quiz-option-dot hidden h-2 w-2 rounded-full"></span>
+  </span>
+  <span class="quiz-option-label">{label}</span>
+</button>

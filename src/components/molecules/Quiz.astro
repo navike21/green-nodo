@@ -1,0 +1,326 @@
+---
+import RadioButton from "../atoms/RadioButton.astro";
+import Checkbox from "../atoms/Checkbox.astro";
+
+export interface QuizQuestion {
+  type: "single" | "multiple";
+  question: string;
+  options: string[];
+  correctIndexes: number[];
+  explanation: string;
+}
+
+export interface Props {
+  questions: QuizQuestion[];
+  topicId: string;
+}
+
+const { questions, topicId } = Astro.props;
+const QUESTIONS_SHOWN = 4;
+const PASS_RATIO = 0.75;
+const bankJson = JSON.stringify(questions).replace(/</g, "\\u003c");
+---
+
+<section
+  class="flex flex-col gap-4 w-full mt-4 rounded-xl border border-slate-700/60 bg-slate-900/40 p-6"
+  data-quiz
+  data-topic-id={topicId}
+  data-questions-shown={QUESTIONS_SHOWN}
+  data-pass-ratio={PASS_RATIO}
+>
+  <div class="flex flex-col gap-1">
+    <h3 class="font-bold text-xl text-slate-50">🧪 Ponlo a prueba</h3>
+    <p class="text-sm text-slate-400">
+      Responde las {QUESTIONS_SHOWN} preguntas y presiona "Enviar respuestas" para revisarlas todas juntas. Necesitas
+      al menos 3 de 4 correctas para avanzar al siguiente tema.
+    </p>
+  </div>
+
+  <script is:inline type="application/json" data-quiz-bank set:html={bankJson} />
+
+  <template data-radio-template><RadioButton /></template>
+  <template data-checkbox-template><Checkbox /></template>
+
+  <div class="quiz-questions flex flex-col gap-4"></div>
+
+  <div class="flex items-center gap-3">
+    <button
+      type="button"
+      class="quiz-submit rounded bg-emerald-500 text-white hover:bg-emerald-600 px-4 py-2.5 text-xs font-semibold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+      disabled
+    >
+      Enviar respuestas
+    </button>
+    <button
+      type="button"
+      class="quiz-retry hidden rounded bg-slate-700 text-white hover:bg-slate-800 px-4 py-2.5 text-xs font-semibold transition-all"
+    >
+      Intentar de nuevo
+    </button>
+  </div>
+
+  <div class="quiz-result hidden rounded-xl border px-5 py-4 font-semibold text-sm"></div>
+</section>
+
+<script>
+  import { markTopicCompleted } from "../../scripts/progress";
+
+  interface QuizQuestion {
+    type: "single" | "multiple";
+    question: string;
+    options: string[];
+    correctIndexes: number[];
+    explanation: string;
+  }
+
+  interface ActiveQuestion {
+    data: QuizQuestion;
+    selected: Set<number>;
+    el: HTMLElement;
+  }
+
+  function shuffle<T>(items: T[]): T[] {
+    const copy = [...items];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  type OptionVisualState = "idle" | "selected" | "correct" | "wrong" | "blocked";
+
+  function paintOption(button: HTMLButtonElement, state: OptionVisualState) {
+    const marker = button.querySelector<HTMLSpanElement>(".quiz-option-marker");
+    if (!marker) return;
+    const dot = marker.querySelector<HTMLSpanElement>(".quiz-option-dot");
+    const check = marker.querySelector<HTMLElement>(".quiz-option-check");
+
+    button.classList.remove(
+      "border-sky-500",
+      "bg-sky-500/10",
+      "border-emerald-500",
+      "bg-emerald-500/10",
+      "text-emerald-200",
+      "border-red-500",
+      "bg-red-500/10",
+      "text-red-200",
+      "opacity-50",
+    );
+    marker.classList.remove(
+      "border-sky-500",
+      "border-emerald-500",
+      "border-red-500",
+      "bg-sky-500",
+      "bg-emerald-500",
+      "bg-red-500",
+    );
+    dot?.classList.remove("bg-sky-500", "bg-emerald-500", "bg-red-500");
+    dot?.classList.add("hidden");
+    check?.classList.add("hidden");
+
+    if (state === "idle") return;
+
+    if (state === "blocked") {
+      button.classList.add("opacity-50");
+      return;
+    }
+
+    if (state === "selected") {
+      button.classList.add("border-sky-500", "bg-sky-500/10");
+      marker.classList.add("border-sky-500");
+      dot?.classList.remove("hidden");
+      dot?.classList.add("bg-sky-500");
+      if (check) {
+        marker.classList.add("bg-sky-500");
+        check.classList.remove("hidden");
+      }
+      return;
+    }
+
+    if (state === "correct") {
+      button.classList.add("border-emerald-500", "bg-emerald-500/10", "text-emerald-200");
+      marker.classList.add("border-emerald-500");
+      dot?.classList.remove("hidden");
+      dot?.classList.add("bg-emerald-500");
+      if (check) {
+        marker.classList.add("bg-emerald-500");
+        check.classList.remove("hidden");
+      }
+      return;
+    }
+
+    // wrong
+    button.classList.add("border-red-500", "bg-red-500/10", "text-red-200");
+    marker.classList.add("border-red-500");
+    dot?.classList.remove("hidden");
+    dot?.classList.add("bg-red-500");
+    if (check) {
+      marker.classList.add("bg-red-500");
+      check.classList.remove("hidden");
+    }
+  }
+
+  function initQuiz(container: HTMLElement) {
+    const topicId = container.dataset.topicId ?? "";
+    const shown = Number(container.dataset.questionsShown ?? "4");
+    const passRatio = Number(container.dataset.passRatio ?? "0.75");
+
+    const bankScript = container.querySelector<HTMLScriptElement>("[data-quiz-bank]");
+    const radioTemplate = container.querySelector<HTMLTemplateElement>("[data-radio-template]");
+    const checkboxTemplate = container.querySelector<HTMLTemplateElement>("[data-checkbox-template]");
+    const questionsContainer = container.querySelector<HTMLDivElement>(".quiz-questions");
+    const submitButton = container.querySelector<HTMLButtonElement>(".quiz-submit");
+    const retryButton = container.querySelector<HTMLButtonElement>(".quiz-retry");
+    const resultEl = container.querySelector<HTMLDivElement>(".quiz-result");
+
+    if (
+      !bankScript ||
+      !radioTemplate ||
+      !checkboxTemplate ||
+      !questionsContainer ||
+      !submitButton ||
+      !retryButton ||
+      !resultEl
+    ) {
+      return;
+    }
+
+    const bank: QuizQuestion[] = JSON.parse(bankScript.textContent ?? "[]");
+    let activeQuestions: ActiveQuestion[] = [];
+
+    function updateSubmitState() {
+      const allAnswered = activeQuestions.every((q) => q.selected.size > 0);
+      submitButton!.disabled = !allAnswered;
+    }
+
+    function renderQuestions() {
+      questionsContainer!.innerHTML = "";
+      resultEl!.classList.add("hidden");
+      retryButton!.classList.add("hidden");
+      submitButton!.classList.remove("hidden");
+      submitButton!.disabled = true;
+
+      const selectedQuestions = shuffle(bank).slice(0, shown);
+
+      activeQuestions = selectedQuestions.map((q, qIndex) => {
+        const questionEl = document.createElement("div");
+        questionEl.className =
+          "flex flex-col gap-3 rounded-xl border border-slate-700/60 bg-slate-800/40 p-5";
+
+        const questionText = document.createElement("p");
+        questionText.className = "font-semibold text-slate-50 text-sm";
+        questionText.textContent = `${qIndex + 1}. ${q.question}`;
+        questionEl.appendChild(questionText);
+
+        const optionsWrap = document.createElement("div");
+        optionsWrap.className = "quiz-options flex flex-col gap-2";
+        questionEl.appendChild(optionsWrap);
+
+        const explanationEl = document.createElement("p");
+        explanationEl.className =
+          "quiz-explanation hidden text-xs text-slate-400 border-t border-slate-700 pt-3";
+        questionEl.appendChild(explanationEl);
+
+        const selectedIndexes = new Set<number>();
+        const template = q.type === "multiple" ? checkboxTemplate! : radioTemplate!;
+
+        q.options.forEach((optionText, optIndex) => {
+          const fragment = template.content.cloneNode(true) as DocumentFragment;
+          const optionButton = fragment.querySelector<HTMLButtonElement>(".quiz-option")!;
+          optionButton.querySelector(".quiz-option-label")!.textContent = optionText;
+          optionButton.dataset.optionIndex = String(optIndex);
+
+          optionButton.addEventListener("click", () => {
+            if (q.type === "multiple") {
+              if (selectedIndexes.has(optIndex)) {
+                selectedIndexes.delete(optIndex);
+                paintOption(optionButton, "idle");
+              } else {
+                selectedIndexes.add(optIndex);
+                paintOption(optionButton, "selected");
+              }
+            } else {
+              selectedIndexes.clear();
+              selectedIndexes.add(optIndex);
+              optionsWrap.querySelectorAll<HTMLButtonElement>(".quiz-option").forEach((btn) => {
+                paintOption(btn, "idle");
+              });
+              paintOption(optionButton, "selected");
+            }
+            updateSubmitState();
+          });
+
+          optionsWrap.appendChild(fragment);
+        });
+
+        questionsContainer!.appendChild(questionEl);
+
+        return { data: q, selected: selectedIndexes, el: questionEl };
+      });
+
+      updateSubmitState();
+    }
+
+    function gradeQuiz() {
+      let correctCount = 0;
+
+      activeQuestions.forEach(({ data: q, selected, el }) => {
+        const chosenIndexes = Array.from(selected);
+        const isCorrect =
+          chosenIndexes.length === q.correctIndexes.length &&
+          chosenIndexes.every((i) => q.correctIndexes.includes(i));
+        if (isCorrect) correctCount++;
+
+        const optionButtons = Array.from(el.querySelectorAll<HTMLButtonElement>(".quiz-option"));
+        optionButtons.forEach((btn, i) => {
+          btn.disabled = true;
+          if (q.correctIndexes.includes(i)) {
+            paintOption(btn, "correct");
+          } else if (chosenIndexes.includes(i)) {
+            paintOption(btn, "wrong");
+          } else {
+            paintOption(btn, "blocked");
+          }
+        });
+
+        const explanationEl = el.querySelector<HTMLParagraphElement>(".quiz-explanation")!;
+        explanationEl.textContent = q.explanation;
+        explanationEl.classList.remove("hidden");
+      });
+
+      const total = activeQuestions.length;
+      const passed = correctCount / total >= passRatio;
+
+      submitButton!.classList.add("hidden");
+      retryButton!.classList.remove("hidden");
+      resultEl!.classList.remove("hidden");
+
+      if (passed) {
+        resultEl!.className =
+          "quiz-result rounded-xl border px-5 py-4 font-semibold text-sm border-emerald-500/40 bg-emerald-500/10 text-emerald-200";
+        resultEl!.textContent = `✅ Resultado: ${correctCount} / ${total} correctas. ¡Aprobado! Ya puedes avanzar al siguiente tema.`;
+      } else {
+        const minCorrect = Math.ceil(total * passRatio);
+        resultEl!.className =
+          "quiz-result rounded-xl border px-5 py-4 font-semibold text-sm border-red-500/40 bg-red-500/10 text-red-200";
+        resultEl!.textContent = `⚠️ Resultado: ${correctCount} / ${total} correctas. Necesitas al menos ${minCorrect} de ${total} para avanzar. Revisa las explicaciones e inténtalo de nuevo.`;
+      }
+
+      markTopicCompleted(topicId, correctCount, total);
+    }
+
+    submitButton.addEventListener("click", () => {
+      if (submitButton.disabled) return;
+      gradeQuiz();
+    });
+
+    retryButton.addEventListener("click", () => {
+      renderQuestions();
+    });
+
+    renderQuestions();
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-quiz]").forEach((el) => initQuiz(el));
+</script>
