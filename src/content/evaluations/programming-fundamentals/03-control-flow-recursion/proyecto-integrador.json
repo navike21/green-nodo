@@ -1,0 +1,86 @@
+{
+  "topic": "programming-fundamentals/03-control-flow-recursion/proyecto-integrador",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué función cumple 'SI TAMAÑO(lista) ES IGUAL A 0 ENTONCES RETORNAR NULO' en ambas versiones?",
+      "options": [
+        "Es solo un comentario sin efecto",
+        "Es una Guard Clause que evita procesar una lista vacía",
+        "Detiene todo el programa por completo",
+        "Convierte la lista en un número"
+      ],
+      "correctIndexes": [1],
+      "explanation": "En ambas versiones, esa línea es una Guard Clause: valida al inicio que la lista no esté vacía antes de intentar buscar algo en ella."
+    },
+    {
+      "type": "single",
+      "question": "En la versión recursiva, ¿cuál es el Paso Recursivo?",
+      "options": [
+        "SI TAMAÑO(lista) ES IGUAL A 0 ENTONCES RETORNAR NULO",
+        "SI lista[0] < 0 ENTONCES RETORNAR lista[0]",
+        "RETORNAR primerNegativoRecursivo(RESTO_DE(lista))",
+        "FUNCIÓN primerNegativoRecursivo(lista)"
+      ],
+      "correctIndexes": [2],
+      "explanation": "El Paso Recursivo es la llamada a la misma función con un problema más pequeño: el resto de la lista, sin el primer elemento."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué hace ROMPER en la versión iterativa apenas se encuentra el primer negativo?",
+      "options": [
+        "Reinicia el bucle desde el principio",
+        "Detiene el bucle de inmediato, evitando revisar el resto de la lista",
+        "Convierte el número negativo en positivo",
+        "No tiene ningún efecto en este caso"
+      ],
+      "correctIndexes": [1],
+      "explanation": "ROMPER corta el bucle en cuanto se cumple la condición, evitando trabajo innecesario sobre el resto de los elementos."
+    },
+    {
+      "type": "single",
+      "question": "Para la lista [5, 8, -3, 10, -7], ¿qué retornan ambas funciones?",
+      "options": ["-7", "-3", "5", "NULO"],
+      "correctIndexes": [1],
+      "explanation": "-3 es el primer número negativo que aparece recorriendo la lista de izquierda a derecha, antes de llegar a -7."
+    },
+    {
+      "type": "single",
+      "question": "Para una lista vacía [], ¿qué retornan ambas funciones?",
+      "options": ["0", "Un error que detiene el programa", "NULO", "Una lista vacía"],
+      "correctIndexes": [2],
+      "explanation": "La Guard Clause detecta la lista vacía en ambas versiones y retorna NULO de inmediato, sin intentar acceder a ningún elemento."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Qué temas de la Fase 3 combina este proyecto? Selecciona 3 opciones.",
+      "options": ["Guard Clauses", "Bucles con Break", "Recursividad", "Closures"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "El proyecto combina Guard Clauses, un bucle con Break y una versión recursiva. Closures pertenece a la Fase 5."
+    },
+    {
+      "type": "single",
+      "question": "Según la explicación del proyecto, ¿cuál es una ventaja típica de la versión iterativa sobre la recursiva para este problema?",
+      "options": [
+        "Es más fácil de leer en todos los casos",
+        "Suele ser más eficiente en memoria porque no apila Stack Frames adicionales",
+        "Siempre es más corta de escribir",
+        "Es la única forma correcta de resolver el problema"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La versión iterativa no crea un nuevo Stack Frame por cada elemento revisado, mientras que la recursiva sí, lo que puede consumir más memoria en listas muy grandes."
+    },
+    {
+      "type": "single",
+      "question": "En la versión recursiva, ¿qué representa RESTO_DE(lista)?",
+      "options": [
+        "La lista completa sin cambios",
+        "Todos los elementos de la lista excepto el primero",
+        "Solo el primer elemento de la lista",
+        "Una lista vacía siempre"
+      ],
+      "correctIndexes": [1],
+      "explanation": "RESTO_DE(lista) representa el problema reducido: la misma lista pero sin su primer elemento, que es justamente lo que necesita el Paso Recursivo para avanzar."
+    }
+  ]
+}

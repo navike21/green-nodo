@@ -1,0 +1,76 @@
+{
+  "topic": "programming-fundamentals/04-data-structures-complexity/arrays-lists",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿En qué número comienza el índice de un Array en programación?",
+      "options": ["En 1", "En 0", "En -1", "Depende del tamaño del array"],
+      "correctIndexes": [1],
+      "explanation": "Los arrays usan indexado desde cero (Zero-based Indexing): el primer elemento está en la posición 0."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la complejidad de acceder a un elemento de un array por su índice?",
+      "options": ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+      "correctIndexes": [0],
+      "explanation": "Acceder por índice es instantáneo sin importar el tamaño del array: O(1), tiempo constante."
+    },
+    {
+      "type": "single",
+      "question": "¿Por qué insertar un elemento al inicio de un array (Unshift) es una operación O(n)?",
+      "options": [
+        "Porque hay que desplazar todos los demás elementos un lugar",
+        "Porque los arrays no permiten insertar al inicio",
+        "Porque siempre tarda 1 segundo exacto",
+        "Porque solo funciona con números"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Insertar al inicio obliga a mover todos los elementos existentes una posición hacia la derecha, lo que toma más tiempo cuantos más elementos haya."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles operaciones son rápidas (O(1)) en un array? Selecciona 2 opciones.",
+      "options": ["Agregar al final (Push)", "Agregar al inicio (Unshift)", "Quitar del final (Pop)", "Quitar del inicio (Shift)"],
+      "correctIndexes": [0, 2],
+      "explanation": "Agregar y quitar del final son O(1) porque no requieren desplazar nada. Agregar o quitar del inicio son O(n) porque desplazan todos los demás elementos."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR frutas = [\"Manzana\", \"Banana\", \"Cereza\"]\nMOSTRAR frutas[1]\n\n¿Qué se muestra?",
+      "options": ["\"Manzana\"", "\"Banana\"", "\"Cereza\"", "Error: índice inválido"],
+      "correctIndexes": [1],
+      "explanation": "El índice 1 corresponde al segundo elemento (recordando que el índice empieza en 0): \"Banana\"."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué característica describe mejor a un Array según el tema?",
+      "options": [
+        "Es una colección ordenada y accesible por índice numérico",
+        "Nunca puede cambiar de tamaño",
+        "Solo puede contener un elemento",
+        "Siempre está ordenado alfabéticamente"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Un Array es una colección ordenada donde cada elemento tiene una posición numérica fija que permite acceso directo."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la complejidad de ELIMINAR_ULTIMO en un array?",
+      "options": ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+      "correctIndexes": [0],
+      "explanation": "Quitar el último elemento no requiere desplazar nada más, así que es una operación de tiempo constante: O(1)."
+    },
+    {
+      "type": "single",
+      "question": "¿Por qué el 'Zero-based Indexing' (indexado desde cero) tiene sentido, según la explicación del tema?",
+      "options": [
+        "Porque es una tradición sin motivo real",
+        "Porque el índice representa cuántos elementos hay antes de esa posición",
+        "Porque facilita contar en base 10",
+        "Porque solo funciona en algunos lenguajes"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El índice representa la cantidad de elementos que hay antes de esa posición: el primer elemento tiene 0 elementos antes que él, de ahí que empiece en 0."
+    }
+  ]
+}

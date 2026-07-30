@@ -1,0 +1,81 @@
+{
+  "topic": "programming-fundamentals/02-variables-data-types-memory/proyecto-integrador",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Por qué la solución nunca usa MODIFICAR sobre carritoOriginal o sus artículos?",
+      "options": [
+        "Porque MODIFICAR no existe en pseudocódigo",
+        "Para no mutar el objeto original, ya que es un tipo de referencia compartido",
+        "Porque los artículos son tipos primitivos",
+        "No hay ninguna razón especial"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Como el carrito es un objeto (tipo de referencia), cualquier MODIFICAR sobre él afectaría también a cualquier otra variable que apunte al mismo objeto. Al solo leerlo, se evita mutarlo."
+    },
+    {
+      "type": "single",
+      "question": "¿Por qué es necesario CONVERTIR_A_NUMERO(articulo.precioTexto) antes de sumar?",
+      "options": [
+        "Porque sumar texto directamente podría causar una Type Coercion inesperada, como concatenación",
+        "Porque los textos no se pueden leer en pseudocódigo",
+        "Solo por estilo, no cambia el resultado",
+        "Porque CONVERTIR_A_NUMERO elimina el precio original"
+      ],
+      "correctIndexes": [0],
+      "explanation": "precioTexto es un texto (\"45\"), y sumarlo directamente con un número podría dar una concatenación en vez de una suma matemática. Convertirlo explícitamente evita esa trampa."
+    },
+    {
+      "type": "single",
+      "question": "¿Dónde existe la variable 'total' de la solución?",
+      "options": [
+        "En el Global Scope, accesible desde cualquier parte del programa",
+        "Solo dentro de la función calcularTotal (Function Scope)",
+        "Solo dentro del bloque PARA CADA",
+        "En el Heap, como un objeto"
+      ],
+      "correctIndexes": [1],
+      "explanation": "'total' se declara con DEFINIR dentro de la función, así que tiene Function Scope: solo existe mientras esa función se está ejecutando."
+    },
+    {
+      "type": "single",
+      "question": "Después de llamar a calcularTotal(carrito), ¿qué valor tiene carrito.articulos[0].precioTexto?",
+      "options": ["45 (número)", "\"45\" (sigue siendo texto, sin cambios)", "0", "undefined"],
+      "correctIndexes": [1],
+      "explanation": "La función nunca modifica el carrito original: solo lee sus valores y trabaja con copias numéricas temporales dentro de su propio scope."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Qué temas de la Fase 2 combina este proyecto? Selecciona 3 opciones.",
+      "options": ["Tipos por referencia (no mutar el original)", "Scope de función", "Type Casting explícito", "Recursividad"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "El proyecto combina no mutar un objeto de referencia, usar variables de function scope, y convertir tipos explícitamente. La recursividad pertenece a la Fase 3."
+    },
+    {
+      "type": "single",
+      "question": "Si en vez de CONVERTIR_A_NUMERO simplemente se sumara articulo.precioTexto directamente, ¿qué tipo de problema podría aparecer?",
+      "options": ["Scope Leakage", "Type Coercion inesperada", "Stack Overflow", "Shadowing"],
+      "correctIndexes": [1],
+      "explanation": "Sin conversión explícita, el lenguaje podría aplicar Type Coercion y tratar la suma como concatenación de texto en vez de una suma matemática real."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué habría pasado si la función hubiera hecho 'MODIFICAR carritoOriginal.total = total' antes de retornar?",
+      "options": [
+        "No cambia nada, el carrito seguiría intacto",
+        "Se habría mutado el objeto original, violando el requisito del desafío",
+        "Se habría generado un error de tipos",
+        "El total se calcularía dos veces"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Como el carrito es un tipo de referencia, escribir sobre carritoOriginal directamente sí modificaría el objeto real, incumpliendo la regla de no mutar el original."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué retorna la función calcularTotal para el carrito de ejemplo con precios \"45\" y \"20\"?",
+      "options": ["\"4520\" (texto concatenado)", "65 (número)", "0", "Error"],
+      "correctIndexes": [1],
+      "explanation": "Al convertir cada precio a número antes de sumar, el resultado es una suma matemática real: 45 + 20 = 65."
+    }
+  ]
+}

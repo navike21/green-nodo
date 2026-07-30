@@ -1,0 +1,91 @@
+{
+  "topic": "programming-fundamentals/03-control-flow-recursion/loops-modern-iteration",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Cuándo conviene usar un bucle PARA (For) en vez de MIENTRAS (While)?",
+      "options": [
+        "Cuando sabes exactamente cuántas veces repetir algo",
+        "Cuando no sabes cuántas veces se repetirá",
+        "Solo cuando trabajas con texto",
+        "Nunca, MIENTRAS siempre es mejor"
+      ],
+      "correctIndexes": [0],
+      "explanation": "PARA es ideal cuando conoces de antemano el número de repeticiones, como recorrer una lista de tamaño fijo."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué hace ROMPER (Break) dentro de un bucle?",
+      "options": [
+        "Salta solo la iteración actual y sigue con la siguiente",
+        "Detiene el bucle por completo y sale de inmediato",
+        "Reinicia el bucle desde el principio",
+        "No hace nada dentro de un bucle"
+      ],
+      "correctIndexes": [1],
+      "explanation": "ROMPER (Break) detiene el bucle inmediatamente y sale de él, sin importar cuántas iteraciones quedaban."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué hace CONTINUAR (Continue) dentro de un bucle?",
+      "options": [
+        "Sale completamente del bucle",
+        "Salta la iteración actual y pasa a la siguiente, sin salir del bucle",
+        "Detiene todo el programa",
+        "Repite la misma iteración otra vez"
+      ],
+      "correctIndexes": [1],
+      "explanation": "CONTINUAR salta el resto del código de esa iteración y pasa directamente a la siguiente vuelta del bucle."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué garantiza un bucle HAZ-MIENTRAS (Do-While) que un MIENTRAS normal no garantiza?",
+      "options": [
+        "Que el bucle se ejecute infinitamente",
+        "Que el bloque se ejecute al menos una vez antes de revisar la condición",
+        "Que nunca haya errores",
+        "Que se ejecute exactamente 10 veces"
+      ],
+      "correctIndexes": [1],
+      "explanation": "HAZ-MIENTRAS ejecuta el bloque primero y revisa la condición después, garantizando al menos una ejecución, a diferencia de MIENTRAS que revisa la condición antes de entrar."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR productos = [\"Laptop\", \"Mouse\", \"Cable\"]\nDEFINIR cantidades = [5, 0, 12]\nPARA i DESDE 0 HASTA 2 HACER\n  SI cantidades[i] ES IGUAL A 0 ENTONCES\n    ROMPER\n  FIN SI\n  MOSTRAR productos[i]\nFIN PARA\n\n¿Qué se muestra?",
+      "options": ["Laptop, Mouse, Cable", "Laptop", "Mouse, Cable", "Nada"],
+      "correctIndexes": [1],
+      "explanation": "En i=0 se muestra 'Laptop'. En i=1, cantidades[1] es 0, así que ROMPER detiene el bucle antes de mostrar 'Mouse' o revisar 'Cable'."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR precios = [120, 35, 80]\nPARA CADA precio EN precios HACER\n  SI precio < 50 ENTONCES CONTINUAR\n  MOSTRAR precio\nFIN PARA\n\n¿Qué se muestra?",
+      "options": ["120, 35, 80", "120, 80", "35", "Nada"],
+      "correctIndexes": [1],
+      "explanation": "35 es menor a 50, así que CONTINUAR salta esa iteración sin mostrarlo. 120 y 80 sí se muestran."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué causa un Bucle Infinito?",
+      "options": [
+        "Usar ROMPER dentro de un bucle",
+        "Que la condición de parada nunca llegue a cumplirse",
+        "Usar PARA en vez de MIENTRAS",
+        "Declarar demasiadas variables"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Si nada dentro del bucle logra que la condición de parada se vuelva falsa (en MIENTRAS) o se alcance el límite (en PARA), el bucle nunca termina."
+    },
+    {
+      "type": "single",
+      "question": "Según el tema, ¿qué prefieren los lenguajes modernos frente a escribir bucles manuales con contadores?",
+      "options": [
+        "Iteración declarativa: decir QUÉ hacer con cada elemento, no CÓMO paso a paso",
+        "Evitar los bucles por completo, sin excepción",
+        "Usar solo HAZ-MIENTRAS",
+        "Escribir siempre el mismo tipo de bucle en cualquier situación"
+      ],
+      "correctIndexes": [0],
+      "explanation": "El paradigma moderno prefiere expresar la intención (filtrar, transformar) en vez de manejar manualmente contadores e índices."
+    }
+  ]
+}

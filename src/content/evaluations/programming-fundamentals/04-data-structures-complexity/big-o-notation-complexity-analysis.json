@@ -1,0 +1,91 @@
+{
+  "topic": "programming-fundamentals/04-data-structures-complexity/big-o-notation-complexity-analysis",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué mide la Notación Big-O?",
+      "options": [
+        "Cuántas líneas tiene un programa",
+        "Cómo crece el tiempo de ejecución o el consumo de memoria según el tamaño de los datos de entrada",
+        "El nombre de las variables usadas",
+        "El color de la interfaz de usuario"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Big-O mide matemáticamente cómo escala el rendimiento de un algoritmo a medida que crecen los datos de entrada, no detalles como nombres o estilo."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué significa que un algoritmo sea O(1)?",
+      "options": [
+        "Tarda 1 segundo siempre",
+        "Tarda el mismo tiempo sin importar el tamaño de los datos",
+        "Solo funciona con 1 elemento",
+        "Es el algoritmo más lento posible"
+      ],
+      "correctIndexes": [1],
+      "explanation": "O(1) es tiempo constante: la operación tarda lo mismo sin importar si hay 10 o 10 millones de elementos, como acceder a un array por índice."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué significa que un algoritmo sea O(n)?",
+      "options": [
+        "El tiempo crece proporcionalmente al tamaño de los datos",
+        "El tiempo siempre es constante",
+        "El tiempo se reduce a la mitad en cada paso",
+        "El algoritmo nunca termina"
+      ],
+      "correctIndexes": [0],
+      "explanation": "O(n) es tiempo lineal: si los datos se duplican, el tiempo de ejecución también se duplica aproximadamente, como recorrer una lista completa."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué significa que un algoritmo sea O(n²)?",
+      "options": [
+        "Es el más rápido de todos",
+        "Para cada elemento se revisan todos los demás, escalando muy mal con listas grandes",
+        "Tarda lo mismo sin importar el tamaño",
+        "Solo funciona con números pares"
+      ],
+      "correctIndexes": [1],
+      "explanation": "O(n²) suele venir de bucles anidados sobre la misma colección: con 1,000 elementos puede llegar a 1,000,000 de comparaciones."
+    },
+    {
+      "type": "single",
+      "question": "Ordena de mejor a peor: ¿cuál de estas listas respeta el orden correcto de eficiencia según el tema?",
+      "options": [
+        "O(1) → O(log n) → O(n) → O(n²)",
+        "O(n²) → O(n) → O(log n) → O(1)",
+        "O(n) → O(1) → O(n²) → O(log n)",
+        "Todas son igual de eficientes"
+      ],
+      "correctIndexes": [0],
+      "explanation": "La escala de mejor a peor es: O(1), O(log n), O(n), O(n log n), O(n²), O(2ⁿ), O(n!)."
+    },
+    {
+      "type": "single",
+      "question": "FUNCIÓN buscarElemento(lista, objetivo)\n  PARA CADA elemento EN lista HACER\n    SI elemento ES IGUAL A objetivo ENTONCES RETORNAR VERDADERO\n  FIN PARA\n  RETORNAR FALSO\nFIN FUNCIÓN\n\n¿Cuál es la complejidad de esta función?",
+      "options": ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+      "correctIndexes": [1],
+      "explanation": "Recorre la lista una sola vez con un solo bucle, así que en el peor caso revisa los n elementos: O(n), lineal."
+    },
+    {
+      "type": "single",
+      "question": "Un algoritmo O(n²) procesa 1,000 registros en 1 segundo. ¿Qué le pasaría aproximadamente con 1,000,000 de registros, según el tema?",
+      "options": [
+        "Seguiría tardando 1 segundo",
+        "Tardaría cerca de 1,000,000 de segundos",
+        "Tardaría exactamente 1,000 segundos",
+        "Sería más rápido con más datos"
+      ],
+      "correctIndexes": [1],
+      "explanation": "En O(n²), multiplicar el tamaño de entrada por 1,000 multiplica el tiempo por 1,000² = 1,000,000, mostrando lo mal que escala esta complejidad."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué tipo de búsqueda es un ejemplo típico de O(log n)?",
+      "options": ["Recorrer toda la lista de principio a fin", "Búsqueda binaria en una lista ordenada", "Comparar cada par de elementos", "Acceder por índice a un array"],
+      "correctIndexes": [1],
+      "explanation": "La búsqueda binaria reduce el problema a la mitad en cada paso, lo que la hace O(log n): logarítmica."
+    }
+  ]
+}

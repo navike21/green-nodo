@@ -1,0 +1,96 @@
+{
+  "topic": "programming-fundamentals/05-functions-programming-paradigms/functional-paradigm-map-filter-reduce",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué hace la operación Filter (Filtrar)?",
+      "options": [
+        "Transforma cada elemento en algo nuevo",
+        "Se queda solo con los elementos de una colección que cumplen una condición",
+        "Combina todos los elementos en un solo valor",
+        "Ordena la colección alfabéticamente"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Filter recorre la colección y conserva únicamente los elementos que cumplen la condición indicada."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué hace la operación Map (Transformar)?",
+      "options": [
+        "Elimina elementos de una colección",
+        "Convierte cada elemento de la colección en algo nuevo, uno por uno",
+        "Cuenta cuántos elementos hay",
+        "Combina todos los elementos en un solo valor"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Map transforma cada elemento de la colección en un nuevo valor, generando una nueva colección del mismo tamaño."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué hace la operación Reduce (Reducir)?",
+      "options": [
+        "Filtra elementos según una condición",
+        "Transforma cada elemento por separado",
+        "Combina todos los elementos de la colección en un solo valor final",
+        "Duplica la colección"
+      ],
+      "correctIndexes": [2],
+      "explanation": "Reduce combina todos los elementos en un único resultado, como una suma total o un promedio."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué son Map, Filter y Reduce, en relación al tema de Funciones Puras?",
+      "options": [
+        "Funciones con muchos efectos secundarios",
+        "En el fondo, son Funciones Puras: reciben una colección y devuelven un resultado nuevo sin modificar la original",
+        "No tienen ninguna relación con las funciones puras",
+        "Solo funcionan con números"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Map, Filter y Reduce son ejemplos de funciones puras aplicadas a colecciones: no mutan los datos originales, generan resultados nuevos."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es un Pipeline en programación funcional?",
+      "options": [
+        "Un bucle infinito",
+        "Encadenar funciones donde cada una transforma el resultado y lo pasa a la siguiente",
+        "Un tipo de variable global",
+        "Un error de sintaxis"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un Pipeline es una cadena de transformaciones, como una línea de ensamblaje: cada función recibe el resultado de la anterior."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR total = productos\n  → FILTRAR(activo Y precio > 50)\n  → TRANSFORMAR(quedarse solo con el precio)\n  → REDUCIR(sumar todos, empezando desde 0)\n\n¿Cuál es el orden correcto de las operaciones en este pipeline?",
+      "options": ["Reduce, luego Filter, luego Map", "Filter, luego Map, luego Reduce", "Map, luego Reduce, luego Filter", "Solo se usa Reduce"],
+      "correctIndexes": [1],
+      "explanation": "El pipeline primero filtra los productos válidos, luego transforma (extrae el precio) y finalmente reduce sumando todos los precios."
+    },
+    {
+      "type": "single",
+      "question": "Según el tema, ¿cuál es la diferencia clave entre el enfoque imperativo y el funcional para resolver el mismo problema?",
+      "options": [
+        "El funcional siempre es más lento",
+        "El imperativo describe CÓMO hacerlo paso a paso con variables mutables; el funcional describe QUÉ transformación aplicar, encadenando funciones puras",
+        "No hay ninguna diferencia real",
+        "El imperativo no puede usar bucles"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El tema resume esto como 'el QUÉ reemplaza al CÓMO paso a paso': el enfoque funcional expresa la intención en vez de manejar contadores manuales."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la analogía usada en el tema para explicar el paradigma funcional?",
+      "options": [
+        "Una fila de casilleros numerados",
+        "Una línea de ensamblaje de fábrica donde cada estación transforma el producto y lo pasa a la siguiente",
+        "Una guía telefónica",
+        "Una torre de platos sucios"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La línea de ensamblaje ilustra cómo cada función (Filter, Map, Reduce) hace una sola cosa y pasa el resultado a la siguiente, en vez de un solo bloque haciendo todo el trabajo."
+    }
+  ]
+}

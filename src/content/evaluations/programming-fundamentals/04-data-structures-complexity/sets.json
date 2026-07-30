@@ -1,0 +1,81 @@
+{
+  "topic": "programming-fundamentals/04-data-structures-complexity/sets",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué característica define principalmente a un Set?",
+      "options": [
+        "Permite elementos duplicados y mantiene el orden",
+        "Solo contiene elementos únicos, sin duplicados",
+        "Solo puede contener números",
+        "Siempre tiene exactamente 10 elementos"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un Set es una colección de elementos únicos: si intentas agregar un valor que ya existe, simplemente no pasa nada."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la complejidad aproximada de verificar si un elemento existe en un Set?",
+      "options": ["O(1) en promedio", "O(n) siempre", "O(n²)", "No se puede verificar"],
+      "correctIndexes": [0],
+      "explanation": "Al igual que una Tabla Hash, un Set responde la pregunta de pertenencia en tiempo casi constante, O(1) en promedio."
+    },
+    {
+      "type": "single",
+      "question": "¿Cómo se puede pensar un Set en relación a una Tabla Hash, según el tema?",
+      "options": [
+        "Un Set es un Array con otro nombre",
+        "Un Set es como una Tabla Hash que solo guarda claves, sin valores asociados",
+        "No tienen ninguna relación",
+        "Un Set es más lento que un Array para buscar elementos"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un Set hereda la velocidad de búsqueda de una Tabla Hash, pero solo le importa si la clave (el elemento) existe, sin guardar un valor asociado."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles son operaciones típicas de conjuntos mencionadas en el tema? Selecciona 3 opciones.",
+      "options": ["Unión (Union)", "Intersección (Intersection)", "Diferencia (Difference)", "Ordenamiento alfabético obligatorio"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "Unión, Intersección y Diferencia son las operaciones de conjuntos vistas en el tema. Un Set no garantiza ningún orden, mucho menos alfabético."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR compras = [\"pan\", \"leche\", \"pan\", \"huevos\"]\nDEFINIR comprasUnicas = CONJUNTO_VACIO\nPARA CADA producto EN compras HACER\n  AGREGAR producto A comprasUnicas\nFIN PARA\n\n¿Cuántos elementos distintos terminará teniendo comprasUnicas?",
+      "options": ["4", "3", "2", "1"],
+      "correctIndexes": [1],
+      "explanation": "Los elementos únicos son \"pan\", \"leche\" y \"huevos\": el Set descarta automáticamente el segundo \"pan\" repetido."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es un pitfall común al usar un Set, según el tema?",
+      "options": [
+        "Esperar que mantenga el orden de inserción o permita duplicados, como si fuera un Array",
+        "Que ocupe demasiada memoria siempre",
+        "Que no se pueda verificar si un elemento existe",
+        "Que solo funcione con texto"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Un error común es tratar un Set como un Array, esperando orden o duplicados, cuando un Set no garantiza ninguno de los dos."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR equipoA = { \"Ana\", \"Luis\" }\nDEFINIR equipoB = { \"Luis\", \"Pedro\" }\nMOSTRAR INTERSECCION(equipoA, equipoB)\n\n¿Qué se muestra?",
+      "options": ["{ \"Ana\", \"Luis\", \"Pedro\" }", "{ \"Luis\" }", "{ \"Ana\", \"Pedro\" }", "{ }"],
+      "correctIndexes": [1],
+      "explanation": "La Intersección son los elementos presentes en ambos conjuntos a la vez: solo \"Luis\" está en equipoA y en equipoB."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuándo es más apropiado usar un Set en vez de un Array, según el tema?",
+      "options": [
+        "Cuando el orden de inserción es lo más importante",
+        "Cuando lo único que importa es qué elementos hay, sin importar cuántas veces se repitieron ni en qué orden",
+        "Cuando necesitas acceder por posición numérica",
+        "Nunca, los Sets no tienen ninguna ventaja"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un Set es ideal cuando solo te importa la pertenencia (qué hay, no en qué orden ni cuántas veces se repitió)."
+    }
+  ]
+}

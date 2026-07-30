@@ -1,0 +1,96 @@
+{
+  "topic": "programming-fundamentals/01-algorithmic-thinking/how-computers-execute-code",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Cuál es el trabajo principal de la CPU?",
+      "options": [
+        "Almacenar datos de forma permanente",
+        "Ejecutar instrucciones simples, una por una, de forma secuencial",
+        "Renderizar gráficos en pantalla",
+        "Conectar la computadora a internet"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La CPU no improvisa ni guarda nada de forma permanente: su único trabajo es ejecutar instrucciones concretas (sumar, comparar, guardar un valor) de forma estrictamente secuencial."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué principio de orden sigue el Call Stack?",
+      "options": [
+        "FIFO: el primero en entrar es el primero en salir",
+        "LIFO: el último en entrar es el primero en salir",
+        "Orden aleatorio",
+        "Orden alfabético por nombre de variable"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Call Stack funciona como una pila de platos: el último que se puso encima es el primero que se retira (LIFO, Last In First Out)."
+    },
+    {
+      "type": "single",
+      "question": "Guardas una lista con miles de elementos en tu programa. ¿En qué zona de memoria vive realmente esa lista?",
+      "options": [
+        "En el Call Stack",
+        "En el Heap",
+        "Directamente en la CPU",
+        "No se guarda en memoria hasta que se imprime"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Los datos grandes o de tamaño variable, como una lista con muchos elementos, se guardan en el Heap. El Call Stack solo tiene espacio para lo pequeño e inmediato."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de los siguientes datos normalmente se guardan directamente en el Call Stack? Selecciona 2 opciones.",
+      "options": [
+        "Un número entero simple, como 42",
+        "Una lista con miles de elementos",
+        "Un valor booleano (verdadero/falso)",
+        "Un objeto complejo con muchas propiedades"
+      ],
+      "correctIndexes": [0, 2],
+      "explanation": "Los datos simples y de tamaño fijo (números, booleanos) viven en el Call Stack. Las estructuras grandes o complejas (listas, objetos) viven en el Heap."
+    },
+    {
+      "type": "single",
+      "question": "Cuando el Call Stack necesita trabajar con un objeto que vive en el Heap, ¿qué es lo que realmente guarda?",
+      "options": [
+        "Una copia completa del objeto",
+        "Una referencia: una nota de dónde encontrar ese objeto",
+        "Nada, el Call Stack ignora los objetos del Heap",
+        "El objeto se divide en partes iguales entre el Stack y el Heap"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Call Stack nunca carga el objeto completo: guarda una referencia (como la notita \"el queso está en el estante 3\") que apunta a donde vive el dato real en el Heap."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es la Compilación Just-In-Time (JIT)?",
+      "options": [
+        "Traducir el código a instrucciones nativas de la CPU justo antes de ejecutarlo",
+        "Escribir código bajo presión de tiempo",
+        "Compilar el programa una sola vez al final del día",
+        "Un tipo especial de memoria RAM"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Los motores modernos de ejecución traducen el código a instrucciones nativas justo antes de correrlas (JIT), lo que las hace mucho más rápidas que interpretarlas línea por línea."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué muestra este pseudocódigo?\n\nDEFINIR precio = 100\nDEFINIR impuesto = 15\nCALCULAR total = precio + (precio × impuesto ÷ 100)\nMOSTRAR total",
+      "options": ["100", "115", "15", "150"],
+      "correctIndexes": [1],
+      "explanation": "precio × impuesto ÷ 100 = 100 × 15 ÷ 100 = 15. Luego total = precio + 15 = 100 + 15 = 115."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de las siguientes afirmaciones sobre la RAM son verdaderas? Selecciona 2 opciones.",
+      "options": [
+        "Es ultrarrápida pero se borra al apagar el equipo",
+        "Guarda los datos de forma permanente, incluso sin electricidad",
+        "Es el espacio de trabajo temporal donde vive el código mientras se ejecuta",
+        "Es exactamente lo mismo que el Call Stack"
+      ],
+      "correctIndexes": [0, 2],
+      "explanation": "La RAM es temporal y se borra al apagar el equipo (eso lo hace el disco duro, no la RAM). El Call Stack es solo una de las dos zonas dentro de la RAM, no toda la RAM."
+    }
+  ]
+}

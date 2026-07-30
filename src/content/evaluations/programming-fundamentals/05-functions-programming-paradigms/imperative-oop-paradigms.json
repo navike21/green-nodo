@@ -1,0 +1,101 @@
+{
+  "topic": "programming-fundamentals/05-functions-programming-paradigms/imperative-oop-paradigms",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué caracteriza al paradigma Imperativo?",
+      "options": [
+        "Describir QUÉ transformación aplicar a los datos",
+        "Decirle al computador CÓMO hacer cada paso, en orden explícito",
+        "Modelar todo como objetos con comportamiento propio",
+        "Evitar completamente las variables"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El paradigma Imperativo da control total describiendo cada paso explícito, a diferencia de otros paradigmas más declarativos."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es una Clase (Class) en Programación Orientada a Objetos?",
+      "options": [
+        "Un objeto concreto ya creado",
+        "El molde o plano que define qué propiedades y comportamientos tendrá un tipo de objeto",
+        "Una variable primitiva",
+        "Un tipo de bucle"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La Clase es la plantilla que define la estructura y comportamiento; las Instancias son los objetos concretos creados a partir de ella."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es una Instancia (Instance)?",
+      "options": [
+        "El molde que define una clase",
+        "Un objeto concreto creado a partir de una clase, con sus propios valores",
+        "Un tipo de función pura",
+        "Un error de programación"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Una Instancia es un objeto real creado siguiendo el molde de una Clase, con sus propios datos específicos."
+    },
+    {
+      "type": "single",
+      "question": "CLASE Producto\n  PROPIEDADES: nombre, precio\n  FUNCIÓN aplicarDescuento(porcentaje) ...\nFIN CLASE\nDEFINIR laptop = NUEVA Producto(nombre: \"Laptop\", precio: 1000)\nDEFINIR mouse = NUEVA Producto(nombre: \"Mouse\", precio: 25)\nMOSTRAR laptop.aplicarDescuento(20)\n\n¿Por qué mouse.aplicarDescuento(20) daría un resultado distinto al de laptop?",
+      "options": [
+        "Porque son errores de programación",
+        "Porque cada instancia (laptop, mouse) tiene su propio valor de 'precio', aunque compartan la misma Clase",
+        "Porque mouse no es una instancia válida",
+        "El resultado sería exactamente igual siempre"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Aunque ambas instancias comparten la misma Clase Producto (y por lo tanto el mismo método), cada una calcula el descuento usando SU PROPIO precio."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es la Encapsulación en OOP, según el tema?",
+      "options": [
+        "Mostrar todos los datos internos de un objeto sin restricción",
+        "Ocultar los datos internos de un objeto y exponer solo lo necesario para interactuar con él",
+        "Un tipo de bucle infinito",
+        "Convertir todos los objetos en primitivos"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La Encapsulación oculta el estado interno de un objeto, exponiendo solo la interfaz necesaria, similar en propósito a lo que hace un Closure."
+    },
+    {
+      "type": "single",
+      "question": "¿Con qué concepto de la lección anterior (Closures) se compara la Encapsulación de OOP en este tema?",
+      "options": [
+        "Con la recursividad",
+        "Con el mismo objetivo de esconder datos internos y exponer solo lo necesario, solo que ahora vive dentro de una Clase",
+        "No tienen ninguna relación",
+        "Con las Guard Clauses"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El tema señala explícitamente que la Encapsulación de OOP resuelve el mismo problema que los Closures: ocultar estado interno, pero dentro de una Clase en vez de una función."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es la Herencia (Inheritance)?",
+      "options": [
+        "Una clase que reutiliza el comportamiento de otra clase más general",
+        "Un tipo de variable primitiva",
+        "Eliminar una clase existente",
+        "Un sinónimo de Instancia"
+      ],
+      "correctIndexes": [0],
+      "explanation": "La Herencia permite que una clase reutilice y extienda el comportamiento de otra clase más general, evitando repetir código."
+    },
+    {
+      "type": "single",
+      "question": "Según el tema, ¿cuál de las siguientes afirmaciones sobre los paradigmas es correcta?",
+      "options": [
+        "Un paradigma es siempre 'el correcto' y los demás deben evitarse",
+        "El desarrollo moderno combina Imperativo, OOP y Funcional según lo que mejor resuelva cada parte del problema",
+        "OOP siempre reemplaza por completo al paradigma Imperativo",
+        "Los paradigmas son incompatibles entre sí y nunca se combinan"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El tema concluye que ningún paradigma es absoluto: se combinan según convenga a cada parte del problema."
+    }
+  ]
+}

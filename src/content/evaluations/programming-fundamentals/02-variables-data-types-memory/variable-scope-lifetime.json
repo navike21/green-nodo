@@ -1,0 +1,86 @@
+{
+  "topic": "programming-fundamentals/02-variables-data-types-memory/variable-scope-lifetime",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es el Scope de una variable?",
+      "options": [
+        "El tipo de dato que almacena",
+        "La parte del código donde esa variable existe y puede usarse",
+        "El valor inicial de la variable",
+        "El nombre de la variable"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Scope (ámbito) define en qué parte del código una variable es visible y puede utilizarse."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles son los tres niveles de Scope mencionados en el tema? Selecciona 3 opciones.",
+      "options": ["Global Scope", "Function Scope", "Block Scope", "Network Scope"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "Los tres niveles son Global (toda la aplicación), Function (dentro de una función) y Block (dentro de un bloque como un SI o un MIENTRAS). 'Network Scope' no existe."
+    },
+    {
+      "type": "single",
+      "question": "Una variable declarada dentro de un bloque SI, ¿hasta cuándo existe?",
+      "options": [
+        "Para siempre, en todo el programa",
+        "Solo mientras dure ese bloque SI",
+        "Hasta que el programa termine de compilar",
+        "Solo si se usa dentro de una función"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Una variable con Block Scope, declarada dentro de un SI, deja de existir en cuanto termina ese bloque."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es el 'Scope Leakage' (Fuga de Scope)?",
+      "options": [
+        "Cuando una variable se usa fuera del bloque donde fue declarada, y ya no existe ahí",
+        "Cuando una variable ocupa demasiada memoria",
+        "Un tipo de fuga de información confidencial",
+        "Cuando dos variables tienen el mismo valor"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Scope Leakage es el error de intentar usar una variable fuera del bloque donde fue declarada, cuando para ese punto del código ya dejó de existir."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es el Shadowing (sombra de variable)?",
+      "options": [
+        "Eliminar una variable externa por completo",
+        "Declarar una variable con el mismo nombre en un scope interno, ocultando temporalmente a la externa",
+        "Un error de sintaxis",
+        "Convertir una variable global en local de forma permanente"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Shadowing ocurre cuando una variable interna tiene el mismo nombre que una externa: la interna la 'oculta' solo dentro de su propio scope, sin eliminarla."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR color = \"Azul\"\nFUNCIÓN pintarParedes()\n  DEFINIR color = \"Rojo\"\n  MOSTRAR color\nFIN FUNCIÓN\nMOSTRAR color\n\n¿Qué muestra la última línea, MOSTRAR color, fuera de la función?",
+      "options": ["\"Rojo\"", "\"Azul\"", "Error de Scope Leakage", "undefined"],
+      "correctIndexes": [1],
+      "explanation": "El 'color' interno de la función solo existe dentro de ella (Shadowing). Afuera, la variable global 'color' sigue siendo \"Azul\", sin cambios."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál de estas variables tiene Global Scope según el ejemplo del tema (DEFINIR appVersion = \"2.0\" fuera de cualquier función)?",
+      "options": ["appVersion", "subtotal (dentro de la función)", "descuento (dentro de un SI)", "Ninguna tiene Global Scope"],
+      "correctIndexes": [0],
+      "explanation": "appVersion está declarada fuera de cualquier función o bloque, así que es accesible desde cualquier parte del programa: tiene Global Scope."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué determina el 'Lifetime' (Ciclo de Vida) de una variable?",
+      "options": [
+        "Su tipo de dato",
+        "Cuándo nace y cuándo el sistema la elimina de memoria",
+        "El nombre que se le puso",
+        "Si es primitiva o de referencia"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Lifetime define el momento en que una variable se crea y el momento en que deja de existir y se libera de memoria."
+    }
+  ]
+}

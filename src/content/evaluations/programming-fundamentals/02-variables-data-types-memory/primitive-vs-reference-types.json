@@ -1,0 +1,81 @@
+{
+  "topic": "programming-fundamentals/02-variables-data-types-memory/primitive-vs-reference-types",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué ocurre cuando copias una variable de tipo primitivo, como un número, a otra variable?",
+      "options": [
+        "Ambas variables apuntan al mismo valor y cambian juntas",
+        "Se crea una copia completamente independiente del valor",
+        "Se genera un error",
+        "El valor original se elimina"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Los tipos primitivos se copian por valor: la nueva variable recibe una copia independiente, y modificar una no afecta a la otra."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué ocurre cuando asignas un objeto (tipo de referencia) a otra variable?",
+      "options": [
+        "Ambas variables terminan apuntando al mismo objeto en memoria",
+        "Se crea automáticamente una copia independiente",
+        "El objeto se divide entre ambas variables",
+        "No se puede asignar un objeto a otra variable"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Los tipos de referencia se copian por referencia: ambas variables apuntan al mismo objeto real en el Heap, así que modificar uno afecta al otro."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de los siguientes son tipos primitivos? Selecciona 3 opciones.",
+      "options": ["Número (Number)", "Objeto (Object)", "Booleano (Boolean)", "Texto (String)"],
+      "correctIndexes": [0, 2, 3],
+      "explanation": "Número, Booleano y Texto son tipos primitivos. Objeto es un tipo de referencia, ya que es una estructura compuesta."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de los siguientes son tipos de referencia? Selecciona 2 opciones.",
+      "options": ["Listas / Arrays", "Números", "Objetos", "Booleanos"],
+      "correctIndexes": [0, 2],
+      "explanation": "Las listas y los objetos son estructuras compuestas que viven en el Heap y se pasan por referencia."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR a = 10\nDEFINIR b = a\nMODIFICAR b = 20\nMOSTRAR a\n\n¿Qué muestra este pseudocódigo?",
+      "options": ["10", "20", "Error", "30"],
+      "correctIndexes": [0],
+      "explanation": "Como 'a' es un número (primitivo), 'b' recibe una copia independiente. Modificar b no afecta a a, que sigue siendo 10."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR persona1 = { nombre: \"Ana\" }\nDEFINIR persona2 = persona1\nMODIFICAR persona2.nombre = \"Carlos\"\nMOSTRAR persona1.nombre\n\n¿Qué muestra este pseudocódigo?",
+      "options": ["\"Ana\"", "\"Carlos\"", "Error", "undefined"],
+      "correctIndexes": [1],
+      "explanation": "persona2 no es una copia independiente: apunta al mismo objeto que persona1. Modificar persona2.nombre también cambia lo que ve persona1."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la 'trampa' más común (Pitfall) relacionada con los tipos de referencia?",
+      "options": [
+        "Olvidar poner punto y coma al final de la línea",
+        "Modificar sin querer el objeto original al pensar que se estaba trabajando con una copia",
+        "Que los números ocupen demasiada memoria",
+        "Que los booleanos no existan en algunos lenguajes"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El error más común es modificar una 'copia' de un objeto sin darte cuenta de que en realidad seguía apuntando al mismo lugar que el original, mutándolo sin querer."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la forma correcta de obtener una copia REALMENTE independiente de un objeto, para no mutar el original?",
+      "options": [
+        "Asignarlo directamente con '=' a otra variable",
+        "Usar una función que copie el contenido del objeto, como COPIA_DE(objetoOriginal)",
+        "No es posible copiar objetos de forma independiente",
+        "Convertirlo primero a un número"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Asignar con '=' solo copia la referencia. Para obtener una copia independiente hace falta duplicar el contenido, no solo la dirección."
+    }
+  ]
+}

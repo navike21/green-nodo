@@ -1,0 +1,86 @@
+{
+  "topic": "programming-fundamentals/01-algorithmic-thinking/problem-solving-pseudocode",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es un Algoritmo?",
+      "options": [
+        "Un lenguaje de programación específico",
+        "Una secuencia finita y ordenada de pasos para resolver un problema",
+        "Un tipo de computadora",
+        "Un error en el código"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un algoritmo es simplemente la lista precisa y ordenada de pasos necesarios para resolver un problema, sin importar en qué lenguaje se implemente después."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles son los 3 componentes de todo algoritmo? Selecciona las 3 opciones correctas.",
+      "options": ["Input (Entrada)", "Proceso", "Output (Salida)", "Compilador"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "Todo algoritmo recibe datos (Input), los transforma (Proceso) y produce un resultado (Output). El compilador no es parte del algoritmo en sí."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es una Guard Clause (Cláusula de Guardia)?",
+      "options": [
+        "Un tipo de bucle infinito",
+        "Validar las condiciones necesarias al inicio, saliendo de inmediato si algo falla",
+        "Una variable que nunca cambia",
+        "El último paso de cualquier función"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Las Guard Clauses verifican al inicio que las condiciones necesarias se cumplan, y terminan el proceso de inmediato si algo no es válido, evitando ejecutar el resto con datos incorrectos."
+    },
+    {
+      "type": "single",
+      "question": "¿Cómo se llama el problema de anidar muchos SI dentro de otros SI, uno dentro de otro?",
+      "options": ["Pirámide de la Muerte", "Torre de Babel", "Bucle infinito", "Stack Overflow"],
+      "correctIndexes": [0],
+      "explanation": "Anidar condicionales excesivamente se llama 'Pirámide de la Muerte' y hace el código difícil de leer; las Guard Clauses son la solución habitual."
+    },
+    {
+      "type": "single",
+      "question": "Según las reglas de buen pseudocódigo del tema, ¿cómo se recomienda escribir las palabras de control como SI, MIENTRAS o PARA?",
+      "options": ["En minúsculas", "En MAYÚSCULAS", "Alternando mayúsculas y minúsculas", "En otro idioma distinto al resto"],
+      "correctIndexes": [1],
+      "explanation": "Se recomienda usar MAYÚSCULAS para las palabras de control, así se distinguen fácilmente del resto de la lógica del algoritmo."
+    },
+    {
+      "type": "single",
+      "question": "En el pseudocódigo del tema:\n\nSI precioBase <= 0 ENTONCES\n  MOSTRAR \"Error: el precio debe ser mayor a cero\"\n  TERMINAR\nFIN SI\n\n¿Qué pasa si precioBase = 50?",
+      "options": [
+        "Se muestra el mensaje de error y termina",
+        "No se muestra el error, el programa sigue con el proceso principal",
+        "El programa se detiene sin mostrar nada",
+        "Se ejecuta el error dos veces"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La condición precioBase <= 0 es Falsa cuando precioBase = 50, así que el bloque de error no se ejecuta y el programa continúa normalmente."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál de las siguientes instrucciones es más 'específica' según las reglas de buen pseudocódigo?",
+      "options": [
+        "Hacer algo con el número",
+        "Procesar datos",
+        "Mostrar el resultado final en pantalla",
+        "Trabajar con la variable"
+      ],
+      "correctIndexes": [2],
+      "explanation": "Una buena instrucción de pseudocódigo es específica y concreta; frases vagas como 'hacer algo' no dicen qué acción real ocurre."
+    },
+    {
+      "type": "single",
+      "question": "¿En qué momento del algoritmo deberían ejecutarse las Guard Clauses?",
+      "options": [
+        "Al final, después de procesar todo",
+        "Al inicio, antes de procesar los datos",
+        "En cualquier punto aleatorio",
+        "Solo si el programa falla"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Las Guard Clauses van al inicio: su función es evitar que el proceso principal se ejecute si los datos de entrada no son válidos."
+    }
+  ]
+}

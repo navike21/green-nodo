@@ -1,0 +1,91 @@
+{
+  "topic": "programming-fundamentals/01-algorithmic-thinking/input-output-fundamentals",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es el Input de un programa?",
+      "options": [
+        "El resultado que produce el programa",
+        "Los datos que el programa recibe del exterior",
+        "Un tipo de error",
+        "El nombre del programa"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Input es toda la información que un programa recibe desde fuera: del usuario, un archivo, la red o un sensor."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de las siguientes son posibles fuentes de Input? Selecciona 3 opciones.",
+      "options": ["El teclado del usuario", "Un archivo guardado en disco", "La pantalla mostrando un resultado", "La respuesta de un servidor por red"],
+      "correctIndexes": [0, 1, 3],
+      "explanation": "El teclado, un archivo y la red son fuentes de Input. La pantalla mostrando un resultado es Output, no Input."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es el Standard Output (stdout)?",
+      "options": [
+        "El canal por defecto de salida, normalmente la pantalla o consola",
+        "Un archivo de configuración obligatorio",
+        "El canal por defecto de entrada",
+        "Un tipo de error de ejecución"
+      ],
+      "correctIndexes": [0],
+      "explanation": "stdout es el canal de salida por defecto en la mayoría de entornos, normalmente la pantalla o consola donde se muestran los resultados."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es el orden correcto del ciclo básico de un programa interactivo?",
+      "options": [
+        "Mostrar → Procesar → Leer",
+        "Leer → Procesar → Mostrar",
+        "Procesar → Leer → Mostrar",
+        "No hay un orden definido"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El ciclo natural es: primero se lee la entrada (Input), luego se procesa con el algoritmo, y finalmente se muestra el resultado (Output)."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es el error de principiante más común relacionado con el Input, según el tema?",
+      "options": [
+        "Usar demasiadas variables",
+        "Asumir que el Input siempre llega con el formato correcto",
+        "Mostrar demasiados mensajes en pantalla",
+        "No usar bucles"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un error muy común es no validar el Input: el usuario puede escribir texto donde se esperaba un número, o dejar un campo vacío, y el programa debe estar preparado para eso."
+    },
+    {
+      "type": "single",
+      "question": "El resultado de un programa que se convierte en la entrada de otro programa distinto: ¿qué concepto es ese?",
+      "options": [
+        "El Output de uno puede ser el Input de otro",
+        "Eso nunca puede pasar en programación",
+        "Se llama 'Standard Error'",
+        "Solo ocurre con archivos, nunca entre programas"
+      ],
+      "correctIndexes": [0],
+      "explanation": "El Output de un programa puede convertirse perfectamente en el Input de otro; es una de las formas en que los programas se comunican entre sí."
+    },
+    {
+      "type": "single",
+      "question": "En el pseudocódigo:\n\nMOSTRAR \"¿Cuál es tu nombre?\"\nRECIBIR DEL USUARIO nombre\nCALCULAR saludo = \"Hola, \" + nombre + \"! Bienvenido.\"\nMOSTRAR saludo\n\n¿Cuál de estas líneas representa el Output final?",
+      "options": [
+        "MOSTRAR \"¿Cuál es tu nombre?\"",
+        "RECIBIR DEL USUARIO nombre",
+        "CALCULAR saludo = ...",
+        "MOSTRAR saludo"
+      ],
+      "correctIndexes": [3],
+      "explanation": "El Output final del algoritmo es el resultado que se muestra al terminar de procesar: en este caso, MOSTRAR saludo."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de las siguientes son posibles destinos de un Output? Selecciona 2 opciones.",
+      "options": ["La pantalla", "Un archivo guardado para usarlo después", "El teclado del usuario", "Un sensor de temperatura"],
+      "correctIndexes": [0, 1],
+      "explanation": "La pantalla y un archivo son destinos típicos de Output. El teclado y un sensor son fuentes de Input, no destinos de salida."
+    }
+  ]
+}

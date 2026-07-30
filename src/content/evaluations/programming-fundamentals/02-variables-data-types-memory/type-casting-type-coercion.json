@@ -1,0 +1,86 @@
+{
+  "topic": "programming-fundamentals/02-variables-data-types-memory/type-casting-type-coercion",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es el Type Casting?",
+      "options": [
+        "Cuando el lenguaje convierte tipos automáticamente sin que lo pidas",
+        "Cuando el programador convierte explícitamente un dato de un tipo a otro",
+        "Un error de tipo que detiene el programa",
+        "Un sinónimo de variable"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Type Casting es la conversión explícita: el programador decide conscientemente cómo convertir el dato antes de usarlo."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es la Type Coercion?",
+      "options": [
+        "Cuando el programador convierte manualmente un valor",
+        "Cuando el lenguaje convierte automáticamente los tipos, a veces de forma inesperada",
+        "Un tipo de dato primitivo",
+        "Una función matemática"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Type Coercion es la conversión implícita que hace el lenguaje por su cuenta, según sus propias reglas internas, a veces con resultados sorprendentes."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la diferencia principal entre comparación Estricta y comparación Laxa?",
+      "options": [
+        "La estricta compara tipo Y valor; la laxa convierte tipos antes de comparar",
+        "Son exactamente lo mismo",
+        "La laxa es más rápida en todos los casos",
+        "La estricta solo funciona con números"
+      ],
+      "correctIndexes": [0],
+      "explanation": "La comparación estricta exige mismo tipo y mismo valor. La comparación laxa primero intenta convertir los tipos, lo que puede producir resultados inesperados."
+    },
+    {
+      "type": "single",
+      "question": "Según el tema, ¿por qué se recomienda siempre preferir la comparación estricta?",
+      "options": [
+        "Porque es la única que existe en todos los lenguajes",
+        "Porque evita sorpresas al no convertir tipos automáticamente antes de comparar",
+        "Porque es más corta de escribir",
+        "No hay ninguna razón particular"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La comparación estricta es predecible: no convierte nada, así que el resultado siempre depende del tipo y valor reales, sin sorpresas."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR edadTexto = \"25\"\nDEFINIR edadNumero = CONVERTIR_A_NUMERO(edadTexto)\nCALCULAR resultado = edadNumero + 5\n\n¿Qué tipo de conversión es CONVERTIR_A_NUMERO en este ejemplo?",
+      "options": ["Type Coercion (implícita)", "Type Casting (explícita)", "Scope Leakage", "Short-circuit"],
+      "correctIndexes": [1],
+      "explanation": "CONVERTIR_A_NUMERO es una conversión explícita hecha a propósito por el programador: eso es Type Casting."
+    },
+    {
+      "type": "single",
+      "question": "Si un lenguaje con coerción implícita trata \"25\" + 5 como una concatenación de texto, ¿cuál sería el resultado más probable?",
+      "options": ["30", "\"255\"", "Error", "25"],
+      "correctIndexes": [1],
+      "explanation": "Con coerción hacia texto, \"25\" + 5 puede pegar los caracteres en vez de sumar matemáticamente, dando \"255\" en lugar del 30 esperado."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de las siguientes son formas de mitigar los problemas de la coerción implícita? Selecciona 2 opciones.",
+      "options": [
+        "Convertir los tipos explícitamente antes de operar",
+        "Usar siempre comparación laxa",
+        "Usar comparación estricta en vez de laxa",
+        "Ignorar los tipos de dato por completo"
+      ],
+      "correctIndexes": [0, 2],
+      "explanation": "Convertir explícitamente antes de operar y preferir la comparación estricta son las dos prácticas recomendadas para evitar sorpresas de la coerción."
+    },
+    {
+      "type": "single",
+      "question": "COMPARAR_ESTRICTA 25 CON \"25\" — según el tema, ¿cuál es el resultado?",
+      "options": ["Verdadero, porque el valor numérico es el mismo", "Falso, porque uno es número y el otro es texto", "Error de tipos", "Depende del lenguaje"],
+      "correctIndexes": [1],
+      "explanation": "La comparación estricta exige mismo tipo Y mismo valor. 25 es número y \"25\" es texto: tipos distintos, así que el resultado es Falso."
+    }
+  ]
+}

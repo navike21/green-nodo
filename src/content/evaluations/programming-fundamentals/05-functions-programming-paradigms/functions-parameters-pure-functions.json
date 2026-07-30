@@ -1,0 +1,96 @@
+{
+  "topic": "programming-fundamentals/05-functions-programming-paradigms/functions-parameters-pure-functions",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es un Parámetro en una función?",
+      "options": [
+        "El resultado que la función devuelve",
+        "Una variable local que recibe los datos de entrada al momento de la llamada",
+        "El nombre de la función",
+        "Un tipo de error"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Los Parámetros son las variables que reciben los valores de entrada cuando se llama a la función."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué define a una Función Pura?",
+      "options": [
+        "Que siempre produce el mismo resultado para los mismos argumentos, sin efectos secundarios",
+        "Que nunca recibe parámetros",
+        "Que siempre modifica variables globales",
+        "Que solo funciona con números"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Una Función Pura es determinista: siempre da el mismo resultado con la misma entrada, y no depende ni modifica nada externo a ella."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es un Efecto Secundario (Side Effect)?",
+      "options": [
+        "El valor que retorna una función",
+        "Cualquier cambio que una función hace fuera de sí misma, como modificar una variable global",
+        "Un tipo de parámetro obligatorio",
+        "Un error de sintaxis"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un Efecto Secundario es cuando una función altera algo fuera de su propio ámbito, como una variable global, haciendo su comportamiento menos predecible."
+    },
+    {
+      "type": "single",
+      "question": "FUNCIÓN calcularDescuento(precioBase, porcentaje)\n  CALCULAR ahorro = precioBase × (porcentaje ÷ 100)\n  RETORNAR precioBase - ahorro\nFIN FUNCIÓN\n\nMOSTRAR calcularDescuento(100, 20)\nMOSTRAR calcularDescuento(100, 20)\n\n¿Qué se muestra ambas veces?",
+      "options": ["80 y luego 80", "80 y luego 60", "100 y luego 80", "Valores distintos cada vez"],
+      "correctIndexes": [0],
+      "explanation": "Como es una función pura, con los mismos argumentos (100, 20) siempre da el mismo resultado: 80 las dos veces."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR totalGlobal = 0\nFUNCIÓN agregarAlTotal(valor)\n  MODIFICAR totalGlobal = totalGlobal + valor\n  RETORNAR totalGlobal\nFIN FUNCIÓN\nMOSTRAR agregarAlTotal(50)\nMOSTRAR agregarAlTotal(50)\n\n¿Por qué el segundo MOSTRAR no da el mismo resultado que el primero?",
+      "options": [
+        "Porque hay un error en el pseudocódigo",
+        "Porque la función tiene un efecto secundario: depende y modifica el estado global 'totalGlobal'",
+        "Porque 50 cambia de valor entre llamadas",
+        "Porque las funciones nunca pueden llamarse dos veces"
+      ],
+      "correctIndexes": [1],
+      "explanation": "agregarAlTotal no es pura: modifica una variable externa (totalGlobal), así que el resultado depende del estado acumulado, no solo del argumento."
+    },
+    {
+      "type": "single",
+      "question": "¿Por qué las funciones puras son más fáciles de probar (testing), según el tema?",
+      "options": [
+        "Porque nunca tienen errores",
+        "Porque siempre producen el mismo resultado y no dependen del estado global ni de factores externos",
+        "Porque no reciben parámetros",
+        "Porque son más cortas de escribir siempre"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Al ser deterministas y no depender de nada externo, es fácil predecir y verificar el resultado esperado de una función pura en una prueba."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es el Valor de Retorno (Return Value) de una función?",
+      "options": [
+        "El nombre que se le dio a la función",
+        "El resultado que la función devuelve al lugar que la llamó",
+        "Los parámetros que recibió",
+        "El número de líneas de su cuerpo"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Valor de Retorno es lo que la función entrega de vuelta al código que la invocó, mediante RETORNAR."
+    },
+    {
+      "type": "single",
+      "question": "¿Es correcto decir que mostrar algo en pantalla dentro de una función siempre es un error de diseño?",
+      "options": [
+        "Sí, ninguna función debería mostrar nada nunca",
+        "No, mostrar en pantalla o guardar en archivo son efectos secundarios necesarios; la idea es reconocerlos, no eliminarlos por completo",
+        "Sí, porque rompe la recursividad",
+        "No tiene relación con las funciones puras"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El tema aclara que no toda función con efectos secundarios es incorrecta: hay efectos necesarios (como mostrar resultados), la clave es ser consciente de cuáles son y no esconderlos en funciones que aparentan ser puras."
+    }
+  ]
+}

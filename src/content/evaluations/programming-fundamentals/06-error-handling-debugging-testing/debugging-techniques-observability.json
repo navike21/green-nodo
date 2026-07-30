@@ -1,0 +1,96 @@
+{
+  "topic": "programming-fundamentals/06-error-handling-debugging-testing/debugging-techniques-observability",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es un Breakpoint (Punto de Interrupción)?",
+      "options": [
+        "Un tipo de error de sintaxis",
+        "Una marca que pausa la ejecución del programa en esa línea específica para inspección",
+        "Un bucle que se repite indefinidamente",
+        "El final obligatorio de una función"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un Breakpoint pausa el programa exactamente en esa línea, permitiendo inspeccionar el estado de las variables en ese instante."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué diferencia a Step Over de Step Into?",
+      "options": [
+        "Step Over ejecuta la línea completa sin entrar en funciones llamadas; Step Into entra dentro de la función llamada",
+        "Son exactamente lo mismo",
+        "Step Into nunca se usa en debugging",
+        "Step Over solo funciona con bucles"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Step Over avanza sin entrar en el detalle de las funciones invocadas, mientras que Step Into se mete dentro de esa función para revisar paso a paso su ejecución."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué hace un Watcher durante el debugging?",
+      "options": [
+        "Elimina variables innecesarias",
+        "Monitorea el valor de una variable específica en tiempo real mientras el código avanza",
+        "Detiene el programa por completo",
+        "Convierte texto en números automáticamente"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un Watcher permite observar cómo cambia el valor de una variable puntual a medida que el programa avanza paso a paso."
+    },
+    {
+      "type": "multiple",
+      "question": "Según el proceso metódico de debugging del tema, ¿cuáles son pasos correctos? Selecciona 3 opciones.",
+      "options": [
+        "Reproducir el error de forma consistente",
+        "Formular una hipótesis de causa antes de investigar",
+        "Adivinar la solución sin evidencia y aplicarla directamente",
+        "Inspeccionar variables con un Breakpoint cerca del error"
+      ],
+      "correctIndexes": [0, 1, 3],
+      "explanation": "El proceso metódico incluye reproducir el error, formular una hipótesis, y luego inspeccionar variables con un Breakpoint; adivinar sin evidencia es justamente lo que se debe evitar."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué muestra el Call Stack Panel durante una sesión de debugging?",
+      "options": [
+        "Solo el valor de una variable",
+        "La cadena completa de llamadas activas en ese momento",
+        "Los errores de sintaxis del archivo",
+        "El historial de versiones del código"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Call Stack Panel muestra qué funciones están activas y en qué orden se llamaron, siguiendo el mismo Call Stack visto en la Fase 1."
+    },
+    {
+      "type": "single",
+      "question": "Si 'precio' llega como el texto \"100\" en vez del número 100 a una función que multiplica, ¿qué tipo de tema (visto en una fase anterior) podría explicar un resultado inesperado detectado con un Watcher?",
+      "options": ["Recursión", "Type Coercion", "Guard Clauses", "Pilas y Colas"],
+      "correctIndexes": [1],
+      "explanation": "Si el tipo de dato no es el esperado (texto en vez de número), la Type Coercion de la Fase 2 puede producir un resultado distinto al esperado en operaciones matemáticas."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es Step Out?",
+      "options": [
+        "Terminar la función actual y regresar al código que la llamó",
+        "Entrar en una nueva función",
+        "Detener el programa por completo",
+        "Reiniciar el debugger desde cero"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Step Out completa la ejecución de la función actual y regresa el control al código que la invocó."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la analogía usada en el tema para el proceso de Debugging?",
+      "options": [
+        "Un detective investigando una escena con metodología, no adivinando",
+        "Un chef preparando un plato",
+        "Una fila de casilleros numerados",
+        "Una guía telefónica"
+      ],
+      "correctIndexes": [0],
+      "explanation": "El tema compara al programador que depura con un detective: busca pistas y sigue un método, en vez de adivinar qué pasó."
+    }
+  ]
+}

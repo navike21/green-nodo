@@ -1,0 +1,81 @@
+{
+  "topic": "programming-fundamentals/06-error-handling-debugging-testing/proyecto-integrador",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué tipo de error era el bug original, antes de corregirlo, según el proceso de Debugging?",
+      "options": ["Error de Sintaxis", "Runtime Error (división entre cero durante la ejecución)", "Error de Lógica", "No era un error real"],
+      "correctIndexes": [1],
+      "explanation": "El código estaba bien escrito (sin errores de sintaxis), pero fallaba durante la ejecución al intentar dividir entre 0: eso es un Runtime Error."
+    },
+    {
+      "type": "single",
+      "question": "¿Por qué el proyecto recomienda depurar (Debugging) ANTES de corregir con Try/Catch?",
+      "options": [
+        "Porque el orden no importa en absoluto",
+        "Para entender la causa exacta del fallo antes de decidir cómo manejarlo, en vez de \"parchar\" a ciegas",
+        "Porque Try/Catch siempre debe escribirse al final del programa",
+        "Porque el Debugging reemplaza la necesidad de Try/Catch"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Entender primero la causa real (con Breakpoints/Watchers) evita agregar manejo de errores genérico que no ataca el problema específico reportado."
+    },
+    {
+      "type": "single",
+      "question": "En la solución, ¿dónde se coloca la Guard Clause que previene la división entre cero?",
+      "options": [
+        "Fuera de la función, antes de llamarla",
+        "Dentro del bloque INTENTAR, antes de ejecutar el bucle de divisiones",
+        "Dentro del bloque CAPTURAR",
+        "Después del RETORNAR resultados"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La Guard Clause 'SI divisor ES IGUAL A 0' está al inicio del bloque INTENTAR, deteniendo el proceso antes de intentar cualquier división real."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué retorna dividirLista([10, 20, 30], 0) después de la corrección?",
+      "options": ["Un error que detiene todo el programa", "NULO, junto con un mensaje capturado en pantalla", "[10, 20, 30] sin cambios", "0"],
+      "correctIndexes": [1],
+      "explanation": "El Try/Catch captura el error lanzado, muestra el mensaje y retorna NULO en vez de dejar que el programa colapse."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Por qué el proyecto incluye dos Test Cases distintos (camino feliz y edge case)? Selecciona 2 razones correctas.",
+      "options": [
+        "Para confirmar que el caso normal (dividir entre 2) sigue funcionando correctamente",
+        "Para confirmar específicamente que el bug reportado (dividir entre 0) ya no rompe el programa",
+        "Porque un Test Case siempre debe repetirse dos veces exactas",
+        "Para hacer el pseudocódigo más largo"
+      ],
+      "correctIndexes": [0, 1],
+      "explanation": "El camino feliz confirma que la corrección no rompió el comportamiento normal, y el Edge Case confirma específicamente que el bug original ya está resuelto."
+    },
+    {
+      "type": "single",
+      "question": "Si en el futuro alguien modifica dividirLista y sin querer vuelve a romper el caso de divisor = 0, ¿cómo se llama ese problema?",
+      "options": ["Un Edge Case nuevo", "Una Regresión", "Un Stack Overflow", "Un Scope Leakage"],
+      "correctIndexes": [1],
+      "explanation": "Cuando algo que ya funcionaba (gracias a la corrección) vuelve a romperse por un cambio posterior, eso es exactamente una Regresión — y el Test Case del Edge Case la detectaría de inmediato."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué temas de la Fase 6 combina este proyecto? Selecciona la opción correcta.",
+      "options": [
+        "Debugging, Try/Catch y Testing",
+        "Recursividad, Bucles y Sets",
+        "Closures, OOP y Funciones Puras",
+        "Big-O, Arrays y Tablas Hash"
+      ],
+      "correctIndexes": [0],
+      "explanation": "El proyecto integra los tres temas de la Fase 6: técnicas de depuración, manejo de excepciones (Try/Catch) y pensamiento de pruebas (Testing)."
+    },
+    {
+      "type": "single",
+      "question": "dividirLista([10, 20, 30], 2) — según el Test Case del camino feliz, ¿qué debería retornar?",
+      "options": ["[5, 10, 15]", "NULO", "[10, 20, 30]", "Un error"],
+      "correctIndexes": [0],
+      "explanation": "Cada número de la lista se divide entre 2: 10÷2=5, 20÷2=10, 30÷2=15, dando como resultado [5, 10, 15]."
+    }
+  ]
+}

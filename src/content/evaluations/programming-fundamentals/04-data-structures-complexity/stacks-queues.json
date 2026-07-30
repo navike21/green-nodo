@@ -1,0 +1,61 @@
+{
+  "topic": "programming-fundamentals/04-data-structures-complexity/stacks-queues",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué principio de orden sigue una Pila (Stack)?",
+      "options": ["FIFO: primero en entrar, primero en salir", "LIFO: último en entrar, primero en salir", "Orden aleatorio", "Orden alfabético"],
+      "correctIndexes": [1],
+      "explanation": "Una Pila sigue LIFO: el último elemento que entró es el primero que sale, como una torre de platos."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué principio de orden sigue una Cola (Queue)?",
+      "options": ["LIFO", "FIFO: primero en entrar, primero en salir", "Orden inverso al de inserción siempre", "No sigue ningún orden"],
+      "correctIndexes": [1],
+      "explanation": "Una Cola sigue FIFO: el primero que entra es el primero en salir, como una fila de supermercado."
+    },
+    {
+      "type": "single",
+      "question": "¿Cómo se llama la operación de agregar un elemento a una Pila?",
+      "options": ["Enqueue", "Push (Apilar)", "Dequeue", "Shift"],
+      "correctIndexes": [1],
+      "explanation": "Push (Apilar) agrega un elemento en la cima de la Pila."
+    },
+    {
+      "type": "single",
+      "question": "¿Cómo se llama la operación de quitar un elemento de una Cola?",
+      "options": ["Pop", "Push", "Dequeue (Desencolar)", "Apilar"],
+      "correctIndexes": [2],
+      "explanation": "Dequeue (Desencolar) elimina y retorna el elemento del frente de la Cola."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR historial = PILA_VACIA\nAPILAR historial \"google.com\"\nAPILAR historial \"gmail.com\"\nAPILAR historial \"youtube.com\"\nDESAPILAR historial\n\n¿Qué retorna DESAPILAR en este caso?",
+      "options": ["\"google.com\"", "\"gmail.com\"", "\"youtube.com\"", "Ninguno, la pila está vacía"],
+      "correctIndexes": [2],
+      "explanation": "DESAPILAR sigue LIFO: retorna el último elemento agregado, que fue \"youtube.com\"."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR pedidos = COLA_VACIA\nENCOLAR pedidos \"Mesa 1\"\nENCOLAR pedidos \"Mesa 2\"\nDESENCOLAR pedidos\n\n¿Qué retorna DESENCOLAR en este caso?",
+      "options": ["\"Mesa 2\"", "\"Mesa 1\"", "Ambos a la vez", "Ninguno"],
+      "correctIndexes": [1],
+      "explanation": "DESENCOLAR sigue FIFO: retorna el primer elemento que entró, que fue \"Mesa 1\"."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de los siguientes son casos de uso reales de una Pila (Stack) mencionados en el tema? Selecciona 2 opciones.",
+      "options": ["Historial de navegación del navegador", "Cola de impresión de documentos", "Función deshacer (Ctrl+Z)", "Procesamiento de mensajes en orden de llegada"],
+      "correctIndexes": [0, 2],
+      "explanation": "El historial de navegación y Ctrl+Z son ejemplos de Pila (LIFO). La cola de impresión y el procesamiento en orden de llegada son ejemplos de Cola (FIFO)."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué estructura de datos ya estudiada en una fase anterior del curso funciona internamente como una Pila (Stack)?",
+      "options": ["El Heap", "El Call Stack", "La Tabla Hash", "El Array"],
+      "correctIndexes": [1],
+      "explanation": "El Call Stack, visto en la Fase 1, es literalmente una Pila: la última función llamada es la primera en terminar y salir (LIFO)."
+    }
+  ]
+}

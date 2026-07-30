@@ -1,0 +1,81 @@
+{
+  "topic": "programming-fundamentals/04-data-structures-complexity/hash-tables-objects-dictionaries",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué almacena una Tabla Hash?",
+      "options": ["Solo números en orden", "Pares de Clave-Valor", "Solo texto sin estructura", "Únicamente booleanos"],
+      "correctIndexes": [1],
+      "explanation": "Una Tabla Hash guarda pares Clave-Valor: cada clave única apunta a un valor asociado."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la complejidad promedio de buscar un valor por su clave en una Tabla Hash?",
+      "options": ["O(1)", "O(n)", "O(n²)", "O(n log n)"],
+      "correctIndexes": [0],
+      "explanation": "La búsqueda por clave en una Tabla Hash es O(1) en promedio, independientemente del tamaño de la colección."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué convierte la Función Hash?",
+      "options": [
+        "La clave en una posición de memoria",
+        "El valor en texto",
+        "Un array en un objeto",
+        "Un número en una lista"
+      ],
+      "correctIndexes": [0],
+      "explanation": "La Función Hash es el algoritmo interno que transforma la clave en una posición de memoria donde buscar o guardar el valor."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuándo conviene usar una Tabla Hash en vez de un Array?",
+      "options": [
+        "Cuando el orden numérico de posición importa más que todo",
+        "Cuando accedes por un nombre/identificador y la búsqueda rápida es prioritaria",
+        "Nunca, los Arrays siempre son mejores",
+        "Solo cuando hay menos de 3 elementos"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Las Tablas Hash brillan cuando necesitas buscar por un identificador (como un nombre de producto) en vez de por una posición numérica."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR inventario = {\n  \"laptop\": { precio: 999, cantidad: 15 }\n}\nMOSTRAR inventario[\"laptop\"].precio\n\n¿Qué se muestra?",
+      "options": ["15", "999", "\"laptop\"", "undefined"],
+      "correctIndexes": [1],
+      "explanation": "Se accede a la clave \"laptop\" y luego a su propiedad 'precio', que vale 999."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles son los componentes de una Tabla Hash mencionados en el tema? Selecciona 3 opciones.",
+      "options": ["Clave (Key)", "Valor (Value)", "Función Hash", "Índice numérico obligatorio"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "Los tres componentes son Clave, Valor y la Función Hash que las conecta. Un índice numérico obligatorio no es parte de una Tabla Hash (esa es la característica de un Array)."
+    },
+    {
+      "type": "single",
+      "question": "¿Cómo se le llama a una Tabla Hash en distintos lenguajes, según el tema?",
+      "options": [
+        "Solo 'Hash Table', no tiene otros nombres",
+        "También Object, Dictionary o Map según el lenguaje",
+        "Array asociativo numérico",
+        "Stack Frame"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La misma idea de clave-valor con búsqueda casi instantánea aparece bajo distintos nombres: Hash Table, Object, Dictionary o Map."
+    },
+    {
+      "type": "single",
+      "question": "SI \"monitor\" EXISTE EN inventario ENTONCES\n  MOSTRAR inventario[\"monitor\"]\nSI NO\n  MOSTRAR \"Producto no encontrado\"\nFIN SI\n\n¿Qué comprueba esta estructura antes de acceder a la clave?",
+      "options": [
+        "Si el inventario está vacío",
+        "Si la clave \"monitor\" existe en la tabla hash antes de intentar leerla",
+        "Si \"monitor\" es un número",
+        "Nada en particular"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Verificar si una clave existe antes de acceder a ella evita errores al intentar leer un producto que no está en el inventario."
+    }
+  ]
+}

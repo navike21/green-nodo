@@ -1,0 +1,96 @@
+{
+  "topic": "programming-fundamentals/05-functions-programming-paradigms/closures-lexical-scope",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es un Closure (Cierre)?",
+      "options": [
+        "Un tipo de bucle infinito",
+        "Cuando una función interna conserva acceso a las variables de su función contenedora, incluso después de que esta termine",
+        "Un error común de sintaxis",
+        "Un sinónimo de Guard Clause"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un Closure ocurre cuando una función 'recuerda' el entorno donde fue creada, manteniendo acceso a esas variables aunque la función externa ya haya terminado."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué determina el Ámbito Léxico (Lexical Scope) de una función?",
+      "options": [
+        "Desde dónde se llama a la función",
+        "Dónde fue escrita la función en el código, no desde dónde se invoca",
+        "El nombre de la función",
+        "El número de parámetros que recibe"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Ámbito Léxico depende de dónde está escrita la función en el código fuente, no de desde qué parte del programa se llame."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Para qué son útiles los Closures, según el tema? Selecciona 2 opciones.",
+      "options": ["Encapsulación de variables privadas", "Estado persistente entre llamadas sin variables globales", "Hacer que un programa sea más lento", "Eliminar la necesidad de funciones"],
+      "correctIndexes": [0, 1],
+      "explanation": "Los Closures permiten encapsular estado privado y mantenerlo persistente entre llamadas, sin necesidad de variables globales."
+    },
+    {
+      "type": "single",
+      "question": "FUNCIÓN crearContadorPersonal(nombreUsuario)\n  DEFINIR contador = 0\n  RETORNAR { FUNCIÓN incrementar() ... }\nFIN FUNCIÓN\n\n¿Por qué 'contador' sigue existiendo después de que crearContadorPersonal termina de ejecutarse?",
+      "options": [
+        "Porque contador es una variable global",
+        "Porque la función interna 'incrementar' forma un Closure que conserva acceso a 'contador'",
+        "Porque contador se convierte automáticamente en una constante",
+        "En realidad no sigue existiendo, se pierde"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Aunque crearContadorPersonal ya terminó, la función 'incrementar' que retorna sigue 'recordando' el entorno donde fue creada gracias al Closure."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR contadorAna = crearContadorPersonal(\"Ana\")\nDEFINIR contadorJuan = crearContadorPersonal(\"Juan\")\nLLAMAR contadorAna.incrementar()\nLLAMAR contadorAna.incrementar()\nLLAMAR contadorJuan.incrementar()\n\n¿Por qué el contador de Juan no se ve afectado por los incrementos de Ana?",
+      "options": [
+        "Porque cada llamada a crearContadorPersonal genera su propio Closure con su propia variable 'contador' independiente",
+        "Porque Juan y Ana comparten la misma variable contador",
+        "Es un error, deberían compartir el mismo contador",
+        "Porque los nombres son diferentes"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Cada llamada a la Factory Function crea un nuevo closure con su propia copia de 'contador', totalmente independiente de las demás instancias."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es una Factory Function en el contexto de Closures?",
+      "options": [
+        "Una función que solo puede llamarse una vez",
+        "Una función que crea y retorna múltiples instancias independientes, cada una con su propio estado",
+        "Un tipo de error de fábrica",
+        "Una función sin parámetros"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Una Factory Function usa Closures para producir varias instancias, cada una con su propio estado privado encapsulado."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la analogía usada en el tema para explicar el Closure?",
+      "options": [
+        "Una torre de platos sucios",
+        "Una copia de la llave de la caja fuerte que te llevas a tu nuevo departamento",
+        "Una fila de casilleros numerados",
+        "Una guía telefónica"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La analogía de la llave de la caja fuerte ilustra cómo la función interna se lleva acceso a las variables del entorno donde fue creada, aunque ese entorno ya haya 'cerrado'."
+    },
+    {
+      "type": "single",
+      "question": "¿Se puede acceder a la variable 'contador' directamente desde fuera de crearContadorPersonal?",
+      "options": [
+        "Sí, siempre es una variable global",
+        "No, está encapsulada dentro del closure y solo es accesible a través de las funciones que la usan (como incrementar)",
+        "Solo si se declara con MOSTRAR",
+        "Sí, pero solo los fines de semana"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Closure encapsula 'contador': queda privada, y solo es accesible indirectamente a través de las funciones retornadas que sí tienen acceso a ella."
+    }
+  ]
+}

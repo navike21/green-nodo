@@ -1,0 +1,81 @@
+{
+  "topic": "programming-fundamentals/04-data-structures-complexity/proyecto-integrador",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Por qué el Set es suficiente para obtener la lista de productos únicos en una sola pasada?",
+      "options": [
+        "Porque el Set ordena los elementos alfabéticamente",
+        "Porque el Set descarta automáticamente los duplicados al agregar, en O(1) por elemento",
+        "Porque el Set es en realidad un Array disfrazado",
+        "Porque el Set cuenta cuántas veces se repite cada elemento"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Set simplemente ignora los duplicados cuando intentas agregar un valor que ya existe, y esa verificación es O(1) en promedio, no O(n)."
+    },
+    {
+      "type": "single",
+      "question": "¿Por qué se usa una Tabla Hash y no un Set para contar las repeticiones de cada producto?",
+      "options": [
+        "Porque una Tabla Hash guarda un valor asociado a cada clave (el conteo), y un Set solo guarda si existe o no",
+        "Porque las Tablas Hash son más lentas que los Sets",
+        "No hay ninguna diferencia real entre ambos para este caso",
+        "Porque los Sets no pueden usarse con texto"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Un Set solo responde \"¿existe?\". Para llevar un conteo (un valor numérico por cada clave), se necesita una Tabla Hash de pares clave-valor."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál sería la complejidad de la alternativa de \"fuerza bruta\" que compara cada producto contra todos los demás?",
+      "options": ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+      "correctIndexes": [2],
+      "explanation": "Comparar cada elemento contra todos los demás implica un bucle anidado dentro de otro bucle sobre la misma colección: eso es O(n²)."
+    },
+    {
+      "type": "single",
+      "question": "Con 6 productos, ¿aproximadamente cuántas comparaciones haría el enfoque de fuerza bruta O(n²)?",
+      "options": ["6", "12", "36", "216"],
+      "correctIndexes": [2],
+      "explanation": "O(n²) con n = 6 es aproximadamente 6 × 6 = 36 comparaciones en el peor caso."
+    },
+    {
+      "type": "single",
+      "question": "Según la solución, ¿cuántas veces se recorre el array 'pedidos' para resolver ambas partes del desafío (únicos + conteo)?",
+      "options": ["Una sola vez para cada parte, dos pasadas O(n) en total", "Una vez por cada producto distinto, O(n²) en total", "Nunca, se calcula sin recorrerlo", "Se recorre de forma recursiva infinita"],
+      "correctIndexes": [0],
+      "explanation": "Se hace una pasada O(n) para llenar el Set y otra pasada O(n) para llenar la Tabla Hash: ambas son lineales, muy lejos del O(n²) de la fuerza bruta."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Qué temas de la Fase 4 combina este proyecto? Selecciona 3 opciones.",
+      "options": ["Notación Big-O", "Sets", "Tablas Hash", "Pilas y Colas"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "El proyecto combina Big-O para justificar la elección, Sets para los productos únicos y Tablas Hash para el conteo. Pilas y Colas no participan en este desafío."
+    },
+    {
+      "type": "single",
+      "question": "Según la solución, MOSTRAR conteo para el array de ejemplo, ¿qué debería mostrar?",
+      "options": [
+        "{ \"Laptop\": 3, \"Mouse\": 2, \"Teclado\": 1 }",
+        "{ \"Laptop\": 1, \"Mouse\": 1, \"Teclado\": 1 }",
+        "[\"Laptop\", \"Mouse\", \"Teclado\"]",
+        "{ \"Laptop\": 6 }"
+      ],
+      "correctIndexes": [0],
+      "explanation": "\"Laptop\" aparece 3 veces, \"Mouse\" 2 veces y \"Teclado\" 1 vez en el array de pedidos de ejemplo."
+    },
+    {
+      "type": "single",
+      "question": "¿Por qué el tema de Big-O se enseñó antes que Arrays, Sets y Tablas Hash en esta fase, según la explicación del proyecto?",
+      "options": [
+        "Por casualidad, no hay una razón real",
+        "Para dar el vocabulario necesario y poder justificar por qué una estructura es mejor que otra para un problema concreto",
+        "Porque Big-O es más fácil que las estructuras de datos",
+        "Porque las estructuras de datos ya no se necesitan después de aprender Big-O"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Conocer Big-O primero permite entender y justificar, con vocabulario preciso, por qué elegir un Set o una Tabla Hash es mejor que una solución de fuerza bruta."
+    }
+  ]
+}

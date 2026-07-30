@@ -1,0 +1,81 @@
+{
+  "topic": "programming-fundamentals/03-control-flow-recursion/conditional-branching-guard-clauses",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Cuándo conviene usar SEGÚN/CASO (Switch/Case) en vez de encadenar varios SI/SI NO?",
+      "options": [
+        "Cuando una misma variable puede tomar muchos valores distintos, cada uno con una acción diferente",
+        "Solo cuando hay exactamente dos opciones",
+        "Nunca, SI/SI NO siempre es mejor",
+        "Solo para trabajar con números negativos"
+      ],
+      "correctIndexes": [0],
+      "explanation": "SEGÚN/CASO es más limpio que encadenar muchos SI/SI NO cuando una variable puede tomar múltiples valores posibles, cada uno con su propia acción."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la regla de oro del operador ternario según el tema?",
+      "options": [
+        "Usarlo siempre en vez de SI/SI NO",
+        "Usarlo solo para decisiones de una línea; si la lógica es compleja, usar SI/SI NO",
+        "Nunca usarlo",
+        "Solo funciona con números"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El operador ternario es un atajo para decisiones simples de una línea. Si la lógica se complica, es más legible volver a SI/SI NO."
+    },
+    {
+      "type": "single",
+      "question": "¿Cómo se llama el problema de anidar un SI dentro de otro SI dentro de otro SI?",
+      "options": ["Guard Clause", "Pirámide de la Muerte", "Short-circuit", "Recursión"],
+      "correctIndexes": [1],
+      "explanation": "Anidar condicionales de forma excesiva se conoce como 'Pirámide de la Muerte', y hace el código difícil de leer y mantener."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la idea central de una Guard Clause frente a la Pirámide de la Muerte?",
+      "options": [
+        "Anidar aún más condiciones para cubrir todos los casos",
+        "Validar y salir (Early Return) de inmediato si algo falla, dejando el resto del código plano",
+        "Eliminar todas las validaciones",
+        "Usar solo bucles en vez de condicionales"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Las Guard Clauses salen de inmediato (Early Return) cuando algo no es válido, evitando anidar el resto del proceso dentro de más condiciones."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR diaDeSemana = 3\nSEGÚN diaDeSemana HACER\n  CASO 1: MOSTRAR \"Lunes\"\n  CASO 2: MOSTRAR \"Martes\"\n  CASO 3: MOSTRAR \"Miércoles\"\n  POR DEFECTO: MOSTRAR \"Inválido\"\nFIN SEGÚN\n\n¿Qué se muestra?",
+      "options": ["\"Lunes\"", "\"Martes\"", "\"Miércoles\"", "\"Inválido\""],
+      "correctIndexes": [2],
+      "explanation": "diaDeSemana vale 3, así que se activa el CASO 3 y se muestra \"Miércoles\"."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR esClienteVIP = FALSO\nDEFINIR precioBase = 100\nDEFINIR precioFinal = esClienteVIP ? precioBase × 0.7 : precioBase\nMOSTRAR precioFinal\n\n¿Qué se muestra?",
+      "options": ["70", "100", "30", "0"],
+      "correctIndexes": [1],
+      "explanation": "Como esClienteVIP es Falso, el ternario toma la rama después de los dos puntos: precioBase sin descuento, es decir 100."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de las siguientes son formas válidas de bifurcación condicional mencionadas en el tema? Selecciona 3 opciones.",
+      "options": ["SI / SI NO", "SEGÚN / CASO", "Operador ternario", "PARA / MIENTRAS"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "SI/SI NO, SEGÚN/CASO y el operador ternario son las tres formas de bifurcación condicional vistas. PARA/MIENTRAS son bucles, no condicionales."
+    },
+    {
+      "type": "single",
+      "question": "En una función con 4 Guard Clauses seguidas al inicio (usuario nulo, cuenta inactiva, monto inválido, saldo insuficiente), si el usuario es válido pero el monto es inválido, ¿qué Guard Clause detiene la ejecución?",
+      "options": [
+        "La de usuario nulo",
+        "La de cuenta inactiva",
+        "La de monto inválido",
+        "Ninguna, el proceso principal se ejecuta igual"
+      ],
+      "correctIndexes": [2],
+      "explanation": "Las Guard Clauses se evalúan en orden; como el usuario y la cuenta pasan, mientras que el monto es inválido, esa es la que detiene la ejecución con su propio mensaje de error."
+    }
+  ]
+}

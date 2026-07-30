@@ -1,0 +1,37 @@
+{
+  "name": "Fundamentos de programación",
+  "description": "Desarrollo de software (0 a intermedio)",
+  "category": "fundamentos",
+  "phases": [
+    {
+      "id": "ALGORITHMIC_THINKING",
+      "name": "Pensamiento algorítmico y modelo mental de la computadora",
+      "slug": "algorithmic-thinking"
+    },
+    {
+      "id": "VARIABLES_DATA_TYPES_MEMORY",
+      "name": "Variables, tipos de datos y asignación de memoria",
+      "slug": "variables-data-types-memory"
+    },
+    {
+      "id": "CONTROL_FLOW_RECURSION",
+      "name": "Flujo de control y recursión",
+      "slug": "control-flow-recursion"
+    },
+    {
+      "id": "FUNDAMENTAL_DATA_STRUCTURES",
+      "name": "Complejidad algorítmica y estructuras de datos fundamentales",
+      "slug": "data-structures-complexity"
+    },
+    {
+      "id": "FUNCTIONS_PROGRAMMING_PARADIGMS",
+      "name": "Funciones y paradigmas de programación",
+      "slug": "functions-programming-paradigms"
+    },
+    {
+      "id": "ERROR_HANDLING_DEBUGGING_TESTING",
+      "name": "Manejo de errores, depuración y testing básico",
+      "slug": "error-handling-debugging-testing"
+    }
+  ]
+}

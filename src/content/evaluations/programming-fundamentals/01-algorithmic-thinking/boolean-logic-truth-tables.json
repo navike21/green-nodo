@@ -1,0 +1,91 @@
+{
+  "topic": "programming-fundamentals/01-algorithmic-thinking/boolean-logic-truth-tables",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Cuándo es verdadero el resultado de A AND B?",
+      "options": [
+        "Cuando al menos una de las dos es verdadera",
+        "Solo cuando AMBAS son verdaderas",
+        "Siempre, sin importar los valores",
+        "Cuando ambas son falsas"
+      ],
+      "correctIndexes": [1],
+      "explanation": "AND ('Y') solo es verdadero cuando las dos condiciones se cumplen al mismo tiempo, como la alarma que suena solo si la puerta Y la ventana están abiertas a la vez."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuándo es verdadero el resultado de A OR B?",
+      "options": [
+        "Solo cuando ambas son verdaderas",
+        "Cuando al menos una de las dos es verdadera",
+        "Nunca",
+        "Solo cuando ambas son falsas"
+      ],
+      "correctIndexes": [1],
+      "explanation": "OR ('O') es verdadero con que se cumpla al menos una de las dos condiciones, como la alarma que suena si se abre la puerta O la ventana."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué hace el operador NOT sobre un valor booleano?",
+      "options": [
+        "Lo deja igual",
+        "Lo invierte: si era Verdadero lo vuelve Falso, y viceversa",
+        "Lo convierte siempre en Verdadero",
+        "Lo elimina"
+      ],
+      "correctIndexes": [1],
+      "explanation": "NOT simplemente invierte el valor: Verdadero pasa a Falso y Falso pasa a Verdadero."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuándo es verdadero un XOR (O Exclusivo) entre A y B?",
+      "options": [
+        "Cuando ambas son verdaderas o ambas son falsas",
+        "Solo cuando exactamente UNA de las dos es verdadera, pero no ambas",
+        "Siempre que A sea verdadera",
+        "Nunca es verdadero"
+      ],
+      "correctIndexes": [1],
+      "explanation": "XOR es verdadero únicamente cuando una de las dos condiciones es verdadera y la otra es falsa; si ambas son verdaderas (o ambas falsas), el resultado es Falso."
+    },
+    {
+      "type": "single",
+      "question": "En 'SI edad >= 18 Y tieneMembresia ES VERDADERO', si edad = 15, ¿qué pasa con la evaluación de tieneMembresia por Short-circuit?",
+      "options": [
+        "Se evalúa igual, sin importar el resultado de la primera condición",
+        "Ni siquiera se revisa, porque el AND ya sabe que el resultado será Falso",
+        "Se evalúa dos veces por seguridad",
+        "Lanza un error"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Con AND, si la primera condición ya es Falsa, el programa no necesita revisar la segunda: el resultado ya está determinado. Eso es el Short-circuit."
+    },
+    {
+      "type": "multiple",
+      "question": "Según la Ley de De Morgan, la negación de (A Y B) es equivalente a: selecciona las 2 partes correctas de esa equivalencia.",
+      "options": [
+        "(NO A)",
+        "(A Y B) sin cambios",
+        "O",
+        "(NO B)"
+      ],
+      "correctIndexes": [0, 2, 3],
+      "explanation": "La negación de (A Y B) es igual a (NO A) O (NO B): se niega cada parte y el Y se convierte en O."
+    },
+    {
+      "type": "single",
+      "question": "En la mayoría de lenguajes, ¿cuál de los siguientes valores NO se suele tratar automáticamente como Falso?",
+      "options": ["El número 0", "Un texto vacío \"\"", "El número 1", "Un valor nulo"],
+      "correctIndexes": [2],
+      "explanation": "0, el texto vacío y null suelen comportarse como Falso de forma implícita. El número 1 (o cualquier valor distinto de cero) se comporta como Verdadero."
+    },
+    {
+      "type": "single",
+      "question": "Con A = Falso y B = Verdadero, ¿cuál es el resultado de A OR B según la tabla de verdad?",
+      "options": ["Verdadero", "Falso", "No se puede determinar", "Depende del lenguaje"],
+      "correctIndexes": [0],
+      "explanation": "OR es verdadero si al menos una de las dos condiciones lo es. Aquí B es Verdadero, así que el resultado completo es Verdadero."
+    }
+  ]
+}

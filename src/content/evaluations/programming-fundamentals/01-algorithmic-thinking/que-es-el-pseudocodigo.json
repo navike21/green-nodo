@@ -1,0 +1,86 @@
+{
+  "topic": "programming-fundamentals/01-algorithmic-thinking/que-es-el-pseudocodigo",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es el Pseudocódigo?",
+      "options": [
+        "Un lenguaje de programación real, como Python o JavaScript",
+        "Una forma de escribir los pasos de una solución en un lenguaje simple, sin la sintaxis de ningún lenguaje real",
+        "Un tipo de error de programación",
+        "Un programa que traduce código automáticamente"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Pseudocódigo es una herramienta de pensamiento: describe la lógica de una solución en palabras simples, sin atarse a la sintaxis exacta de ningún lenguaje de programación real."
+    },
+    {
+      "type": "single",
+      "question": "¿Puede una computadora ejecutar pseudocódigo directamente?",
+      "options": [
+        "Sí, todas las computadoras lo entienden de forma nativa",
+        "No, el pseudocódigo no es un lenguaje real; primero hay que traducirlo a un lenguaje de programación",
+        "Solo algunas computadoras muy modernas pueden hacerlo",
+        "Sí, pero solo los fines de semana"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El pseudocódigo es solo para que los humanos piensen y comuniquen la lógica; una computadora necesita un lenguaje de programación real para ejecutar algo."
+    },
+    {
+      "type": "single",
+      "question": "¿Por qué el curso empieza con pseudocódigo en vez de un lenguaje de programación real?",
+      "options": [
+        "Porque los lenguajes reales ya no se usan",
+        "Para separar el problema de entender el concepto del problema de memorizar la sintaxis de un lenguaje específico",
+        "Porque el pseudocódigo es más rápido de ejecutar",
+        "No hay ninguna razón particular"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Aprender un concepto y la sintaxis de un lenguaje real al mismo tiempo es más difícil. El pseudocódigo permite enfocarse primero en la lógica."
+    },
+    {
+      "type": "single",
+      "question": "¿Existe una única sintaxis 'oficial' y obligatoria para escribir pseudocódigo?",
+      "options": [
+        "Sí, y está definida por un organismo internacional",
+        "No, varía de persona a persona; lo importante es que se entienda claramente",
+        "Sí, es idéntica a la sintaxis de Python",
+        "No, cada computadora exige su propia versión"
+      ],
+      "correctIndexes": [1],
+      "explanation": "No hay una sintaxis única y oficial de pseudocódigo. Lo que importa es la claridad: que cualquiera que lo lea entienda qué hace cada paso."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de las siguientes son palabras clave de pseudocódigo que se usarán en este curso? Selecciona 3 opciones.",
+      "options": ["DEFINIR", "MIENTRAS", "FUNCIÓN", "console.log"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "DEFINIR, MIENTRAS y FUNCIÓN son palabras clave del pseudocódigo de este curso. 'console.log' es sintaxis específica de JavaScript, un lenguaje real."
+    },
+    {
+      "type": "single",
+      "question": "DEFINIR edad = 15\nSI edad >= 18 ENTONCES\n  MOSTRAR \"Mayor de edad\"\nSI NO\n  MOSTRAR \"Menor de edad\"\nFIN SI\n\n¿Qué se muestra?",
+      "options": ["\"Mayor de edad\"", "\"Menor de edad\"", "Nada", "Un error"],
+      "correctIndexes": [1],
+      "explanation": "Como edad (15) no es mayor o igual a 18, la condición es Falsa, así que se ejecuta la rama SI NO, mostrando \"Menor de edad\"."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué palabra clave del pseudocódigo de este curso se usa para pedir un dato de entrada al usuario?",
+      "options": ["MOSTRAR", "RECIBIR (DEL USUARIO)", "DEFINIR", "FIN"],
+      "correctIndexes": [1],
+      "explanation": "RECIBIR (DEL USUARIO) es la palabra clave usada para pedir un dato de entrada, como viste también en el ejemplo de Input/Output."
+    },
+    {
+      "type": "single",
+      "question": "Según la analogía del tema, ¿qué representa la receta de cocina escrita a mano por la abuela?",
+      "options": [
+        "El código final ya compilado y listo para ejecutar",
+        "El pseudocódigo: los pasos en lenguaje simple, antes de traducirlos a una técnica exacta",
+        "Un error de programación",
+        "El nombre de un lenguaje de programación real"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La receta casera, escrita en palabras simples y sin técnicas exactas, representa el pseudocódigo: la lógica de la solución antes de traducirla a la sintaxis de un lenguaje real."
+    }
+  ]
+}

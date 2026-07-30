@@ -1,0 +1,91 @@
+{
+  "topic": "programming-fundamentals/05-functions-programming-paradigms/proyecto-integrador",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Por qué aplicarDescuento(precio, porcentaje) se considera una función pura?",
+      "options": [
+        "Porque nunca se usa dentro de otras estructuras",
+        "Porque siempre da el mismo resultado para los mismos argumentos y no depende de nada externo",
+        "Porque está escrita dentro de una Clase",
+        "Porque usa un Closure internamente"
+      ],
+      "correctIndexes": [1],
+      "explanation": "aplicarDescuento no depende de variables externas ni las modifica: con el mismo precio y porcentaje, siempre da el mismo resultado."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué problema resuelve el Closure crearContadorDeDescuentos, que la función pura no resuelve?",
+      "options": [
+        "Calcular el precio con descuento",
+        "Recordar y acumular cuántas veces se usó algo, sin depender de una variable global",
+        "Agrupar datos y comportamiento en una unidad",
+        "Transformar una colección completa"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Closure mantiene un estado ('usos') que persiste entre llamadas, sin necesitar una variable global: eso es justamente lo que una función pura, por definición, no puede hacer (una función pura no debería tener estado propio que cambie)."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué agrupa la Clase Producto que la función pura por sí sola no agrupa?",
+      "options": [
+        "Nada distinto, son exactamente equivalentes",
+        "El dato (precio) junto con el comportamiento (aplicarDescuento) en una sola unidad reutilizable",
+        "Solo el comportamiento, sin datos",
+        "Un Closure oculto"
+      ],
+      "correctIndexes": [1],
+      "explanation": "La Clase combina datos y comportamiento: cada instancia de Producto sabe calcular su propio descuento usando su propio precio."
+    },
+    {
+      "type": "single",
+      "question": "En el pipeline funcional, ¿por qué se usa FILTRAR(activo) antes de TRANSFORMAR y REDUCIR?",
+      "options": [
+        "Para ordenar los productos alfabéticamente",
+        "Para descartar primero los productos inactivos, y no calcular descuentos sobre productos que no deberían contar",
+        "Porque FILTRAR siempre debe ir primero sin razón específica",
+        "Para convertir los productos en texto"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Filtrar primero asegura que solo los productos activos pasen a las siguientes etapas del pipeline, evitando calcular descuentos sobre productos que no deben incluirse."
+    },
+    {
+      "type": "single",
+      "question": "Para los productos del ejemplo (Laptop $1000 activa, Cable $5 inactivo, Mouse $25 activo), ¿cuál es el total con 15% de descuento que retorna el pipeline?",
+      "options": ["1030 × 0.85", "871.25", "1025", "5"],
+      "correctIndexes": [1],
+      "explanation": "Solo Laptop y Mouse están activos. Con 15% de descuento: Laptop = 850, Mouse = 21.25. Total = 850 + 21.25 = 871.25."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Qué temas de la Fase 5 combina este proyecto? Selecciona 4 opciones.",
+      "options": ["Funciones puras", "Closures", "Paradigma OOP", "Paradigma Funcional"],
+      "correctIndexes": [0, 1, 2, 3],
+      "explanation": "El proyecto integra explícitamente los cuatro temas de la fase: función pura, closure, clase (OOP) y pipeline (Funcional)."
+    },
+    {
+      "type": "single",
+      "question": "Según la explicación de la solución, ¿por qué la misma función aplicarDescuento se puede reutilizar dentro del método de la Clase y dentro del TRANSFORMAR del pipeline?",
+      "options": [
+        "Porque una función pura bien escrita no tiene sorpresas y se comporta igual en cualquier contexto donde se use",
+        "Porque las funciones puras solo funcionan una vez",
+        "Porque el pipeline convierte automáticamente cualquier función en pura",
+        "Es una coincidencia sin explicación"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Justamente por ser pura y no depender de contexto externo, aplicarDescuento se comporta de forma consistente sin importar desde dónde se llame."
+    },
+    {
+      "type": "single",
+      "question": "Si en vez de un Closure se hubiera usado una variable global 'usosGlobales' para contar los descuentos, ¿qué problema típico de la Fase 2 podría reaparecer?",
+      "options": [
+        "Scope Leakage y el riesgo de que cualquier parte del código modifique 'usosGlobales' por accidente",
+        "Ningún problema, sería exactamente igual de seguro",
+        "Un Stack Overflow inmediato",
+        "Que el número se convierta en texto"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Una variable global es accesible (y modificable) desde cualquier parte del programa, lo que la hace más propensa a mutaciones accidentales que el estado privado y encapsulado de un Closure."
+    }
+  ]
+}

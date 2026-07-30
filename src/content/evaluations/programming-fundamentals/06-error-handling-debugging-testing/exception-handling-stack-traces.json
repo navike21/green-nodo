@@ -1,0 +1,91 @@
+{
+  "topic": "programming-fundamentals/06-error-handling-debugging-testing/exception-handling-stack-traces",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es un Error de Sintaxis (Syntax Error)?",
+      "options": [
+        "El código está bien escrito pero produce resultados incorrectos",
+        "El código está mal escrito y el programa ni puede iniciarse",
+        "Un error que solo ocurre al dividir entre cero",
+        "Un error que se resuelve automáticamente"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un Error de Sintaxis es como una falta de ortografía tan grave que impide entender la oración: el programa no puede ni comenzar a ejecutarse."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es un Error de Ejecución (Runtime Error)?",
+      "options": [
+        "El código está bien escrito pero algo falla durante la ejecución, como dividir entre cero",
+        "Un error que impide que el programa inicie",
+        "Un error de estilo de código",
+        "Un tipo de bucle infinito"
+      ],
+      "correctIndexes": [0],
+      "explanation": "El Runtime Error ocurre cuando el código es sintácticamente correcto pero algo falla mientras se ejecuta, como acceder a una variable inexistente."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es el tipo de error más difícil de detectar, según el tema?",
+      "options": ["Error de Sintaxis", "Error de Ejecución", "Error de Lógica", "Todos son igual de fáciles"],
+      "correctIndexes": [2],
+      "explanation": "El Error de Lógica es el más difícil: el programa corre sin fallar, pero produce resultados incorrectos, sin ninguna señal explícita de que algo está mal."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es un Stack Trace (Traza de Pila)?",
+      "options": [
+        "Un tipo de variable",
+        "El reporte que muestra qué función llamó a cuál y en qué línea falló",
+        "Un bucle que recorre el Call Stack",
+        "Un mensaje de éxito"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Stack Trace es el 'historial de pasos' que llevó al error, mostrando la cadena de llamadas hasta el punto donde falló."
+    },
+    {
+      "type": "single",
+      "question": "FUNCIÓN dividir(a, b)\n  INTENTAR\n    SI b ES IGUAL A 0 ENTONCES\n      LANZAR ERROR \"No se puede dividir entre cero\"\n    FIN SI\n    RETORNAR a ÷ b\n  CAPTURAR error EN\n    MOSTRAR \"Error capturado: \" + error.mensaje\n    RETORNAR NULO\n  FIN INTENTAR\nFIN FUNCIÓN\n\nMOSTRAR dividir(10, 0)\n\n¿Qué se muestra?",
+      "options": ["5", "Error capturado: No se puede dividir entre cero", "El programa colapsa por completo", "0"],
+      "correctIndexes": [1],
+      "explanation": "Como b es 0, se lanza el error, el bloque CAPTURAR lo atrapa y muestra el mensaje, sin que el programa colapse."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuándo se ejecuta el bloque FINALMENTE en un Try/Catch/Finally?",
+      "options": [
+        "Solo si hubo un error",
+        "Solo si NO hubo ningún error",
+        "Siempre, haya o no error",
+        "Nunca se ejecuta automáticamente"
+      ],
+      "correctIndexes": [2],
+      "explanation": "FINALMENTE se ejecuta siempre, independientemente de si el bloque INTENTAR tuvo éxito o lanzó un error, útil para liberar recursos."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué significa que los errores 'burbujean' hacia arriba en la cadena de llamadas?",
+      "options": [
+        "Que desaparecen automáticamente",
+        "Que suben por la cadena de funciones que se llamaron hasta ser capturados en algún nivel, o detienen el programa si nadie los captura",
+        "Que se convierten en advertencias",
+        "Que solo afectan a la función donde ocurrieron"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Si un error no se captura donde ocurre, sigue subiendo por la cadena de llamadas hasta ser atrapado en algún nivel superior, o hasta detener el programa si nadie lo captura."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la analogía usada en el tema para explicar el Try/Catch?",
+      "options": [
+        "Una guía telefónica",
+        "Un avión con procedimientos de emergencia predefinidos ante una falla",
+        "Una torre de platos",
+        "Una fila de supermercado"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Igual que un avión que activa sistemas de respaldo ante una falla en vez de detenerse en pleno vuelo, el Try/Catch maneja el error de forma ordenada en vez de colapsar el programa."
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "topic": "programming-fundamentals/01-algorithmic-thinking/proyecto-integrador",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Por qué la Guard Clause de la edad se coloca al principio del algoritmo, antes de evaluar la regla de acceso?",
+      "options": [
+        "Por convención estética, no cambia nada más",
+        "Para no evaluar la regla de acceso con un dato inválido de entrada",
+        "Porque las Guard Clauses siempre deben ir después de las reglas de negocio",
+        "Es un error, debería ir al final"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Las Guard Clauses existen exactamente para esto: evitar que el proceso principal (la regla de acceso) se ejecute con datos que ya sabemos que son inválidos."
+    },
+    {
+      "type": "single",
+      "question": "¿Por qué la solución usa paréntesis en (tieneInvitacion ES VERDADERO O esStaff ES VERDADERO)?",
+      "options": [
+        "Los paréntesis son solo decorativos en pseudocódigo",
+        "Para asegurar que esa sub-condición se resuelva primero, antes de combinarla con el AND de la edad",
+        "Porque OR nunca puede usarse sin paréntesis",
+        "Para que el pseudocódigo se vea más largo"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Los paréntesis agrupan la sub-condición del OR para que se evalúe como una sola unidad antes de combinarla con el AND de la edad, igual que en una expresión matemática."
+    },
+    {
+      "type": "single",
+      "question": "Si edad = 15, tieneInvitacion = Verdadero y esStaff = Falso, ¿cuál es el resultado del algoritmo?",
+      "options": ["Acceso permitido", "Acceso denegado", "Error: edad inválida", "El algoritmo no puede decidir"],
+      "correctIndexes": [1],
+      "explanation": "edad >= 18 es Falso (15 < 18), así que sin importar la invitación o el staff, el AND completo es Falso: acceso denegado."
+    },
+    {
+      "type": "single",
+      "question": "Si edad = 20, tieneInvitacion = Falso y esStaff = Verdadero, ¿cuál es el resultado?",
+      "options": ["Acceso denegado", "Acceso permitido", "Error: edad inválida", "Depende de otro dato no mencionado"],
+      "correctIndexes": [1],
+      "explanation": "edad >= 18 es Verdadero, y dentro del paréntesis esStaff es Verdadero (con que una de las dos sea Verdadera, el OR ya es Verdadero). AND de dos verdaderos = Acceso permitido."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Qué temas de la Fase 1 combina realmente este proyecto? Selecciona 3 opciones.",
+      "options": ["Lógica booleana (AND/OR)", "Guard Clauses", "Input/Output", "Recursividad"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "El proyecto combina lógica booleana para la regla de acceso, Guard Clauses para validar la edad, e Input/Output para recibir los datos y mostrar el resultado. La recursividad no forma parte de esta fase."
+    },
+    {
+      "type": "single",
+      "question": "Si edad = -5, ¿qué debería mostrar el algoritmo?",
+      "options": ["Acceso permitido", "Acceso denegado", "Error: edad inválida", "Ningún mensaje"],
+      "correctIndexes": [2],
+      "explanation": "La Guard Clause detecta que edad <= 0 y termina el programa mostrando el error, sin llegar siquiera a evaluar la regla de acceso."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué principio de eficiencia permite que, si edad >= 18 es Falso, el algoritmo ni siquiera revise tieneInvitacion o esStaff?",
+      "options": ["Recursión", "Short-circuit evaluation", "Type Coercion", "Scope Leakage"],
+      "correctIndexes": [1],
+      "explanation": "Con AND, si la primera condición ya es Falsa, el resultado completo ya está determinado, así que el programa no necesita evaluar el resto (Short-circuit)."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál de estas frases describe mejor el objetivo de un 'proyecto integrador' como este?",
+      "options": [
+        "Aprender un concepto completamente nuevo que no se vio antes",
+        "Practicar combinando varios conceptos ya aprendidos por separado en un solo problema realista",
+        "Memorizar la sintaxis exacta de un lenguaje de programación",
+        "Reemplazar la necesidad de leer las lecciones anteriores"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El valor de un proyecto integrador está en combinar conceptos ya vistos por separado, no en introducir contenido nuevo."
+    }
+  ]
+}

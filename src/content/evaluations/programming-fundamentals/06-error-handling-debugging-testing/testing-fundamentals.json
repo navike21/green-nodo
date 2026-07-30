@@ -1,0 +1,91 @@
+{
+  "topic": "programming-fundamentals/06-error-handling-debugging-testing/testing-fundamentals",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es un Test Case (caso de prueba)?",
+      "options": [
+        "Un tipo de error de sintaxis",
+        "Un escenario que verifica automáticamente que el código hace lo que debe",
+        "Un bucle que se repite indefinidamente",
+        "Un comentario dentro del código"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Un Test Case verifica de forma automática y repetible que una parte del código produce el resultado esperado."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es una Assertion (Aserción)?",
+      "options": [
+        "Comparar el resultado obtenido (Actual) contra el resultado esperado (Expected)",
+        "Un tipo de bucle",
+        "Un mensaje de bienvenida del programa",
+        "Un error de sintaxis"
+      ],
+      "correctIndexes": [0],
+      "explanation": "La Aserción es el corazón de un test: compara si lo que realmente pasó (Actual) coincide con lo que se esperaba (Expected)."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es un Edge Case (caso borde)?",
+      "options": [
+        "El escenario más común y esperado",
+        "Una situación límite o poco común, como una lista vacía o un valor negativo, que igual puede ocurrir",
+        "Un error de sintaxis grave",
+        "El primer test que se escribe siempre"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Los Edge Cases son escenarios límite (listas vacías, negativos, nulos) que a menudo se olvidan pero que sí pueden ocurrir en la práctica."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es el error más común al escribir pruebas, según el tema?",
+      "options": [
+        "Escribir demasiadas pruebas",
+        "Probar solo el 'camino feliz' y olvidar los Edge Cases",
+        "Probar solo los Edge Cases y olvidar el camino feliz",
+        "No usar nunca aserciones"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El pitfall más común es cubrir solo el escenario ideal (camino feliz) y descuidar los casos límite, que suelen ser donde más fallan los programas reales."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es una Regresión (Regression)?",
+      "options": [
+        "Cuando un cambio nuevo en el código rompe algo que antes funcionaba correctamente",
+        "Un tipo de bucle que retrocede",
+        "Un test que siempre falla",
+        "Un sinónimo de Edge Case"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Una Regresión es cuando algo que antes funcionaba deja de funcionar por un cambio posterior; las pruebas automatizadas la detectan de inmediato."
+    },
+    {
+      "type": "single",
+      "question": "PRUEBA \"factorial de 0 debe ser 1\"\n  DEFINIR resultado = factorial(0)\n  VERIFICAR QUE resultado ES IGUAL A 1\nFIN PRUEBA\n\n¿Qué tipo de caso está cubriendo esta prueba, según el tema?",
+      "options": ["El camino feliz típico", "Un Edge Case (caso borde)", "Un error de sintaxis", "Una Regresión"],
+      "correctIndexes": [1],
+      "explanation": "El 0 es un valor límite poco común para probar un factorial (a diferencia de un número 'normal' como 4 o 5), por eso se lo considera un Edge Case."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles son las tres partes típicas de un Test Case (Arrange, Act, Assert) según el tema? Selecciona 3 opciones.",
+      "options": ["Preparar los datos de entrada (Arrange)", "Ejecutar el proceso a probar (Act)", "Verificar el resultado contra lo esperado (Assert)", "Eliminar el código probado (Delete)"],
+      "correctIndexes": [0, 1, 2],
+      "explanation": "Arrange (preparar), Act (actuar) y Assert (verificar) son las tres partes de la anatomía de un Test Case. No existe una fase de 'eliminar el código'."
+    },
+    {
+      "type": "single",
+      "question": "¿Por qué las pruebas automatizadas se comparan con el control de calidad de una fábrica, según la analogía del tema?",
+      "options": [
+        "Porque prueban cada producto antes de que salga a la venta, en vez de esperar la queja del cliente",
+        "Porque las fábricas nunca cometen errores",
+        "Porque los autos y el software son exactamente lo mismo",
+        "No hay ninguna relación real"
+      ],
+      "correctIndexes": [0],
+      "explanation": "Igual que una fábrica revisa el producto antes de venderlo, el testing revisa el código antes de confiar en que funciona, en vez de descubrir el error cuando ya es un problema real para el usuario."
+    }
+  ]
+}

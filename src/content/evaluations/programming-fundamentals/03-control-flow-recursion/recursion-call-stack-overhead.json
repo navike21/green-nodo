@@ -1,0 +1,86 @@
+{
+  "topic": "programming-fundamentals/03-control-flow-recursion/recursion-call-stack-overhead",
+  "questions": [
+    {
+      "type": "single",
+      "question": "¿Qué es el Caso Base (Base Case) en una función recursiva?",
+      "options": [
+        "La primera línea de cualquier función",
+        "La condición que detiene las llamadas recursivas y retorna un valor concreto",
+        "Un error que ocurre siempre en la recursión",
+        "El nombre de la función recursiva"
+      ],
+      "correctIndexes": [1],
+      "explanation": "El Caso Base es la condición de parada: sin él, la función seguiría llamándose a sí misma para siempre."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es el Paso Recursivo (Recursive Step)?",
+      "options": [
+        "La llamada de la función a sí misma con un problema reducido, más cercano al Caso Base",
+        "El primer paso antes de definir la función",
+        "Un tipo de bucle",
+        "Un error de sintaxis"
+      ],
+      "correctIndexes": [0],
+      "explanation": "El Paso Recursivo llama a la misma función pero con una versión más pequeña del problema, acercándose cada vez más al Caso Base."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué pasa si una función recursiva nunca alcanza su Caso Base?",
+      "options": [
+        "Se ejecuta una sola vez y termina normalmente",
+        "Ocurre un Stack Overflow: se agota la memoria del Call Stack",
+        "El programa se vuelve más rápido",
+        "No pasa nada especial"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Sin Caso Base, cada llamada sigue apilando un nuevo Stack Frame sobre el Call Stack hasta agotar la memoria disponible: Stack Overflow."
+    },
+    {
+      "type": "single",
+      "question": "¿Qué es un Stack Frame?",
+      "options": [
+        "Un tipo de variable primitiva",
+        "El espacio que ocupa cada llamada de función activa dentro del Call Stack",
+        "Un bucle infinito",
+        "Una imagen de la pantalla del programa"
+      ],
+      "correctIndexes": [1],
+      "explanation": "Cada vez que se llama a una función (recursiva o no), se agrega un Stack Frame al Call Stack que guarda su información mientras está activa."
+    },
+    {
+      "type": "single",
+      "question": "FUNCIÓN factorial(n)\n  SI n <= 1 ENTONCES RETORNAR 1\n  RETORNAR n × factorial(n - 1)\nFIN FUNCIÓN\n\nMOSTRAR factorial(3)\n\n¿Qué se muestra?",
+      "options": ["3", "6", "1", "9"],
+      "correctIndexes": [1],
+      "explanation": "factorial(3) = 3 × factorial(2) = 3 × (2 × factorial(1)) = 3 × (2 × 1) = 6."
+    },
+    {
+      "type": "single",
+      "question": "En factorial(n), ¿cuál es el Caso Base?",
+      "options": ["n × factorial(n - 1)", "SI n <= 1 ENTONCES RETORNAR 1", "FUNCIÓN factorial(n)", "MOSTRAR factorial(4)"],
+      "correctIndexes": [1],
+      "explanation": "La condición 'SI n <= 1 ENTONCES RETORNAR 1' es la que detiene las llamadas recursivas, retornando un valor concreto sin volver a llamarse."
+    },
+    {
+      "type": "multiple",
+      "question": "¿Cuáles de las siguientes son verdaderas sobre la recursión? Selecciona 2 opciones.",
+      "options": [
+        "Toda función recursiva necesita un Caso Base",
+        "La recursión nunca usa el Call Stack",
+        "El Paso Recursivo debe acercarse cada vez más al Caso Base",
+        "La recursión es la única forma de repetir código"
+      ],
+      "correctIndexes": [0, 2],
+      "explanation": "El Caso Base es obligatorio, y el Paso Recursivo debe reducir el problema en cada llamada. La recursión sí usa el Call Stack, y los bucles son otra forma válida de repetir código."
+    },
+    {
+      "type": "single",
+      "question": "¿Cuál es la analogía usada en el tema para explicar la recursión?",
+      "options": ["Una fila de casilleros numerados", "Las muñecas Matrioska rusas", "Una torre de platos sucios", "Una fila de supermercado"],
+      "correctIndexes": [1],
+      "explanation": "Las muñecas Matrioska ilustran cómo cada llamada recursiva 'abre' una versión más pequeña del problema, hasta llegar a la muñeca sólida (el Caso Base)."
+    }
+  ]
+}
