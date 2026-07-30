@@ -77,6 +77,7 @@ const bankJson = JSON.stringify(questions).replace(/</g, "\\u003c");
 
 <script>
   import { markTopicCompleted } from "../../scripts/progress";
+  import { getQuizAttempt, saveQuizAttempt, clearQuizAttempt, type QuizAttempt } from "../../scripts/quizAttempts";
 
   interface QuizQuestion {
     type: "single" | "multiple";
@@ -88,6 +89,7 @@ const bankJson = JSON.stringify(questions).replace(/</g, "\\u003c");
 
   interface ActiveQuestion {
     data: QuizQuestion;
+    bankIndex: number;
     selected: Set<number>;
     el: HTMLElement;
   }
@@ -260,21 +262,38 @@ const bankJson = JSON.stringify(questions).replace(/</g, "\\u003c");
     const bank: QuizQuestion[] = JSON.parse(bankScript.textContent ?? "[]");
     let activeQuestions: ActiveQuestion[] = [];
 
+    function isValidAttempt(attempt: QuizAttempt | null): attempt is QuizAttempt {
+      if (!attempt) return false;
+      if (attempt.questionIndexes.length !== shown) return false;
+      if (attempt.selections.length !== attempt.questionIndexes.length) return false;
+      return attempt.questionIndexes.every((i) => i >= 0 && i < bank.length);
+    }
+
+    function persistAttempt(submitted: boolean) {
+      saveQuizAttempt(topicId, {
+        questionIndexes: activeQuestions.map((q) => q.bankIndex),
+        selections: activeQuestions.map((q) => Array.from(q.selected)),
+        submitted,
+      });
+    }
+
     function updateSubmitState() {
       const allAnswered = activeQuestions.every((q) => q.selected.size > 0);
       submitButton!.disabled = !allAnswered;
     }
 
-    function renderQuestions() {
+    function renderQuestions(restoreAttempt: QuizAttempt | null = null) {
       questionsContainer!.innerHTML = "";
       resultEl!.classList.add("hidden");
       retryButton!.classList.add("hidden");
       submitButton!.classList.remove("hidden");
       submitButton!.disabled = true;
 
-      const selectedQuestions = shuffle(bank).slice(0, shown);
+      const validAttempt = isValidAttempt(restoreAttempt) ? restoreAttempt : null;
+      const bankIndexes = validAttempt ? validAttempt.questionIndexes : shuffle(bank.map((_, i) => i)).slice(0, shown);
 
-      activeQuestions = selectedQuestions.map((q, qIndex) => {
+      activeQuestions = bankIndexes.map((bankIndex, qIndex) => {
+        const q = bank[bankIndex];
         const questionEl = document.createElement("div");
         questionEl.className =
           "flex flex-col gap-3 rounded-xl border border-slate-700/60 bg-slate-800/40 p-5";
@@ -290,7 +309,8 @@ const bankJson = JSON.stringify(questions).replace(/</g, "\\u003c");
           "quiz-explanation hidden text-xs text-slate-400 border-t border-slate-700 pt-3";
         questionEl.appendChild(explanationEl);
 
-        const selectedIndexes = new Set<number>();
+        const restoredSelections = validAttempt ? validAttempt.selections[qIndex] : [];
+        const selectedIndexes = new Set<number>(restoredSelections);
         const template = q.type === "multiple" ? checkboxTemplate! : radioTemplate!;
 
         q.options.forEach((optionText, optIndex) => {
@@ -298,6 +318,10 @@ const bankJson = JSON.stringify(questions).replace(/</g, "\\u003c");
           const optionButton = fragment.querySelector<HTMLButtonElement>(".quiz-option")!;
           optionButton.querySelector(".quiz-option-label")!.textContent = optionText;
           optionButton.dataset.optionIndex = String(optIndex);
+
+          if (selectedIndexes.has(optIndex)) {
+            paintOption(optionButton, "selected");
+          }
 
           optionButton.addEventListener("click", () => {
             if (q.type === "multiple") {
@@ -317,6 +341,7 @@ const bankJson = JSON.stringify(questions).replace(/</g, "\\u003c");
               paintOption(optionButton, "selected");
             }
             updateSubmitState();
+            persistAttempt(false);
           });
 
           optionsWrap.appendChild(fragment);
@@ -324,13 +349,23 @@ const bankJson = JSON.stringify(questions).replace(/</g, "\\u003c");
 
         questionsContainer!.appendChild(questionEl);
 
-        return { data: q, selected: selectedIndexes, el: questionEl };
+        return { data: q, bankIndex, selected: selectedIndexes, el: questionEl };
       });
 
       updateSubmitState();
+
+      if (validAttempt) {
+        // The attempt is already the source of these questions/selections —
+        // no need to re-save it, just restore the graded visuals if it was submitted.
+        if (validAttempt.submitted) gradeQuiz(false);
+      } else {
+        // Persist the freshly-shuffled question set immediately, so a reload
+        // before answering still shows the same 4 questions (not a new shuffle).
+        persistAttempt(false);
+      }
     }
 
-    function gradeQuiz() {
+    function gradeQuiz(persist: boolean = true) {
       let correctCount = 0;
 
       activeQuestions.forEach(({ data: q, selected, el }) => {
@@ -375,7 +410,10 @@ const bankJson = JSON.stringify(questions).replace(/</g, "\\u003c");
         resultEl!.textContent = `⚠️ Resultado: ${correctCount} / ${total} correctas. Necesitas al menos ${minCorrect} de ${total} para avanzar. Revisa las explicaciones e inténtalo de nuevo.`;
       }
 
-      markTopicCompleted(topicId, correctCount, total);
+      if (persist) {
+        markTopicCompleted(topicId, correctCount, total);
+        persistAttempt(true);
+      }
     }
 
     submitButton.addEventListener("click", () => {
@@ -384,10 +422,11 @@ const bankJson = JSON.stringify(questions).replace(/</g, "\\u003c");
     });
 
     retryButton.addEventListener("click", () => {
+      clearQuizAttempt(topicId);
       renderQuestions();
     });
 
-    renderQuestions();
+    renderQuestions(getQuizAttempt(topicId));
   }
 
   document.querySelectorAll<HTMLElement>("[data-quiz]").forEach((el) => initQuiz(el));
