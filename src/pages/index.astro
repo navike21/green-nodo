@@ -18,18 +18,20 @@ const courseCards: CourseCardProps[] = courses.map((course) => {
       return phaseDiff !== 0 ? phaseDiff : a.data.order - b.data.order;
     });
 
-  const [firstTopic] = courseTopics;
-  const firstPhase = course.data.phases.find((phase) => phase.id === firstTopic.data.phase);
-  const firstTopicSlug = firstTopic.id.split("/").at(-1);
+  const topics = courseTopics.map((topic) => {
+    const phase = course.data.phases.find((p) => p.id === topic.data.phase);
+    const topicSlug = topic.id.split("/").at(-1);
+    return { id: topic.id, href: `/${course.id}/${phase?.slug}/${topicSlug}` };
+  });
 
   return {
-    href: `/${course.id}/${firstPhase?.slug}/${firstTopicSlug}`,
+    href: topics[0]?.href ?? "#",
     name: course.data.name,
     description: course.data.description,
     category: course.data.category,
     phaseCount: course.data.phases.length,
     topicCount: courseTopics.length,
-    topicIds: courseTopics.map((topic) => topic.id),
+    topics,
   };
 });
 
@@ -79,9 +81,10 @@ const categorySections = CATEGORY_SLUGS.map((slug) => ({
     const completed = new Set(getCompletedTopicIds());
 
     document.querySelectorAll<HTMLElement>("[data-course-card]").forEach((card) => {
-      const topicIds = (card.dataset.topicIds ?? "").split(",").filter(Boolean);
-      const total = topicIds.length;
-      const doneCount = topicIds.filter((id) => completed.has(id)).length;
+      const topicsJson = card.querySelector<HTMLScriptElement>("[data-course-topics]")?.textContent ?? "[]";
+      const topics: { id: string; href: string }[] = JSON.parse(topicsJson);
+      const total = topics.length;
+      const doneCount = topics.filter((topic) => completed.has(topic.id)).length;
       const percent = total > 0 ? Math.round((doneCount / total) * 100) : 0;
 
       const fill = card.querySelector<HTMLElement>(".progress-fill");
@@ -89,9 +92,19 @@ const categorySections = CATEGORY_SLUGS.map((slug) => ({
       if (fill) fill.style.width = `${percent}%`;
       if (text) text.textContent = `${percent}%`;
 
-      const cta = card.querySelector<HTMLElement>("[data-course-cta]");
+      const cta = card.querySelector<HTMLAnchorElement>("[data-course-cta]");
       if (cta) {
-        cta.textContent = percent >= 100 ? "Repasar curso" : percent > 0 ? "Continuar curso" : "Empezar curso";
+        if (percent >= 100) {
+          cta.textContent = "Repasar curso";
+          cta.href = topics[0]?.href ?? cta.href;
+        } else if (percent > 0) {
+          const nextTopic = topics.find((topic) => !completed.has(topic.id));
+          cta.textContent = "Continuar curso";
+          cta.href = nextTopic?.href ?? cta.href;
+        } else {
+          cta.textContent = "Empezar curso";
+          cta.href = topics[0]?.href ?? cta.href;
+        }
       }
     });
   }
