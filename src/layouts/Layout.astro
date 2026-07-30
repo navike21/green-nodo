@@ -23,7 +23,19 @@ const { theory, topics } = Astro.props;
 		<title>Cursos de desarrollo de software</title>
 	</head>
 	<body class="flex flex-col md:flex-row bg-slate-950">
-		{theory && topics && <SideBar theory={theory} topics={topics} />}
+		{theory && topics && (
+			<>
+				<button
+					type="button"
+					data-sidebar-toggle
+					class="md:hidden fixed top-4 right-4 z-50 rounded-full bg-slate-800 border border-slate-700 text-slate-100 px-4 py-2 text-xs font-semibold shadow-lg"
+				>
+					☰ Menú
+				</button>
+				<div data-sidebar-backdrop class="hidden md:hidden fixed inset-0 bg-slate-950/70 z-30" />
+				<SideBar theory={theory} topics={topics} />
+			</>
+		)}
 		<main class="main flex-1 overflow-y-auto">
 			<div class={theory ? "content max-w-4xl mx-auto p-6 w-11/12" : "content max-w-6xl mx-auto p-6 w-11/12"}>
 				<slot />
