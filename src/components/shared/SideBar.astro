@@ -1,0 +1,92 @@
+---
+import UserCard from "../molecules/UserCard.astro";
+import ProgressBar from "../atoms/ProgressBar.astro";
+import ItemMenuLink from "../molecules/ItemMenuLink.astro";
+import Button from "../atoms/Button.astro";
+import type { Theory, Topic } from "../../types/theory";
+
+export interface Props {
+  theory: Theory;
+  topics: Topic[]
+}
+
+const { theory, topics } = Astro.props
+
+if (!theory) {
+  throw Error("theory params is required");
+}
+---
+
+<section class="bg-slate-800 sidebar max-w-80 h-dvh overflow-y-auto w-full text-white hidden md:flex flex-col justify-between sticky top-0 z-10">
+  <div class="flex flex-col w-full">
+    <div class="bg-slate-800 flex items-start gap-5 flex-col sticky top-0 z-20 px-5 py-4 border-0 border-b border-slate-700">
+      <div class="flex items-start gap-0.5 flex-col">
+        <a href="/" class="text-xs text-slate-400 hover:text-emerald-400 transition-colors">
+          ← Volver al catálogo
+        </a>
+        <h2 class="text-lg font-semibold">
+          {theory.name}
+        </h2>
+        <h4 class="text-xs text-slate-400">
+          Desarrollo de software de 0 a intermedio
+        </h4>
+      </div>
+      <UserCard />
+      <ProgressBar totalTopics={topics.length} />
+    </div>
+
+    <ItemMenuLink roadMap={theory.phases} topics={topics} />
+  </div>
+  <div class="sticky bottom-0 w-full bg-slate-800 px-5 py-4 border-t border-0 border-slate-700">
+    <Button id="reset-progress-btn" text="Restablece todo el progreso" variant="primary" size="small" class="w-full" />
+  </div>
+</section>
+
+<script>
+  import { getCompletedTopicIds, isTopicUnlocked, resetProgress, onProgressUpdated } from "../../scripts/progress";
+
+  function refreshProgressUI() {
+    const bar = document.querySelector<HTMLElement>("[data-progress-bar]");
+    if (!bar) return;
+
+    const total = Number(bar.dataset.totalTopics ?? "0");
+    const completed = new Set(getCompletedTopicIds());
+    const percent = total > 0 ? Math.round((completed.size / total) * 100) : 0;
+
+    const fill = bar.querySelector<HTMLElement>(".progress-fill");
+    const text = bar.querySelector<HTMLElement>(".progress-text");
+    if (fill) fill.style.width = `${percent}%`;
+    if (text) text.textContent = `${percent}%`;
+
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>(".topic-link[data-topic-id]"));
+    const orderedTopicIds = links.map((link) => link.dataset.topicId ?? "");
+
+    links.forEach((link) => {
+      const topicId = link.dataset.topicId ?? "";
+      const check = link.querySelector<HTMLElement>(".topic-check");
+      const badge = link.querySelector<HTMLElement>(".topic-badge");
+      const lockBadge = link.querySelector<HTMLElement>(".topic-lock-badge");
+      const unlocked = isTopicUnlocked(topicId, orderedTopicIds);
+
+      check?.classList.toggle("hidden", !completed.has(topicId));
+      badge?.classList.toggle("hidden", !unlocked);
+      lockBadge?.classList.toggle("hidden", unlocked);
+      link.classList.toggle("opacity-40", !unlocked);
+      link.classList.toggle("pointer-events-none", !unlocked);
+      link.classList.toggle("cursor-not-allowed", !unlocked);
+
+      if (unlocked) {
+        if (!link.getAttribute("href")) link.setAttribute("href", link.dataset.href ?? "#");
+      } else {
+        link.removeAttribute("href");
+      }
+    });
+  }
+
+  onProgressUpdated(refreshProgressUI);
+  refreshProgressUI();
+
+  document.getElementById("reset-progress-btn")?.addEventListener("click", () => {
+    resetProgress();
+  });
+</script>

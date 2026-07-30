@@ -1,23 +1,32 @@
+---
+import SideBar from "../components/shared/SideBar.astro";
+import type { Theory, Topic } from "../types/theory";
+import "../styles/global.css";
+
+export interface Props {
+  theory: Theory;
+  topics: Topic[];
+}
+
+const { theory, topics } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Cursos de desarrollo de software</title>
 	</head>
-	<body>
-		<slot />
+	<body class="flex flex-col md:flex-row bg-slate-950">
+		<SideBar theory={theory} topics={topics} />
+		<main class="main flex-1 overflow-y-auto">
+			<div class="content max-w-4xl mx-auto p-6 w-11/12">
+				<slot />
+			</div>
+		</main>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

@@ -1,11 +1,23 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection, getEntry } from "astro:content";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const topics = await getCollection("topics");
+const course = await getEntry(topics[0].data.course);
+
+if (!course) {
+  throw new Error(`Course "${topics[0].data.course.id}" not found`);
+}
+
+const [sortedFirstTopic] = topics.sort((a, b) => {
+  const phaseDiff =
+    course.data.phases.findIndex((phase) => phase.id === a.data.phase) -
+    course.data.phases.findIndex((phase) => phase.id === b.data.phase);
+  return phaseDiff !== 0 ? phaseDiff : a.data.order - b.data.order;
+});
+const segments = sortedFirstTopic.id.split("/");
+const courseId = segments[0];
+const topicSlug = segments[segments.length - 1];
+const phase = course.data.phases.find((p) => p.id === sortedFirstTopic.data.phase);
+
+return Astro.redirect(`/${courseId}/${phase?.slug}/${topicSlug}`);
 ---
-
-<Layout>
-	<Welcome />
-</Layout>

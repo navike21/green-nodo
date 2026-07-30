@@ -1,0 +1,77 @@
+---
+import { marked } from "marked";
+
+export interface Props {
+  variants: "default" | "information" | "success" | "warning" | "error";
+  title: string;
+  subtitle?: string;
+  content: string;
+}
+
+const { variants = "default", title, subtitle, content } = Astro.props;
+
+const normalizedContent = content
+  .replace(/^\s*\n/, "")
+  .replace(/\n\s*$/, "")
+  .replace(/^[\t ]+/gm, "");
+
+const renderedContent = marked.parse(normalizedContent);
+
+const variantClasses: Record<Props["variants"], string> = {
+  default: "bg-slate-800/20",
+  information: "bg-sky-800/20",
+  success: "bg-emerald-800/20",
+  warning: "bg-amber-500/20",
+  error: "bg-red-500/20",
+};
+
+const variantLineClasses: Record<Props["variants"], string> = {
+  default: "before:bg-slate-400",
+  information: "before:bg-sky-400",
+  success: "before:bg-emerald-400",
+  warning: "before:bg-amber-400",
+  error: "before:bg-red-400",
+};
+
+const variantTitleClasses: Record<Props["variants"], string> = {
+  default: "text-slate-400",
+  information: "text-sky-400",
+  success: "text-emerald-400",
+  warning: "text-amber-400",
+  error: "text-red-400",
+};
+
+const variantSubtitleClasses: Record<Props["variants"], string> = {
+  default: "text-slate-300/80",
+  information: "text-sky-300/80",
+  success: "text-emerald-300/80",
+  warning: "text-amber-300/80",
+  error: "text-red-300/80",
+};
+
+const variantStrongClasses: Record<NonNullable<Props["variants"]>, string> = {
+  default: "[&_strong]:text-slate-400",
+  information: "[&_strong]:text-sky-400",
+  success: "[&_strong]:text-emerald-400",
+  warning: "[&_strong]:text-amber-400",
+  error: "[&_strong]:text-red-400",
+};
+---
+
+<article class={`flex flex-col gap-1 w-full text-slate-100 pt-4 pb-5 px-7 ${variantClasses[variants]} rounded-tr-xl rounded-br-xl before:content-[''] before:w-0.5 before:h-full before:absolute before:left-0 before:top-0 ${variantLineClasses[variants]} relative`}>
+  <h3 class={`font-semibold text-md ${variantTitleClasses[variants]}`}>
+    {title}
+  </h3>
+  {subtitle && (
+    <p class={`font-normal text-base ${variantSubtitleClasses[variants]}`}>
+      {subtitle}
+    </p>
+  )}
+  <div
+    set:html={renderedContent}
+    class:list={[
+      "mt-2 w-full text-sm text-slate-50 [&_strong]:font-bold [&_p:first-of-type]:mt-0 [&_p:last-of-type]:mb-0 [&_p]:my-3",
+      variantStrongClasses[variants],
+    ]}
+  />
+</article>

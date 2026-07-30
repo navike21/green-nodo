@@ -1,0 +1,171 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import CourseTitle from "../../../components/molecules/CourseTitle.astro";
+import StickInformation from "../../../components/molecules/StickInformation.astro";
+import type { Theory, Topic } from "../../../types/theory";
+import CardWithIcon from "../../../components/molecules/CardWithIcon.astro";
+import Quiz from "../../../components/molecules/Quiz.astro";
+
+export async function getStaticPaths() {
+  const topicEntries = await getCollection("topics");
+  const courseEntries = await getCollection("courses");
+  const coursesById = new Map(courseEntries.map((course) => [course.id, course]));
+
+  return topicEntries.map((topic) => {
+    const segments = topic.id.split("/");
+    const courseId = segments[0];
+    const topicSlug = segments[segments.length - 1];
+    const course = coursesById.get(topic.data.course.id);
+    const phase = course?.data.phases.find((p) => p.id === topic.data.phase);
+
+    if (!phase) {
+      throw new Error(`Phase "${topic.data.phase}" not found for topic "${topic.id}"`);
+    }
+
+    return {
+      params: { course: courseId, phase: phase.slug, topic: topicSlug },
+      props: { topic },
+    };
+  });
+}
+
+const { topic } = Astro.props;
+const course = await getEntry(topic.data.course);
+
+if (!course) {
+  throw new Error(`Course "${topic.data.course.id}" not found for topic "${topic.id}"`);
+}
+
+const siblingTopics = await getCollection(
+  "topics",
+  (entry) => entry.data.course.id === course.id
+);
+
+const theory: Theory = {
+  id: course.id,
+  name: course.data.name,
+  description: course.data.description,
+  phases: course.data.phases,
+};
+
+const topics: Topic[] = siblingTopics
+  .map((entry) => {
+    const segments = entry.id.split("/");
+    const slug = segments[segments.length - 1];
+    const phase = theory.phases.find((p) => p.id === entry.data.phase);
+    return {
+      id: entry.id,
+      href: `/${course.id}/${phase?.slug}/${slug}`,
+      phaseId: entry.data.phase,
+      name: entry.data.name,
+      description: entry.data.description,
+      level: entry.data.level,
+      order: entry.data.order,
+      topicType: entry.data.type,
+    };
+  })
+  .sort((a, b) => {
+    const phaseDiff =
+      theory.phases.findIndex((phase) => phase.id === a.phaseId) -
+      theory.phases.findIndex((phase) => phase.id === b.phaseId);
+    return phaseDiff !== 0 ? phaseDiff : a.order - b.order;
+  });
+
+const phaseIndex = theory.phases.findIndex((phase) => phase.id === topic.data.phase);
+const topicIndex = topics.findIndex((t) => t.id === topic.id);
+const previousTopic = topicIndex > 0 ? topics[topicIndex - 1] : null;
+const { Content } = await render(topic);
+
+const [evaluation] = await getCollection(
+  "evaluations",
+  (entry) => entry.data.topic.id === topic.id
+);
+---
+
+<Layout theory={theory} topics={topics}>
+  <div id="lesson-content" hidden class="flex flex-col gap-8 w-full py-8">
+    <CourseTitle
+      phase={`Fase ${phaseIndex + 1}: ${theory.phases[phaseIndex].name}`}
+      level={topic.data.type === "proyecto" ? "Proyecto" : topic.data.level}
+      progress={`${topicIndex + 1} / ${topics.length}`}
+      title={topic.data.name}
+      subtitle={topic.data.description}
+    />
+
+    <StickInformation
+      variants="information"
+      title={topic.data.technicalTerms.title}
+      content={topic.data.technicalTerms.summary}
+    />
+
+    <StickInformation
+      variants="success"
+      title={topic.data.analogy.title}
+      content={topic.data.analogy.summary}
+    />
+
+    <div class="border-b border-slate-700 w-full"></div>
+
+    {
+      topic.data.informationCard.map(({icon, summary, title, cardColor}) => (
+        <CardWithIcon icon={icon} title={title} color={cardColor} content={summary} />
+      ))
+    }
+
+    <article class="w-full text-slate-100 text-sm leading-relaxed [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-slate-50 [&_h2]:mt-8 [&_h2]:mb-3 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-50 [&_h3]:mt-6 [&_h3]:mb-2 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:my-3 [&_strong]:font-bold [&_strong]:text-slate-50 [&_blockquote]:border-l-2 [&_blockquote]:border-emerald-500 [&_blockquote]:pl-4 [&_blockquote]:text-slate-400 [&_blockquote]:my-4 [&_details]:my-4 [&_details]:rounded-lg [&_details]:border [&_details]:border-slate-700 [&_details]:bg-slate-900/40 [&_details]:px-4 [&_details]:py-3 [&_summary]:cursor-pointer [&_summary]:font-semibold [&_summary]:text-emerald-400 [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto [&_table]:my-4 [&_table]:rounded-xl [&_table]:border [&_table]:border-slate-700/60 [&_table]:bg-slate-900/40 [&_table]:text-left [&_table]:text-sm [&_thead]:bg-slate-800/60 [&_th]:border-b [&_th]:border-slate-700/60 [&_th]:px-4 [&_th]:py-3 [&_th]:text-xs [&_th]:font-semibold [&_th]:uppercase [&_th]:tracking-wide [&_th]:text-emerald-400 [&_td]:px-4 [&_td]:py-3 [&_td]:text-slate-300 [&_tbody]:divide-y [&_tbody]:divide-slate-800 [&_tbody_tr:nth-child(even)]:bg-slate-800/20 [&_tbody_tr:hover]:bg-slate-800/50">
+      <Content />
+    </article>
+
+    {
+      evaluation && (
+        <Quiz questions={evaluation.data.questions} topicId={topic.id} />
+      )
+    }
+  </div>
+
+  <div id="locked-banner" hidden data-previous-topic-id={previousTopic?.id ?? ""} class="w-full py-8">
+    <div class="rounded-xl border border-amber-500/40 bg-amber-500/10 px-6 py-8 w-full flex flex-col items-start gap-3">
+      <h2 class="text-xl font-bold text-amber-200">🔒 Todavía no puedes ver este tema</h2>
+      <p class="text-sm text-amber-100/80">
+        Primero debes aprobar el quiz de <strong>{previousTopic?.name}</strong> (al menos 3 de 4 correctas).
+      </p>
+      {previousTopic && (
+        <a
+          href={previousTopic.href}
+          class="inline-block rounded bg-amber-500 text-slate-900 hover:bg-amber-400 px-4 py-2.5 text-xs font-semibold transition-all w-fit"
+        >
+          Ir a "{previousTopic.name}"
+        </a>
+      )}
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var lessonEl = document.getElementById("lesson-content");
+      var bannerEl = document.getElementById("locked-banner");
+      var previousTopicId = bannerEl ? bannerEl.getAttribute("data-previous-topic-id") : "";
+
+      function isUnlocked() {
+        if (!previousTopicId) return true;
+        try {
+          // Duplicado a propósito: este script corre sincrónico antes del primer
+          // paint para evitar parpadeo, así que no puede usar el import de
+          // src/scripts/progress.ts (ES module, siempre diferido).
+          var store = JSON.parse(localStorage.getItem("df_progress_v1") || "{}");
+          var previous = store[previousTopicId];
+          return !!(previous && previous.passed);
+        } catch (e) {
+          return false;
+        }
+      }
+
+      if (isUnlocked()) {
+        if (lessonEl) lessonEl.hidden = false;
+      } else if (bannerEl) {
+        bannerEl.hidden = false;
+      }
+    })();
+  </script>
+</Layout>

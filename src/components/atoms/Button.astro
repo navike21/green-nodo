@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+export interface Props extends HTMLAttributes<"button"> {
+  class?: string;
+  text: string;
+  variant?: "primary" | "secondary" | "tertiary";
+  size?: "small" | "medium" | "large";
+}
+
+const { text, variant = "primary", size = "small", class: buttonClass, ...rest } = Astro.props;
+
+const variantClasses = {
+  primary: "bg-emerald-500 text-white hover:bg-emerald-600",
+  secondary: "bg-slate-700 text-white hover:bg-slate-800",
+  tertiary: "bg-transparent text-emerald-500 hover:bg-emerald-100",
+};
+
+const sizeClasses = {
+  small: "px-2 py-2.5 text-xs",
+  medium: "px-4 py-3 text-base",
+  large: "px-6 py-4 text-lg",
+};
+---
+
+<button
+  class={`cursor-pointer rounded ${variantClasses[variant]} ${sizeClasses[size]} transition-all duration-300 ${buttonClass ?? ""}`}
+  {...rest}
+>
+  {text}
+</button>

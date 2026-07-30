@@ -1,0 +1,17 @@
+---
+export interface Props {
+  totalTopics: number;
+}
+
+const { totalTopics } = Astro.props;
+---
+
+<div class="flex flex-col gap-2 w-full" data-progress-bar data-total-topics={totalTopics}>
+  <div class="bg-slate-700 h-2 rounded-full overflow-hidden w-full">
+    <div class="progress-fill h-full rounded-full bg-linear-to-r from-emerald-500 from-10% via-emerald-400 via-30% to-emerald-700 to-90% transition-all ease-in-out duration-500" style="width: 0%"></div>
+  </div>
+  <div class="flex items-center justify-between w-full text-xs text-slate-400 tabular-nums slashed-zero">
+    <p>Progreso:</p>
+    <p class="progress-text">0%</p>
+  </div>
+</div>

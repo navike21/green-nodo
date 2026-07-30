@@ -1,0 +1,31 @@
+---
+import Chip from "../atoms/Chip.astro";
+import type { ChipVariants } from "../atoms/Chip.astro";
+
+export interface Props {
+  tag: string;
+  href: string | URL;
+  text: string;
+  variant?: ChipVariants;
+  topicId: string;
+}
+
+const { tag, href, text, variant = "information", topicId } = Astro.props;
+---
+
+<a class="topic-link group cursor-pointer w-[stretch] flex flex-row items-center justify-between gap-2 transition-all before:transition-all ease-in-out before:ease-in-out duration-500 before:duration-500 px-5 py-2.5 relative before:content-[''] before:w-0 before:h-full before:absolute before:left-0 before:top-0 before:bg-emerald-500 before:opacity-0 hover:before:opacity-100 hover:before:w-0.5 hover:bg-slate-950" href={href} data-href={href} data-topic-id={topicId}>
+  <div class="flex flex-row items-center gap-2 w-[70%]">
+    <span class="bg-emerald-50 rounded-full w-1.5 h-1.5 text-xs" aria-hidden="true"></span>
+    <span  class="group-hover:text-emerald-200 text-xs font-semibold text-emerald-50 transition-all ease-in-out duration-300 text-left">
+      {text}
+    </span>
+    <span class="topic-check hidden text-emerald-400 text-xs" aria-hidden="true">✓</span>
+  </div>
+  <span class="topic-badge"><Chip text={tag} variant={variant} /></span>
+  <span
+    class="topic-lock-badge hidden bg-slate-700/60 border-slate-600 text-slate-400 border justify-center px-2 py-1 rounded-lg text-[10px] font-bold max-w-28 w-fit min-w-12 text-center"
+    aria-hidden="true"
+  >
+    🔒
+  </span>
+</a>

@@ -1,0 +1,32 @@
+---
+import Chip from "../atoms/Chip.astro";
+
+export interface Props {
+  phase: string;
+  level: string;
+  progress: string;
+  title: string;
+  subtitle: string;
+}
+
+const { phase, level, progress, title, subtitle } = Astro.props;
+---
+
+<div class="flex flex-col gap-3 w-full text-slate-50">
+  <div class="flex items-center gap-4 w-full justify-start">
+    <p class="font-medium text-slate-300 text-sm">
+      {phase}
+    </p>
+    <Chip text={level} variant="information" />
+    <Chip text={progress} variant="default" />
+  </div>
+  
+  <div class="flex flex-col gap-2 w-full">
+    <h2 class="font-bold text-3xl text-slate-50">
+      {title}
+    </h2>
+    <p class="font-medium text-slate-400 text-base">
+      {subtitle}
+    </p>
+  </div>
+</div>

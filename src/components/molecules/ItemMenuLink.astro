@@ -1,0 +1,35 @@
+---
+import type { Theory, Topic } from "../../types/theory";
+import MenuLink from "../atoms/MenuLink.astro";
+import PhaseCourse from "../atoms/PhaseCourse.astro";
+
+export interface Props {
+  roadMap: Theory["phases"];
+  topics: Topic[]
+}
+
+const { roadMap, topics } = Astro.props
+---
+
+<div class="flex flex-col w-[stretch]">
+  {
+    roadMap.map(({name, id}, index) => (
+      <div>
+        <PhaseCourse phase={`Fase ${index + 1}`} title={name} />
+        {
+          topics
+            .filter((topic) => topic.phaseId === id)
+            .map(({ id: topicId, description, level, href, topicType }) => (
+              <MenuLink
+                tag={topicType === "proyecto" ? "Proyecto" : level}
+                variant={topicType === "proyecto" ? "purple" : "information"}
+                href={href}
+                text={description}
+                topicId={topicId}
+              />
+            ))
+        }
+      </div>
+    ))
+  }
+</div>
