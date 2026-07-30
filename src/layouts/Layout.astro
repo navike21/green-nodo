@@ -1,5 +1,6 @@
 ---
 import SideBar from "../components/shared/SideBar.astro";
+import UserProfileModal from "../components/molecules/UserProfileModal.astro";
 import type { Theory, Topic } from "../types/theory";
 import "../styles/global.css";
 
@@ -28,5 +29,6 @@ const { theory, topics } = Astro.props;
 				<slot />
 			</div>
 		</main>
+		<UserProfileModal />
 	</body>
 </html>

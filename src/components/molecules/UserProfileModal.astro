@@ -1,0 +1,67 @@
+---
+import Input from "../atoms/Input.astro";
+import Button from "../atoms/Button.astro";
+---
+
+<dialog
+  id="user-profile-modal"
+  class="m-auto rounded-xl border border-slate-700/60 bg-slate-900 text-slate-100 p-6 w-full max-w-md max-h-[85vh] overflow-y-auto backdrop:bg-slate-950/70"
+>
+  <form class="flex flex-col gap-4">
+    <div class="flex flex-col gap-1">
+      <h3 class="text-lg font-bold text-slate-50">Tu perfil de estudiante</h3>
+      <p class="text-xs text-slate-400">
+        Estos datos se guardan solo en este navegador (localStorage), no se envían a ningún servidor.
+      </p>
+    </div>
+
+    <Input label="Nombres" name="firstName" placeholder="Ej. José Iván" required />
+    <Input label="Apellidos" name="lastName" placeholder="Ej. Chapoñán Casiano" required />
+    <Input label="Correo" name="email" type="email" placeholder="Ej. nombre@correo.com" required />
+
+    <div class="flex items-center justify-end gap-3 mt-2">
+      <Button type="button" text="Cancelar" variant="secondary" size="small" data-close-modal />
+      <Button type="submit" text="Guardar" variant="primary" size="small" />
+    </div>
+  </form>
+</dialog>
+
+<script>
+  import { getStudent, saveStudent } from "../../scripts/student";
+
+  const dialog = document.getElementById("user-profile-modal") as HTMLDialogElement | null;
+  const form = dialog?.querySelector("form");
+
+  function openModal() {
+    if (!dialog) return;
+    const student = getStudent();
+    if (form) {
+      (form.elements.namedItem("firstName") as HTMLInputElement).value = student?.firstName ?? "";
+      (form.elements.namedItem("lastName") as HTMLInputElement).value = student?.lastName ?? "";
+      (form.elements.namedItem("email") as HTMLInputElement).value = student?.email ?? "";
+    }
+    dialog.showModal();
+  }
+
+  document.addEventListener("click", (event) => {
+    const trigger = (event.target as HTMLElement).closest("[data-open-profile-modal]");
+    if (trigger) openModal();
+  });
+
+  dialog?.querySelector("[data-close-modal]")?.addEventListener("click", () => dialog.close());
+
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    saveStudent({
+      firstName: String(data.get("firstName") ?? "").trim(),
+      lastName: String(data.get("lastName") ?? "").trim(),
+      email: String(data.get("email") ?? "").trim(),
+    });
+    dialog?.close();
+  });
+</script>

@@ -1,0 +1,22 @@
+---
+export interface Props {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+}
+
+const { label, name, type = "text", placeholder, required = false } = Astro.props;
+---
+
+<label class="flex flex-col gap-1 text-xs font-medium text-slate-300">
+  {label}
+  <input
+    name={name}
+    type={type}
+    placeholder={placeholder}
+    required={required}
+    class="rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-emerald-500"
+  />
+</label>
