@@ -1,23 +1,87 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import CategorySection from "../components/molecules/CategorySection.astro";
+import { CATEGORY_SLUGS, CATEGORY_META } from "../data/categories";
+import type { Props as CourseCardProps } from "../components/molecules/CourseCard.astro";
 
-const topics = await getCollection("topics");
-const course = await getEntry(topics[0].data.course);
+const courses = await getCollection("courses");
+const allTopics = await getCollection("topics");
 
-if (!course) {
-  throw new Error(`Course "${topics[0].data.course.id}" not found`);
-}
+const courseCards: CourseCardProps[] = courses.map((course) => {
+  const courseTopics = allTopics
+    .filter((topic) => topic.data.course.id === course.id)
+    .sort((a, b) => {
+      const phaseDiff =
+        course.data.phases.findIndex((phase) => phase.id === a.data.phase) -
+        course.data.phases.findIndex((phase) => phase.id === b.data.phase);
+      return phaseDiff !== 0 ? phaseDiff : a.data.order - b.data.order;
+    });
 
-const [sortedFirstTopic] = topics.sort((a, b) => {
-  const phaseDiff =
-    course.data.phases.findIndex((phase) => phase.id === a.data.phase) -
-    course.data.phases.findIndex((phase) => phase.id === b.data.phase);
-  return phaseDiff !== 0 ? phaseDiff : a.data.order - b.data.order;
+  const [firstTopic] = courseTopics;
+  const firstPhase = course.data.phases.find((phase) => phase.id === firstTopic.data.phase);
+  const firstTopicSlug = firstTopic.id.split("/").at(-1);
+
+  return {
+    href: `/${course.id}/${firstPhase?.slug}/${firstTopicSlug}`,
+    name: course.data.name,
+    description: course.data.description,
+    category: course.data.category,
+    phaseCount: course.data.phases.length,
+    topicCount: courseTopics.length,
+    topicIds: courseTopics.map((topic) => topic.id),
+  };
 });
-const segments = sortedFirstTopic.id.split("/");
-const courseId = segments[0];
-const topicSlug = segments[segments.length - 1];
-const phase = course.data.phases.find((p) => p.id === sortedFirstTopic.data.phase);
 
-return Astro.redirect(`/${courseId}/${phase?.slug}/${topicSlug}`);
+const categorySections = CATEGORY_SLUGS.map((slug) => ({
+  slug,
+  meta: CATEGORY_META[slug],
+  courses: courseCards.filter((card) => card.category === slug),
+})).filter((section) => section.courses.length > 0);
 ---
+
+<Layout>
+  <div class="flex flex-col gap-10 w-full py-8">
+    <header class="flex flex-col gap-2">
+      <p class="text-sm font-semibold text-emerald-400 uppercase tracking-wide">Plataforma de cursos</p>
+      <h1 class="text-3xl font-bold text-slate-50">Cursos de desarrollo de software</h1>
+      <p class="text-slate-400 text-sm">
+        Elige una categoría y empieza a aprender a tu ritmo. Tu progreso se guarda automáticamente en este navegador.
+      </p>
+    </header>
+
+    {
+      categorySections.map((section) => (
+        <CategorySection icon={section.meta.icon} label={section.meta.label} courses={section.courses} />
+      ))
+    }
+  </div>
+</Layout>
+
+<script>
+  import { getCompletedTopicIds, onProgressUpdated } from "../scripts/progress";
+
+  function refreshCourseCards() {
+    const completed = new Set(getCompletedTopicIds());
+
+    document.querySelectorAll<HTMLElement>("[data-course-card]").forEach((card) => {
+      const topicIds = (card.dataset.topicIds ?? "").split(",").filter(Boolean);
+      const total = topicIds.length;
+      const doneCount = topicIds.filter((id) => completed.has(id)).length;
+      const percent = total > 0 ? Math.round((doneCount / total) * 100) : 0;
+
+      const fill = card.querySelector<HTMLElement>(".progress-fill");
+      const text = card.querySelector<HTMLElement>(".progress-text");
+      if (fill) fill.style.width = `${percent}%`;
+      if (text) text.textContent = `${percent}%`;
+
+      const cta = card.querySelector<HTMLElement>("[data-course-cta]");
+      if (cta) {
+        cta.textContent = percent >= 100 ? "Repasar curso" : percent > 0 ? "Continuar curso" : "Empezar curso";
+      }
+    });
+  }
+
+  onProgressUpdated(refreshCourseCards);
+  refreshCourseCards();
+</script>

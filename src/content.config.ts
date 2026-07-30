@@ -1,12 +1,14 @@
 import { defineCollection, reference } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
+import { CATEGORY_SLUGS } from "./data/categories";
 
 const courses = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/courses" }),
   schema: z.object({
     name: z.string(),
     description: z.string(),
+    category: z.enum(CATEGORY_SLUGS),
     phases: z.array(
       z.object({
         id: z.string(),

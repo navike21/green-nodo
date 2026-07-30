@@ -4,8 +4,8 @@ import type { Theory, Topic } from "../types/theory";
 import "../styles/global.css";
 
 export interface Props {
-  theory: Theory;
-  topics: Topic[];
+  theory?: Theory;
+  topics?: Topic[];
 }
 
 const { theory, topics } = Astro.props;
@@ -22,9 +22,9 @@ const { theory, topics } = Astro.props;
 		<title>Cursos de desarrollo de software</title>
 	</head>
 	<body class="flex flex-col md:flex-row bg-slate-950">
-		<SideBar theory={theory} topics={topics} />
+		{theory && topics && <SideBar theory={theory} topics={topics} />}
 		<main class="main flex-1 overflow-y-auto">
-			<div class="content max-w-4xl mx-auto p-6 w-11/12">
+			<div class={theory ? "content max-w-4xl mx-auto p-6 w-11/12" : "content max-w-6xl mx-auto p-6 w-11/12"}>
 				<slot />
 			</div>
 		</main>
