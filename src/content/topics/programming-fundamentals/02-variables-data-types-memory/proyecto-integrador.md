@@ -40,6 +40,8 @@ Diseña en pseudocódigo una función `calcularPrecioConImpuesto(productoOrigina
 3. Use una variable `impuesto` que solo exista dentro de la función (Function Scope).
 4. Retorne el precio con un 15% de impuesto agregado.
 
+<div data-pseudocode-challenge-mount></div>
+
 <details>
 <summary>Ver solución paso a paso</summary>
 

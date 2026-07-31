@@ -32,6 +32,8 @@ Una tienda aplica un 15% de descuento a ciertos productos. Resuelve estas cuatro
 3. Modela un producto como una **Clase** `Producto` (OOP) con un método `aplicarDescuento`.
 4. Dada una lista de productos, usa el **paradigma Funcional** (Filter → Map → Reduce) para calcular el total con descuento solo de los productos activos.
 
+<div data-pseudocode-challenge-mount></div>
+
 <details>
 <summary>Ver solución paso a paso</summary>
 

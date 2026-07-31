@@ -37,6 +37,8 @@ Diseña en pseudocódigo una solución que:
 2. Cuente **cuántas veces** se pidió cada producto, usando una **Tabla Hash**.
 3. Explique en un comentario, usando Big-O, **por qué** este enfoque es mejor que comparar cada producto contra todos los demás para encontrar duplicados.
 
+<div data-pseudocode-challenge-mount></div>
+
 <details>
 <summary>Ver solución paso a paso</summary>
 

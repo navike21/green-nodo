@@ -30,6 +30,8 @@ Diseña **dos versiones** de una función que reciba un número `n` y retorne el
 1. **Versión iterativa**: usa un bucle PARA con Guard Clause al inicio para manejar el caso de un `n` inválido (menor a 1), y ROMPER en cuanto encuentres el primer múltiplo de 7.
 2. **Versión recursiva**: usa una Guard Clause como Caso Base para cuando ya se revisó todo el rango, y un Paso Recursivo que avance un número a la vez.
 
+<div data-pseudocode-challenge-mount></div>
+
 <details>
 <summary>Ver solución paso a paso</summary>
 

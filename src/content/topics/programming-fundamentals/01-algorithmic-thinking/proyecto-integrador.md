@@ -36,6 +36,8 @@ Diseña en pseudocódigo un algoritmo que:
 
 Piensa tu solución en papel o en tu cabeza antes de revisar la respuesta.
 
+<div data-pseudocode-challenge-mount></div>
+
 <details>
 <summary>Ver solución paso a paso</summary>
 

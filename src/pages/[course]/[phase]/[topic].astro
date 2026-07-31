@@ -6,6 +6,8 @@ import StickInformation from "../../../components/molecules/StickInformation.ast
 import type { Theory, Topic } from "../../../types/theory";
 import CardWithIcon from "../../../components/molecules/CardWithIcon.astro";
 import Quiz from "../../../components/molecules/Quiz.astro";
+import PseudocodeChallengeWidget from "../../../components/molecules/PseudocodeChallenge.astro";
+import { pseudocodeChallenges } from "../../../data/pseudocode-challenges";
 
 export async function getStaticPaths() {
   const topicEntries = await getCollection("topics");
@@ -81,6 +83,11 @@ const [evaluation] = await getCollection(
   "evaluations",
   (entry) => entry.data.topic.id === topic.id
 );
+
+// pseudocodeChallenges usa el id con forma de URL (sin el prefijo numérico de
+// carpeta que sí lleva topic.id), el mismo esquema que ya arma getStaticPaths.
+const challengeId = `${Astro.params.course}/${Astro.params.phase}/${Astro.params.topic}`;
+const pseudocodeChallenge = pseudocodeChallenges.find((c) => c.topicId === challengeId);
 ---
 
 <Layout theory={theory} topics={topics}>
@@ -116,6 +123,12 @@ const [evaluation] = await getCollection(
     <article class="w-full text-slate-100 text-sm leading-relaxed [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-slate-50 [&_h2]:mt-8 [&_h2]:mb-3 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-50 [&_h3]:mt-6 [&_h3]:mb-2 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:my-3 [&_strong]:font-bold [&_strong]:text-slate-50 [&_blockquote]:border-l-2 [&_blockquote]:border-emerald-500 [&_blockquote]:pl-4 [&_blockquote]:text-slate-400 [&_blockquote]:my-4 [&_details]:my-4 [&_details]:rounded-lg [&_details]:border [&_details]:border-slate-700 [&_details]:bg-slate-900/40 [&_details]:px-4 [&_details]:py-3 [&_summary]:cursor-pointer [&_summary]:font-semibold [&_summary]:text-emerald-400 [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto [&_table]:my-4 [&_table]:rounded-xl [&_table]:border [&_table]:border-slate-700/60 [&_table]:bg-slate-900/40 [&_table]:text-left [&_table]:text-sm [&_thead]:bg-slate-800/60 [&_th]:border-b [&_th]:border-slate-700/60 [&_th]:px-4 [&_th]:py-3 [&_th]:text-xs [&_th]:font-semibold [&_th]:uppercase [&_th]:tracking-wide [&_th]:text-emerald-400 [&_td]:px-4 [&_td]:py-3 [&_td]:text-slate-300 [&_tbody]:divide-y [&_tbody]:divide-slate-800 [&_tbody_tr:nth-child(even)]:bg-slate-800/20 [&_tbody_tr:hover]:bg-slate-800/50">
       <Content />
     </article>
+
+    {
+      pseudocodeChallenge && (
+        <PseudocodeChallengeWidget topicId={topic.id} challenge={pseudocodeChallenge} />
+      )
+    }
 
     {
       evaluation && (

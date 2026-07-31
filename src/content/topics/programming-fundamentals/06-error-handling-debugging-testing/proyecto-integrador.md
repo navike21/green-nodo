@@ -41,6 +41,8 @@ FIN FUNCIÓN
 2. **Corrige** la función usando Try/Catch para manejar el caso de división entre cero sin colapsar.
 3. **Escribe 2 Test Cases**: uno para el camino feliz (divisor normal) y uno para el Edge Case (divisor = 0), que confirmen que la función ya no falla.
 
+<div data-pseudocode-challenge-mount></div>
+
 <details>
 <summary>Ver solución paso a paso</summary>
 

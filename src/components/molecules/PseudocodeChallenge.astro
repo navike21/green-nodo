@@ -1,0 +1,197 @@
+---
+import type { PseudocodeChallenge } from "../../data/pseudocode-challenges/types";
+
+export interface Props {
+  topicId: string;
+  challenge: PseudocodeChallenge;
+}
+
+const { topicId, challenge } = Astro.props;
+
+// Solo lo necesario para calificar viaja al cliente — nunca referenceSource ni
+// alternateStyleSource, para no dejar la respuesta modelo en el HTML de la página.
+const payloadJson = JSON.stringify({
+  hiddenTestSource: challenge.hiddenTestSource ?? null,
+  scriptCases: challenge.scriptCases ?? null,
+}).replace(/</g, "\\u003c");
+---
+
+<script is:inline type="application/json" data-pseudocode-payload set:html={payloadJson} />
+
+<template data-pseudocode-widget data-topic-id={topicId}>
+  <div class="pseudocode-widget flex flex-col gap-4 rounded-xl border border-slate-700/60 bg-slate-900/40 p-6 my-4" data-pseudocode-root>
+    <div class="flex flex-col gap-1">
+      <h3 class="font-bold text-lg text-slate-50">💻 Escribe tu solución</h3>
+      <p class="text-sm text-slate-400">
+        Escribe tu pseudocódigo abajo y presiona "Ejecutar" para validarlo. Tu código se guarda automáticamente en este navegador.
+      </p>
+    </div>
+
+    <div class="flex rounded-lg border border-slate-700 bg-slate-950/60 overflow-hidden">
+      <div
+        class="select-none text-right text-slate-600 text-xs font-mono px-2 py-3 bg-slate-900/60 border-r border-slate-700 leading-5"
+        data-line-numbers
+      >
+        1
+      </div>
+      <textarea
+        class="flex-1 bg-transparent text-slate-100 text-xs font-mono leading-5 px-3 py-3 outline-none resize-y min-h-[220px]"
+        spellcheck="false"
+        placeholder="Escribe tu pseudocódigo aquí..."
+        data-code-input
+      ></textarea>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button
+        type="button"
+        class="rounded bg-emerald-500 text-white hover:bg-emerald-600 px-4 py-2.5 text-xs font-semibold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+        data-run-button
+      >
+        Ejecutar
+      </button>
+      <button
+        type="button"
+        class="rounded bg-slate-700 text-white hover:bg-slate-800 px-4 py-2.5 text-xs font-semibold transition-all"
+        data-reset-button
+      >
+        Restablecer
+      </button>
+    </div>
+
+    <div class="hidden flex-col gap-2" data-results></div>
+  </div>
+</template>
+
+<script>
+  import { markTopicCompleted } from "../../scripts/progress";
+  import { getSavedCode, saveCode, clearSavedCode } from "../../scripts/challengeCode";
+  import { gradeChallenge, type Gradable, type TestRowResult } from "../../data/pseudocode-challenges/grader";
+
+  function updateLineNumbers(textarea: HTMLTextAreaElement, gutter: HTMLElement) {
+    const lineCount = textarea.value.split("\n").length;
+    gutter.innerHTML = Array.from({ length: lineCount }, (_, i) => i + 1).join("<br />");
+  }
+
+  function renderResults(
+    resultsEl: HTMLElement,
+    results: TestRowResult[],
+    runtimeError?: { message: string; line: number; column: number },
+  ) {
+    resultsEl.innerHTML = "";
+    resultsEl.classList.remove("hidden");
+    resultsEl.classList.add("flex");
+
+    if (runtimeError) {
+      const banner = document.createElement("div");
+      banner.className = "rounded-lg border border-red-500/40 bg-red-500/10 text-red-200 text-xs px-4 py-3";
+      banner.textContent = `Tu código no se pudo ejecutar (línea ${runtimeError.line}): ${runtimeError.message}`;
+      resultsEl.appendChild(banner);
+      return;
+    }
+
+    results.forEach((r) => {
+      const row = document.createElement("div");
+      row.className = `rounded-lg border px-4 py-3 text-xs ${
+        r.passed
+          ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
+          : "border-red-500/40 bg-red-500/10 text-red-200"
+      }`;
+      const title = document.createElement("p");
+      title.className = "font-semibold";
+      title.textContent = `${r.passed ? "✅" : "❌"} ${r.description}`;
+      row.appendChild(title);
+      if (r.message) {
+        const detail = document.createElement("p");
+        detail.className = "mt-1 text-slate-300";
+        detail.textContent = r.message;
+        row.appendChild(detail);
+      }
+      resultsEl.appendChild(row);
+    });
+
+    const passedCount = results.filter((r) => r.passed).length;
+    const summary = document.createElement("p");
+    summary.className = "text-xs font-semibold text-slate-300";
+    summary.textContent = `Resultado: ${passedCount} / ${results.length} correcto(s).`;
+    resultsEl.appendChild(summary);
+  }
+
+  function initWidget(root: HTMLElement, topicId: string, challenge: Gradable) {
+    const textarea = root.querySelector<HTMLTextAreaElement>("[data-code-input]");
+    const gutter = root.querySelector<HTMLElement>("[data-line-numbers]");
+    const runButton = root.querySelector<HTMLButtonElement>("[data-run-button]");
+    const resetButton = root.querySelector<HTMLButtonElement>("[data-reset-button]");
+    const resultsEl = root.querySelector<HTMLElement>("[data-results]");
+    if (!textarea || !gutter || !runButton || !resetButton || !resultsEl) return;
+
+    textarea.value = getSavedCode(topicId) ?? "";
+    updateLineNumbers(textarea, gutter);
+
+    let persistTimeout: ReturnType<typeof setTimeout> | undefined;
+    textarea.addEventListener("input", () => {
+      updateLineNumbers(textarea, gutter);
+      clearTimeout(persistTimeout);
+      persistTimeout = setTimeout(() => saveCode(topicId, textarea.value), 300);
+    });
+    textarea.addEventListener("scroll", () => {
+      gutter.scrollTop = textarea.scrollTop;
+    });
+
+    runButton.addEventListener("click", () => {
+      if (runButton.disabled) return;
+      runButton.disabled = true;
+      const originalText = runButton.textContent;
+      runButton.textContent = "Ejecutando…";
+
+      // setTimeout deja que el navegador pinte "Ejecutando…" antes de la
+      // llamada síncrona al intérprete (que corre en el mismo hilo).
+      setTimeout(() => {
+        try {
+          const result = gradeChallenge(challenge, textarea.value);
+          renderResults(resultsEl, result.results, result.runtimeError);
+          if (result.ok) {
+            markTopicCompleted(topicId, result.results.length, result.results.length);
+          }
+        } catch {
+          renderResults(resultsEl, [], {
+            message: "Ocurrió un error inesperado al ejecutar tu código.",
+            line: 0,
+            column: 0,
+          });
+        } finally {
+          runButton.disabled = false;
+          runButton.textContent = originalText;
+        }
+      }, 0);
+    });
+
+    resetButton.addEventListener("click", () => {
+      textarea.value = "";
+      updateLineNumbers(textarea, gutter);
+      clearSavedCode(topicId);
+      resultsEl.classList.add("hidden");
+      resultsEl.classList.remove("flex");
+      resultsEl.innerHTML = "";
+    });
+  }
+
+  function mount() {
+    const mountPoint = document.querySelector<HTMLElement>("[data-pseudocode-challenge-mount]");
+    const template = document.querySelector<HTMLTemplateElement>("[data-pseudocode-widget]");
+    const payloadScript = document.querySelector<HTMLScriptElement>("[data-pseudocode-payload]");
+    if (!mountPoint || !template || !payloadScript) return;
+
+    const topicId = template.dataset.topicId ?? "";
+    const challenge: Gradable = JSON.parse(payloadScript.textContent ?? "{}");
+
+    const fragment = template.content.cloneNode(true) as DocumentFragment;
+    const root = fragment.querySelector<HTMLElement>("[data-pseudocode-root]");
+    if (!root) return;
+
+    initWidget(root, topicId, challenge);
+    mountPoint.replaceWith(fragment);
+  }
+
+  mount();
+</script>
