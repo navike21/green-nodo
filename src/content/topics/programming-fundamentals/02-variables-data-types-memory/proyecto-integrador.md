@@ -3,7 +3,7 @@ course: programming-fundamentals
 phase: VARIABLES_DATA_TYPES_MEMORY
 order: 4
 type: "proyecto"
-name: "Proyecto integrador: total del carrito sin mutar el original"
+name: "Proyecto integrador: precio con impuesto sin mutar el original"
 description: "Combina Tipos por Referencia, Scope y Type Casting"
 level: "Intermedio"
 technicalTerms:
@@ -14,7 +14,7 @@ technicalTerms:
 analogy:
   title: "💡 Para entenderlo sin tecnicismos"
   summary: |
-    Es como si te entregaran la lista de compras original de otra persona y te pidieran calcular el total sin tachar ni escribir nada en su hoja: puedes leerla, pero la hoja que te devuelven debe quedar intacta.
+    Es como si te entregaran la ficha original de un producto en la tienda y te pidieran calcular su precio con impuesto sin escribir nada en esa ficha: puedes leerla, pero la que le devuelves al dueño debe quedar intacta.
 informationCard:
   - icon: "🏗️"
     title: "Architecture: Cómo abordar un desafío integrador"
@@ -25,56 +25,42 @@ informationCard:
 
 ## El desafío
 
-Tienes un carrito de compras representado como un objeto (tipo de referencia):
+Tienes un producto representado como un objeto (tipo de referencia):
 
 ```js
-DEFINIR carrito = {
-  articulos: [
-    { nombre: "Teclado", precioTexto: "45" },
-    { nombre: "Mouse", precioTexto: "20" }
-  ]
-}
+DEFINIR producto = { nombre: "Teclado", precioTexto: "200" }
 ```
 
 Nota que `precioTexto` llega como **texto**, no como número.
 
-Diseña en pseudocódigo una función `calcularTotal(carritoOriginal)` que:
+Diseña en pseudocódigo una función `calcularPrecioConImpuesto(productoOriginal)` que:
 
-1. **No mute** el objeto `carritoOriginal` que recibe (el carrito que le pasas debe seguir intacto después de llamarla).
-2. Convierta explícitamente cada `precioTexto` a número (Type Casting) antes de sumar.
-3. Use una variable `total` que solo exista dentro de la función (Function Scope).
-4. Retorne el total sumado de todos los artículos.
+1. **No mute** el objeto `productoOriginal` que recibe (el producto que le pasas debe seguir intacto después de llamarla).
+2. Convierta explícitamente `precioTexto` a número (Type Casting) antes de operar.
+3. Use una variable `impuesto` que solo exista dentro de la función (Function Scope).
+4. Retorne el precio con un 15% de impuesto agregado.
 
 <details>
 <summary>Ver solución paso a paso</summary>
 
 ```js
-FUNCIÓN calcularTotal(carritoOriginal)
-  DEFINIR total = 0                     // Function Scope: solo existe aquí
+FUNCIÓN calcularPrecioConImpuesto(productoOriginal)
+  DEFINIR precioNumero = CONVERTIR_A_NUMERO(productoOriginal.precioTexto)  // Type Casting explícito
+  DEFINIR impuesto = precioNumero × 0.15                                    // Function Scope: solo existe aquí
 
-  PARA CADA articulo EN carritoOriginal.articulos HACER
-    DEFINIR precioNumero = CONVERTIR_A_NUMERO(articulo.precioTexto)  // Type Casting explícito
-    CALCULAR total = total + precioNumero
-  FIN PARA
-
-  RETORNAR total
+  RETORNAR precioNumero + impuesto
 FIN FUNCIÓN
 
-DEFINIR carrito = {
-  articulos: [
-    { nombre: "Teclado", precioTexto: "45" },
-    { nombre: "Mouse", precioTexto: "20" }
-  ]
-}
+DEFINIR producto = { nombre: "Teclado", precioTexto: "200" }
 
-MOSTRAR calcularTotal(carrito)   // → 65
-MOSTRAR carrito.articulos[0].precioTexto   // → "45" (el carrito original NO cambió)
+MOSTRAR calcularPrecioConImpuesto(producto)   // → 230
+MOSTRAR producto.precioTexto                  // → "200" (el producto original NO cambió)
 ```
 
 **Por qué funciona así:**
 
-- La función nunca escribe (`MODIFICAR`) sobre `carritoOriginal` ni sobre sus artículos: solo los **lee**. Como nunca reasigna ni muta el objeto, el carrito que le pasaste sigue exactamente igual después de llamarla, aunque sea un tipo de referencia.
-- `precioTexto` se convierte explícitamente con `CONVERTIR_A_NUMERO` antes de sumarlo. Si sumaras directamente el texto, correrías el riesgo de una Type Coercion inesperada (concatenación en vez de suma).
-- `total` y `precioNumero` solo existen mientras la función se ejecuta: nadie fuera de `calcularTotal` puede acceder a ellas ni por accidente.
+- La función nunca escribe (`MODIFICAR`) sobre `productoOriginal`: solo lo **lee**. Como nunca reasigna ni muta el objeto, el producto que le pasaste sigue exactamente igual después de llamarla, aunque sea un tipo de referencia.
+- `precioTexto` se convierte explícitamente con `CONVERTIR_A_NUMERO` antes de operar. Si operaras directamente con el texto, correrías el riesgo de una Type Coercion inesperada (concatenación en vez de suma).
+- `precioNumero` e `impuesto` solo existen mientras la función se ejecuta: nadie fuera de `calcularPrecioConImpuesto` puede acceder a ellas ni por accidente.
 
 </details>

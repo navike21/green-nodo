@@ -3,7 +3,7 @@ course: programming-fundamentals
 phase: CONTROL_FLOW_RECURSION
 order: 4
 type: "proyecto"
-name: "Proyecto integrador: primer número negativo, dos formas"
+name: "Proyecto integrador: primer múltiplo de 7, dos formas"
 description: "Combina Guard Clauses, Bucles y Recursividad"
 level: "Intermedio"
 technicalTerms:
@@ -14,7 +14,7 @@ technicalTerms:
 analogy:
   title: "💡 Para entenderlo sin tecnicismos"
   summary: |
-    Es como buscar la primera silla vacía en un cine: puedes ir fila por fila con una linterna (bucle), o pedirle a la persona de la fila 1 que revise su fila y, si no encuentra nada, le pase la pregunta a la fila 2, y así sucesivamente (recursión). Ambas formas llegan al mismo resultado, por caminos distintos.
+    Es como buscar el primer día del mes que cae feriado: puedes ir revisando el calendario día por día desde el 1 (bucle), o pedirle a la persona que revisa el día 1 que, si no es feriado, le pase la pregunta al día 2, y así sucesivamente (recursión). Ambas formas llegan al mismo resultado, por caminos distintos.
 informationCard:
   - icon: "🏗️"
     title: "Architecture: Cómo abordar un desafío integrador"
@@ -25,23 +25,23 @@ informationCard:
 
 ## El desafío
 
-Diseña **dos versiones** de una función que reciba una lista de números y retorne el **primer número negativo** que encuentre (o indique que no hay ninguno):
+Diseña **dos versiones** de una función que reciba un número `n` y retorne el **primer múltiplo de 7** que encuentre entre 1 y `n` (o indique que no hay ninguno):
 
-1. **Versión iterativa**: usa un bucle PARA con Guard Clause al inicio para manejar el caso de una lista vacía, y ROMPER en cuanto encuentres el primer negativo.
-2. **Versión recursiva**: usa una Guard Clause como Caso Base para la lista vacía, y un Paso Recursivo que avance un elemento a la vez.
+1. **Versión iterativa**: usa un bucle PARA con Guard Clause al inicio para manejar el caso de un `n` inválido (menor a 1), y ROMPER en cuanto encuentres el primer múltiplo de 7.
+2. **Versión recursiva**: usa una Guard Clause como Caso Base para cuando ya se revisó todo el rango, y un Paso Recursivo que avance un número a la vez.
 
 <details>
 <summary>Ver solución paso a paso</summary>
 
 ```js
 // VERSIÓN ITERATIVA
-FUNCIÓN primerNegativoIterativo(lista)
-  SI TAMAÑO(lista) ES IGUAL A 0 ENTONCES RETORNAR NULO   // Guard Clause
+FUNCIÓN primerMultiploDeSieteIterativo(n)
+  SI n < 1 ENTONCES RETORNAR NULO   // Guard Clause
 
   DEFINIR encontrado = NULO
-  PARA i DESDE 0 HASTA TAMAÑO(lista) - 1 HACER
-    SI lista[i] < 0 ENTONCES
-      CALCULAR encontrado = lista[i]
+  PARA i DESDE 1 HASTA n HACER
+    SI i MOD 7 ES IGUAL A 0 ENTONCES
+      CALCULAR encontrado = i
       ROMPER
     FIN SI
   FIN PARA
@@ -50,27 +50,25 @@ FUNCIÓN primerNegativoIterativo(lista)
 FIN FUNCIÓN
 
 // VERSIÓN RECURSIVA
-FUNCIÓN primerNegativoRecursivo(lista)
-  SI TAMAÑO(lista) ES IGUAL A 0 ENTONCES RETORNAR NULO   // Caso Base (además de Guard Clause)
+FUNCIÓN primerMultiploDeSieteRecursivo(actual, limite)
+  SI actual > limite ENTONCES RETORNAR NULO   // Caso Base (además de Guard Clause): ya revisamos todo el rango
 
-  SI lista[0] < 0 ENTONCES
-    RETORNAR lista[0]                                     // Caso Base: ya lo encontramos
+  SI actual MOD 7 ES IGUAL A 0 ENTONCES
+    RETORNAR actual                            // Caso Base: ya lo encontramos
   FIN SI
 
-  RETORNAR primerNegativoRecursivo(RESTO_DE(lista))       // Paso Recursivo: avanza un elemento
+  RETORNAR primerMultiploDeSieteRecursivo(actual + 1, limite)   // Paso Recursivo: avanza un número
 FIN FUNCIÓN
 
-DEFINIR numeros = [5, 8, -3, 10, -7]
-
-MOSTRAR primerNegativoIterativo(numeros)   // → -3
-MOSTRAR primerNegativoRecursivo(numeros)   // → -3
+MOSTRAR primerMultiploDeSieteIterativo(10)       // → 7
+MOSTRAR primerMultiploDeSieteRecursivo(1, 10)    // → 7
 ```
 
 **Por qué funciona así:**
 
-- Ambas versiones usan la **misma Guard Clause de fondo**: si la lista está vacía, no hay nada que buscar. En la versión recursiva, esa Guard Clause también funciona como uno de los Caso Base.
-- En la iterativa, `ROMPER` corta el bucle apenas se encuentra el primer negativo, evitando revisar el resto de la lista sin necesidad — igual que en la Fase 3 anterior.
-- En la recursiva, cada llamada revisa solo el primer elemento; si no es negativo, delega el resto de la lista (`RESTO_DE(lista)`) a una nueva llamada de sí misma. Esa es la reducción del problema (Paso Recursivo) que eventualmente llega al Caso Base.
+- Ambas versiones parten de la misma idea de Guard Clause: si no queda nada válido por revisar (`n < 1`, o `actual` ya superó `limite`), no hay nada que buscar.
+- En la iterativa, `ROMPER` corta el bucle apenas se encuentra el primer múltiplo de 7, evitando revisar el resto de los números hasta `n` sin necesidad.
+- En la recursiva, cada llamada revisa solo el número `actual`; si no es múltiplo de 7, delega el resto del rango a una nueva llamada de sí misma con `actual + 1`. Esa es la reducción del problema (Paso Recursivo) que eventualmente llega al Caso Base.
 - Ninguna versión es "más correcta" que la otra: la iterativa suele ser más eficiente en memoria (no apila Stack Frames), mientras la recursiva puede ser más fácil de leer para ciertos problemas.
 
 </details>

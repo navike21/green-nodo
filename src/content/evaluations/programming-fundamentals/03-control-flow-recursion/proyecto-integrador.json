@@ -3,53 +3,53 @@
   "questions": [
     {
       "type": "single",
-      "question": "¿Qué función cumple 'SI TAMAÑO(lista) ES IGUAL A 0 ENTONCES RETORNAR NULO' en ambas versiones?",
+      "question": "¿Qué función cumplen 'SI n < 1 ENTONCES RETORNAR NULO' y 'SI actual > limite ENTONCES RETORNAR NULO' en sus respectivas versiones?",
       "options": [
-        "Es solo un comentario sin efecto",
-        "Es una Guard Clause que evita procesar una lista vacía",
-        "Detiene todo el programa por completo",
-        "Convierte la lista en un número"
+        "Son solo comentarios sin efecto",
+        "Son una Guard Clause que evita procesar un rango inválido o ya agotado",
+        "Detienen todo el programa por completo",
+        "Convierten el número en texto"
       ],
       "correctIndexes": [1],
-      "explanation": "En ambas versiones, esa línea es una Guard Clause: valida al inicio que la lista no esté vacía antes de intentar buscar algo en ella."
+      "explanation": "En ambas versiones, esas líneas son una Guard Clause: validan al inicio que quede algo válido por revisar antes de intentar buscar un múltiplo de 7."
     },
     {
       "type": "single",
       "question": "En la versión recursiva, ¿cuál es el Paso Recursivo?",
       "options": [
-        "SI TAMAÑO(lista) ES IGUAL A 0 ENTONCES RETORNAR NULO",
-        "SI lista[0] < 0 ENTONCES RETORNAR lista[0]",
-        "RETORNAR primerNegativoRecursivo(RESTO_DE(lista))",
-        "FUNCIÓN primerNegativoRecursivo(lista)"
+        "SI actual > limite ENTONCES RETORNAR NULO",
+        "SI actual MOD 7 ES IGUAL A 0 ENTONCES RETORNAR actual",
+        "RETORNAR primerMultiploDeSieteRecursivo(actual + 1, limite)",
+        "FUNCIÓN primerMultiploDeSieteRecursivo(actual, limite)"
       ],
       "correctIndexes": [2],
-      "explanation": "El Paso Recursivo es la llamada a la misma función con un problema más pequeño: el resto de la lista, sin el primer elemento."
+      "explanation": "El Paso Recursivo es la llamada a la misma función con un problema más pequeño: el mismo rango, pero avanzando una posición (actual + 1)."
     },
     {
       "type": "single",
-      "question": "¿Qué hace ROMPER en la versión iterativa apenas se encuentra el primer negativo?",
+      "question": "¿Qué hace ROMPER en la versión iterativa apenas se encuentra el primer múltiplo de 7?",
       "options": [
         "Reinicia el bucle desde el principio",
-        "Detiene el bucle de inmediato, evitando revisar el resto de la lista",
-        "Convierte el número negativo en positivo",
+        "Detiene el bucle de inmediato, evitando revisar el resto de los números hasta n",
+        "Convierte el número en su múltiplo más cercano",
         "No tiene ningún efecto en este caso"
       ],
       "correctIndexes": [1],
-      "explanation": "ROMPER corta el bucle en cuanto se cumple la condición, evitando trabajo innecesario sobre el resto de los elementos."
+      "explanation": "ROMPER corta el bucle en cuanto se cumple la condición, evitando trabajo innecesario sobre el resto de los números."
     },
     {
       "type": "single",
-      "question": "Para la lista [5, 8, -3, 10, -7], ¿qué retornan ambas funciones?",
-      "options": ["-7", "-3", "5", "NULO"],
-      "correctIndexes": [1],
-      "explanation": "-3 es el primer número negativo que aparece recorriendo la lista de izquierda a derecha, antes de llegar a -7."
+      "question": "Para n = 10, ¿qué retornan ambas funciones?",
+      "options": ["7", "14", "10", "NULO"],
+      "correctIndexes": [0],
+      "explanation": "7 es el primer múltiplo de 7 que aparece revisando del 1 al 10 en orden; 14 queda fuera del rango."
     },
     {
       "type": "single",
-      "question": "Para una lista vacía [], ¿qué retornan ambas funciones?",
-      "options": ["0", "Un error que detiene el programa", "NULO", "Una lista vacía"],
+      "question": "Para n = 5 (ningún múltiplo de 7 entre 1 y 5), ¿qué retornan ambas funciones?",
+      "options": ["0", "Un error que detiene el programa", "NULO", "5"],
       "correctIndexes": [2],
-      "explanation": "La Guard Clause detecta la lista vacía en ambas versiones y retorna NULO de inmediato, sin intentar acceder a ningún elemento."
+      "explanation": "Ninguna versión encuentra un múltiplo de 7 en ese rango: el bucle termina sin ROMPER, y la recursión llega a su Caso Base cuando actual supera el límite. Ambas retornan NULO."
     },
     {
       "type": "multiple",
@@ -68,19 +68,19 @@
         "Es la única forma correcta de resolver el problema"
       ],
       "correctIndexes": [1],
-      "explanation": "La versión iterativa no crea un nuevo Stack Frame por cada elemento revisado, mientras que la recursiva sí, lo que puede consumir más memoria en listas muy grandes."
+      "explanation": "La versión iterativa no crea un nuevo Stack Frame por cada número revisado, mientras que la recursiva sí, lo que puede consumir más memoria en rangos muy grandes."
     },
     {
       "type": "single",
-      "question": "En la versión recursiva, ¿qué representa RESTO_DE(lista)?",
+      "question": "En la versión recursiva, ¿qué representa el segundo argumento 'limite'?",
       "options": [
-        "La lista completa sin cambios",
-        "Todos los elementos de la lista excepto el primero",
-        "Solo el primer elemento de la lista",
-        "Una lista vacía siempre"
+        "El número que se está revisando en la llamada actual",
+        "El límite superior del rango, que se pasa sin cambios en cada llamada",
+        "Siempre vale 7",
+        "El resultado final de la búsqueda"
       ],
       "correctIndexes": [1],
-      "explanation": "RESTO_DE(lista) representa el problema reducido: la misma lista pero sin su primer elemento, que es justamente lo que necesita el Paso Recursivo para avanzar."
+      "explanation": "'limite' representa el techo del rango a revisar (n): no cambia entre llamadas, solo se compara contra 'actual' para saber cuándo detenerse. El que sí avanza en cada llamada es 'actual'."
     }
   ]
 }
