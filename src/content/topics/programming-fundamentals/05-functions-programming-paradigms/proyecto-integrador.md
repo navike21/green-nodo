@@ -78,7 +78,7 @@ DEFINIR productos = [
 DEFINIR totalConDescuento = productos
   → FILTRAR(activo)
   → TRANSFORMAR(producto => aplicarDescuento(producto.precio, 15))
-  → REDUCIR(sumar todos, empezando desde 0)
+  → REDUCIR((acumulado, actual) => acumulado + actual, 0)
 
 MOSTRAR totalConDescuento   // → 871.25 (850 de la Laptop + 21.25 del Mouse)
 ```
